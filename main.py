@@ -10,7 +10,31 @@ __human_name__ = "superpy"
 
 # Your code below this line.
 def main():
-    pass
+    parser = argparse.ArgumentParser(description="print you input in the command line")
+    parser.add_argument("text", metavar="text", type=str, help="enter your text")
+    parser.add_argument(
+        "-pn",
+        "--product_name",
+        metavar="product name",
+        action="store",
+        help="enter the name of the product",
+    )
+    parser.add_argument(
+        "-p", "--price", action="store", help="enter the price of the product"
+    )
+    parser.add_argument(
+        "-ed", "--expiration_date", action="store", help="enter the expiration date"
+    )
+    arg = parser.parse_args()
+
+    text = arg.text
+    product_name = arg.product_name
+    price = arg.price
+    expiration_date = arg.expiration_date
+
+    print(
+        f"text = {text} product_name = {product_name} price = {price} expiration date = {expiration_date}"
+    )
 
 
 if __name__ == "__main__":
