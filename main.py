@@ -3,6 +3,7 @@ import argparse
 import csv
 from datetime import date
 from functions.csv_functions import *
+from classes.Product import *
 from rich import print
 
 # Do not change these lines.
@@ -32,8 +33,8 @@ def main():
     product_name = arg.product_name
     price = arg.price
     expiration_date = arg.expiration_date
-    write_to_file(text, product_name, price, expiration_date)
-
+    # write_to_file(text, product_name, price, expiration_date)
+    Product(product_name, price, expiration_date).buy()
     print(
         f"text = {text} product_name = {product_name} price = {price} expiration date = {expiration_date}"
     )
