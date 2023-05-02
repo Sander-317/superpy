@@ -35,6 +35,7 @@ def main():
     expiration_date = arg.expiration_date
     # write_to_file(text, product_name, price, expiration_date)
     Product(product_name, price, expiration_date).buy()
+    Product(product_name, price, expiration_date).sell()
     print(
         f"text = {text} product_name = {product_name} price = {price} expiration date = {expiration_date}"
     )

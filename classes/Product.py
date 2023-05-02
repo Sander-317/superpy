@@ -8,4 +8,7 @@ class Product:
         self.expiration = expiration
 
     def buy(self):
-        write_to_file(self)
+        write_to_file(self, "buy")
+
+    def sell(self):
+        write_to_file(self, "sell")
