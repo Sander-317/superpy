@@ -2,6 +2,8 @@
 import argparse
 import csv
 from datetime import date
+from functions import *
+from rich import print
 
 # Do not change these lines.
 __winc_id__ = "a2bc36ea784242e4989deb157d527ba0"
@@ -15,7 +17,6 @@ def main():
     parser.add_argument(
         "-pn",
         "--product_name",
-        metavar="product name",
         action="store",
         help="enter the name of the product",
     )
@@ -31,6 +32,7 @@ def main():
     product_name = arg.product_name
     price = arg.price
     expiration_date = arg.expiration_date
+    write_to_file(text, product_name, price, expiration_date)
 
     print(
         f"text = {text} product_name = {product_name} price = {price} expiration date = {expiration_date}"
