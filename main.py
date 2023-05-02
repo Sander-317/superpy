@@ -2,7 +2,7 @@
 import argparse
 import csv
 from datetime import date
-from functions import *
+from functions.csv_functions import *
 from rich import print
 
 # Do not change these lines.
