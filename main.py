@@ -4,6 +4,7 @@ import csv
 from datetime import date
 from settings import *
 from functions.csv_functions import *
+from functions.functions import *
 from classes.Product import *
 from rich import print
 from rich.traceback import install
