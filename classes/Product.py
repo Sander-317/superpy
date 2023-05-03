@@ -2,7 +2,8 @@ from functions.csv_functions import *
 
 
 class Product:
-    def __init__(self, name, price, expiration):
+    def __init__(self, id, name, price, expiration):
+        self.id = id
         self.name = name
         self.price = price
         self.expiration = expiration
