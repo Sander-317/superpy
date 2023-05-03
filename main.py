@@ -19,7 +19,20 @@ install()
 
 def main():
     parser = argparse.ArgumentParser(description="print you input in the command line")
-    parser.add_argument("text", metavar="text", type=str, help="enter your text")
+    parser.add_argument(
+        "action1",
+        metavar="action 1",
+        type=str,
+        help="enter your action options are [buy, sell, report]",
+    )
+    parser.add_argument(
+        "action2",
+        metavar="action 2",
+        type=str,
+        default="5",
+        nargs="?",
+        help="enter inventory",
+    )
     parser.add_argument(
         "-pn",
         "--product_name",
@@ -32,14 +45,18 @@ def main():
     parser.add_argument(
         "-ed", "--expiration_date", action="store", help="enter the expiration date"
     )
+    parser.add_argument("-n", "--now", action="store_true", help="gets inventory now")
+
     arg = parser.parse_args()
 
-    text = arg.text
+    action_one = arg.action1
+    action_two = arg.action2
     product_name = arg.product_name
     price = arg.price
     expiration_date = arg.expiration_date
+    now = arg.now
 
-    match text:
+    match action_one:
         case "buy":
             Buy_product(get_id(), product_name, price, expiration_date).buy()
             print(
@@ -50,6 +67,16 @@ def main():
                 product_name,
                 price,
             ).sell()
+        case "report":
+            if action_two == "inventory":
+                if now == True:
+                    print("yeeey inventory now")
+                else:
+                    print("yeeey inventory")
+            elif action_two == "revenue":
+                print("yeeey revenue")
+            elif action_two == "profit":
+                print("yeeey profit")
 
         case _:
             print("you fucked up")
