@@ -56,12 +56,17 @@ def get_inventory():
     table = Table(title="inventory")
     table.add_column("name")
     table.add_column("count")
+    table.add_column("price")
     table.add_column("expiration date")
     with open("data/bought.csv", "r") as new_file:
         fieldnames = ["id", "product_name", "price", "expiration_date"]
         csv_reader = csv.DictReader(new_file, fieldnames=fieldnames)
+        product_list = []
         for i in csv_reader:
+            product_list.append(i["product_name"])
             # print(i)
-            table.add_row(i["product_name"], i["price"], i["expiration_date"])
+            table.add_row(i["product_name"], "1", i["price"], i["expiration_date"])
+        unique_product_list = set(product_list)
+        print(unique_product_list)
     console = Console()
     console.print(table)
