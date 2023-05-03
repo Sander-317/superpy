@@ -38,9 +38,23 @@ def main():
     product_name = arg.product_name
     price = arg.price
     expiration_date = arg.expiration_date
+
+    match arg.text:
+        case "buy":
+            Product(get_id(), product_name, price, expiration_date).buy()
+            print(
+                f"you have added 1 {product_name} you bought for {price} and expires on {expiration_date}"
+            )
+        case "sell":
+            Product(
+                product_name,
+                price,
+            ).sell()
+
+        case _:
+            print("you fucked up")
+
     # write_to_file(text, product_name, price, expiration_date)
-    Product(get_id(), product_name, price, expiration_date).buy()
-    # Product(get_id(), product_name, price, expiration_date).sell()
     print(
         f"text = {text} product_name = {product_name} price = {price} expiration date = {expiration_date}"
     )
