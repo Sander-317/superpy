@@ -18,7 +18,7 @@ install()
 
 
 def main():
-    parser = argparse.ArgumentParser(description="print you input in the command line")
+    parser = argparse.ArgumentParser(description="Super py")
     parser.add_argument(
         "action1",
         metavar="action 1",
@@ -31,7 +31,7 @@ def main():
         type=str,
         default="5",
         nargs="?",
-        help="enter inventory",
+        help="if first action is report the options are [inventory, revenue, profit] ",
     )
     parser.add_argument(
         "-pn",
@@ -71,6 +71,7 @@ def main():
             if action_two == "inventory":
                 if now == True:
                     print("yeeey inventory now")
+                    get_inventory()
                 else:
                     print("yeeey inventory")
             elif action_two == "revenue":

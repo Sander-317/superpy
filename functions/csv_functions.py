@@ -1,4 +1,6 @@
 import csv
+from rich.table import Table
+from rich.console import Console
 
 
 def write_to_file(product, action):
@@ -48,3 +50,18 @@ def get_id():
             ]
         )
     return find_id[0]
+
+
+def get_inventory():
+    table = Table(title="inventory")
+    table.add_column("name")
+    table.add_column("count")
+    table.add_column("expiration date")
+    with open("data/bought.csv", "r") as new_file:
+        fieldnames = ["id", "product_name", "price", "expiration_date"]
+        csv_reader = csv.DictReader(new_file, fieldnames=fieldnames)
+        for i in csv_reader:
+            # print(i)
+            table.add_row(i["product_name"], i["price"], i["expiration_date"])
+    console = Console()
+    console.print(table)
