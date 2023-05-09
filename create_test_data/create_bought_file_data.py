@@ -1,20 +1,9 @@
-# from datetime import date
 import random
-from rich import print
 import datetime
 from datetime import date
-
-# # from settings import *
-# from functions.csv_functions import *
 from functions.csv_functions import *
+from classes.Product import *
 
-# from csv_functions import *
-
-# from functions.functions import *
-
-# from functions import *
-
-# from classes.Product import *
 
 products_list = [
     {"product_name": "apple", "price": 0.9, "expiration_date": ""},
@@ -45,5 +34,10 @@ def build_bought_file(
                 expiration_date.year, expiration_date.month, expiration_date.day
             )
             print(product)
-
+            Buy_product(
+                get_id(),
+                product["product_name"],
+                product["price"],
+                product["expiration_date"],
+            ).buy()
         today = today + datetime.timedelta(days=1)

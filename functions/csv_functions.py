@@ -81,13 +81,14 @@ def get_today():
 
 def get_bought_data():
     with open("data/bought.csv", "r") as new_file:
-        fieldnames = ["id", "product_name", "price", "expiration_date"]
+        fieldnames = ["id", "buy_date", "product_name", "price", "expiration_date"]
         csv_reader = csv.DictReader(new_file, fieldnames=fieldnames)
         product_list = []
         for i in csv_reader:
             product_list.append(
                 {
                     "product_name": i["product_name"],
+                    "buy_date": i["buy_date"],
                     "price": i["price"],
                     "expiration_date": i["expiration_date"],
                 }

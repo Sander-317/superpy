@@ -16,7 +16,7 @@ def get_dict_of_products(product_data, unique_product_list):
         # print("unique product = ", unique_product)
         product_list = []
         for product in product_data:
-            # print(product["product_name"])
+            # print("in get dict of products", product)
             if product["product_name"] == unique_product:
                 product_list.append(product)
         new_dict[unique_product] = product_list
@@ -31,7 +31,7 @@ def get_average_price_dict(product_dict):
         # print(product_dict[product])
         total_price = 0
         for i in product_dict[product]:
-            # print(i["price"])
+            # print("KIJK HIER ", i)
             total_price = float(i["price"]) + total_price
         price_dict[product] = round(total_price / len(product_dict[product]), 2)
 
@@ -61,12 +61,12 @@ def get_inventory():
     table.add_column("expiration date")
     for product in unique_product_list:
         print(product)
-        # print(product["expiration_date"])
+        print("TEST", product[0])
         table.add_row(
             product,
             str(count[product]),
             str(average_price_dict[product]),
-            # (product["expiration_date"]),
+            # product["expiration_date"],
         )
 
     # print(unique_product_list)
