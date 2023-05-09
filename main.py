@@ -5,6 +5,7 @@ from datetime import date
 from settings import *
 from functions.csv_functions import *
 from functions.functions import *
+from functions.create_bought_file_data import *
 from classes.Product import *
 from rich import print
 from rich.traceback import install
@@ -87,4 +88,5 @@ def main():
 if __name__ == "__main__":
     date.fromisoformat(get_today())
     get_today()
+    build_bought_file(5, 5)
     main()

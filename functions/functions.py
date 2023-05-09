@@ -61,6 +61,7 @@ def get_inventory():
     table.add_column("expiration date")
     for product in unique_product_list:
         print(product)
+        # print(product["expiration_date"])
         table.add_row(
             product,
             str(count[product]),
