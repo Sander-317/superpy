@@ -85,4 +85,6 @@ def main():
 
 
 if __name__ == "__main__":
+    date.fromisoformat(get_today())
+    get_today()
     main()

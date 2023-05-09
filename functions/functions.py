@@ -65,7 +65,7 @@ def get_inventory():
             product,
             str(count[product]),
             str(average_price_dict[product]),
-            # product["expiration_date"],
+            # (product["expiration_date"]),
         )
 
     # print(unique_product_list)

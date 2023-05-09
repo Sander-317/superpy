@@ -8,13 +8,20 @@ def write_to_file(product, action):
         case "buy":
             to_add = {
                 "id": product.id,
+                "buy_date": get_today(),
                 "product_name": product.name,
                 "price": product.price,
                 "expiration_date": product.expiration,
             }
 
             with open("data/bought.csv", "a", newline="") as new_file:
-                fieldnames = ["id", "product_name", "price", "expiration_date"]
+                fieldnames = [
+                    "id",
+                    "buy_date",
+                    "product_name",
+                    "price",
+                    "expiration_date",
+                ]
                 csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
                 csv_writer.writerow(to_add)
         case "sell":
@@ -50,6 +57,26 @@ def get_id():
             ]
         )
     return find_id[0]
+
+
+def get_today():
+    find_today = []
+    with open("data/today.csv", "r") as csv_id:
+        csv_reader = csv.reader(csv_id)
+        for row in csv_reader:
+            find_today.append(row[0])
+    print("today", find_today[0])
+    return find_today[0]
+
+    # print("id", find_id[0])
+    # with open("data/id.csv", "w") as csv_id:
+    #     csv_writer = csv.writer(csv_id)
+    #     csv_writer.writerow(
+    #         [
+    #             int(find_id[0]) + 1,
+    #         ]
+    #     )
+    # return find_id[0]
 
 
 def get_bought_data():
