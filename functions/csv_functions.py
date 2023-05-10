@@ -65,7 +65,7 @@ def get_today():
         csv_reader = csv.reader(csv_id)
         for row in csv_reader:
             find_today.append(row[0])
-    print("today", find_today[0])
+    # print("today", find_today[0])
     return find_today[0]
 
     # print("id", find_id[0])

@@ -24,16 +24,16 @@ def build_bought_file(
     max_products_per_day,
 ):
     today = date.fromisoformat(get_today())
-    print(today)
+    # print(today)
     for i in range(number_of_days):
-        print("day", today)
+        # print("day", today)
         for i in range(random.randint(0, max_products_per_day)):
             product = products_list[random.randint(0, len(products_list) - 1)]
             expiration_date = today + datetime.timedelta(days=5)
             product["expiration_date"] = "{}-{}-{}".format(
                 expiration_date.year, expiration_date.month, expiration_date.day
             )
-            print(product)
+            # print(product)
             Buy_product(
                 get_id(),
                 product["product_name"],

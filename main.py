@@ -72,7 +72,7 @@ def main():
         case "report":
             if action_two == "inventory":
                 if now == True:
-                    print("yeeey inventory now")
+                    # print("yeeey inventory now")
                     get_inventory()
                 else:
                     print("yeeey inventory")
