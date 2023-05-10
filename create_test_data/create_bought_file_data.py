@@ -6,13 +6,13 @@ from classes.Product import *
 
 
 products_list = [
-    {"product_name": "apple", "price": 0.9, "expiration_date": ""},
-    {"product_name": "banana", "price": 0.7, "expiration_date": ""},
-    {"product_name": "melon", "price": 1, "expiration_date": ""},
-    {"product_name": "kiwi", "price": 0.5, "expiration_date": ""},
-    {"product_name": "dragon_fruit", "price": 1.5, "expiration_date": ""},
-    {"product_name": "pineapple", "price": 0.95, "expiration_date": ""},
-    {"product_name": "lemon", "price": 0.35, "expiration_date": ""},
+    {"product_name": "apple", "price": 0.9, "expiration_date": "3"},
+    {"product_name": "banana", "price": 0.7, "expiration_date": "5"},
+    {"product_name": "melon", "price": 1, "expiration_date": "5"},
+    {"product_name": "kiwi", "price": 0.5, "expiration_date": "3"},
+    {"product_name": "dragon_fruit", "price": 1.5, "expiration_date": "10"},
+    {"product_name": "pineapple", "price": 0.95, "expiration_date": " 10"},
+    {"product_name": "lemon", "price": 0.35, "expiration_date": "2"},
 ]
 
 
@@ -29,6 +29,17 @@ def build_bought_file(
         # print("day", today)
         for i in range(random.randint(0, max_products_per_day)):
             product = products_list[random.randint(0, len(products_list) - 1)]
+            # print(product)
+            # match product["expiration_date"]:
+            #     case "3":
+            #         expiration_date = today + datetime.timedelta(days=3)
+            #     case "5":
+            #         expiration_date = today + datetime.timedelta(days=5)
+            #     case "10":
+            #         expiration_date = today + datetime.timedelta(days=10)
+            #     case _:
+            #         print("wrong expiration date")
+
             expiration_date = today + datetime.timedelta(days=5)
             product["expiration_date"] = "{}-{}-{}".format(
                 expiration_date.year, expiration_date.month, expiration_date.day

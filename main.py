@@ -86,7 +86,7 @@ def main():
 
 
 if __name__ == "__main__":
-    date.fromisoformat(get_today())
+    print(date.fromisoformat(get_today()))
     get_today()
     # build_bought_file(10, 10)
     main()
