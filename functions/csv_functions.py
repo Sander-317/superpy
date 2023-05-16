@@ -1,4 +1,6 @@
 import csv
+import datetime
+from datetime import date
 from rich.table import Table
 from rich.console import Console
 
@@ -77,6 +79,13 @@ def get_today():
     #         ]
     #     )
     # return find_id[0]
+
+
+def advance_time(days):
+    print(f"advance time {days} days")
+    today = date.fromisoformat(get_today())
+    new_date = today + datetime.timedelta(days=int(days))
+    print(new_date)
 
 
 def get_bought_data():

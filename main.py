@@ -25,6 +25,7 @@ def main():
         "action1",
         metavar="action 1",
         type=str,
+        nargs="?",
         help="enter your action options are [buy, sell, report]",
     )
     parser.add_argument(
@@ -48,6 +49,7 @@ def main():
         "-ed", "--expiration_date", action="store", help="enter the expiration date"
     )
     parser.add_argument("-n", "--now", action="store_true", help="gets inventory now")
+    parser.add_argument("-at", "--advance_time", action="store", help="advances time")
 
     arg = parser.parse_args()
 
@@ -57,6 +59,10 @@ def main():
     price = arg.price
     expiration_date = arg.expiration_date
     now = arg.now
+    advance_number_of_days = arg.advance_time
+    if action_one == None:
+        advance_time(advance_number_of_days)
+        print("advance time number of days= ", advance_number_of_days)
 
     match action_one:
         case "buy":
@@ -82,7 +88,8 @@ def main():
                 print("yeeey profit")
 
         case _:
-            print("you fucked up")
+            pass
+            # print("you fucked up")
 
 
 if __name__ == "__main__":
