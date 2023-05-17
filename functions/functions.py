@@ -61,7 +61,7 @@ def get_inventory():
     product_data = get_bought_data()
     product_list = get_product_list(product_data)
     unique_product_list = sorted(set(product_list))
-    count = Counter(product_list)
+    # count = Counter(product_list)
     product_dict = get_dict_of_products(product_data, unique_product_list)
     average_price_dict = get_average_price_dict(product_dict)
 

@@ -2,11 +2,12 @@
 import argparse
 import csv
 from datetime import date
-from settings import *
+
 from functions.csv_functions import *
 from functions.functions import *
 from create_test_data.create_bought_file_data import *
 from classes.Product import *
+from classes.HelpFormatter import *
 from rich import print
 from rich.traceback import install
 
@@ -20,16 +21,16 @@ install()
 
 
 def main():
-    class CustomHelpFormatter(argparse.HelpFormatter):
-        def __init__(self, prog):
-            super().__init__(prog, max_help_position=50, width=100)
+    # class CustomHelpFormatter(argparse.HelpFormatter):
+    #     def __init__(self, prog):
+    #         super().__init__(prog, max_help_position=50, width=100)
 
-        def _format_action_invocation(self, action):
-            if not action.option_strings or action.nargs == 0:
-                return super()._format_action_invocation(action)
-            default = self._get_default_metavar_for_optional(action)
-            args_string = self._format_args(action, default)
-            return ", ".join(action.option_strings) + " " + args_string
+    #     def _format_action_invocation(self, action):
+    #         if not action.option_strings or action.nargs == 0:
+    #             return super()._format_action_invocation(action)
+    #         default = self._get_default_metavar_for_optional(action)
+    #         args_string = self._format_args(action, default)
+    #         return ", ".join(action.option_strings) + " " + args_string
 
     fmt = lambda prog: CustomHelpFormatter(prog)
 
@@ -75,9 +76,9 @@ def main():
     now = arg.now
     advance_number_of_days = arg.advance_time
     if action_one == None:
-        advance_time(advance_number_of_days)
+        # advance_time(advance_number_of_days)
         print("advance time number of days= ", advance_number_of_days)
-
+        print(advance_time(advance_number_of_days))
     match action_one:
         case "buy":
             Buy_product(get_id(), product_name, price, expiration_date).buy()

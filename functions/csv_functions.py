@@ -82,10 +82,14 @@ def get_today():
 
 
 def advance_time(days):
-    print(f"advance time {days} days")
     today = date.fromisoformat(get_today())
     new_date = today + datetime.timedelta(days=int(days))
-    print(new_date)
+    new_list = []
+    new_list.append(new_date)
+    with open("data/today.csv", "w") as csv_today:
+        csv_writer = csv.writer(csv_today)
+        csv_writer.writerow(new_list)
+    return new_date
 
 
 def get_bought_data():
