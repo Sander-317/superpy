@@ -79,6 +79,7 @@ def main():
         # advance_time(advance_number_of_days)
         print("advance time number of days= ", advance_number_of_days)
         print(advance_time(advance_number_of_days))
+        print("today", date.fromisoformat(get_today()))
     match action_one:
         case "buy":
             Buy_product(get_id(), product_name, price, expiration_date).buy()
@@ -108,7 +109,7 @@ def main():
 
 
 if __name__ == "__main__":
-    print(date.fromisoformat(get_today()))
-    get_today()
+    print("today", date.fromisoformat(get_today()))
+    # get_today()
     # build_bought_file(10, 10)
     main()
