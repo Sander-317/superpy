@@ -75,12 +75,15 @@ def main():
     expiration_date = arg.expiration_date
     now = arg.now
     advance_number_of_days = arg.advance_time
-    if action_one == None:
-        # advance_time(advance_number_of_days)
-        print("advance time number of days= ", advance_number_of_days)
-        print(advance_time(advance_number_of_days))
-        print("today", date.fromisoformat(get_today()))
+    # if action_one == None:
+    #     # advance_time(advance_number_of_days)
+    #     print("advance time number of days= ", advance_number_of_days)
+    #     print(advance_time(advance_number_of_days))
+    #     print("today", date.fromisoformat(get_today()))
     match action_one:
+        case None:
+            advance_time(advance_number_of_days)
+            print("new today", date.fromisoformat(get_today()))
         case "buy":
             Buy_product(get_id(), product_name, price, expiration_date).buy()
             print(
