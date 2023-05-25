@@ -24,6 +24,7 @@ def main():
     fmt = lambda prog: CustomHelpFormatter(prog)
 
     parser = argparse.ArgumentParser(formatter_class=fmt)
+    # parser = argparse.ArgumentParser(formatter_class=SmartFormatter)
     # parser = argparse.ArgumentParser(description="Super py")
     parser.add_argument(
         "action1",

@@ -13,6 +13,7 @@ class Buy_product:
         write_to_file(self, "buy")
 
 
+# TODO: (id,bought_id,sell_date,sell_price)
 class Sell_product:
     def __init__(self, name, price):
         self.name = name

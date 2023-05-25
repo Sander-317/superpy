@@ -44,21 +44,19 @@ def write_to_file(product, action):
 
 
 def get_id():
-    find_id = []
     with open("data/id.csv", "r") as csv_id:
         csv_reader = csv.reader(csv_id)
         for row in csv_reader:
-            find_id.append(row[0])
-
-    print("id", find_id[0])
+            (id := row[0])
+    print("walrus test", id)
     with open("data/id.csv", "w") as csv_id:
         csv_writer = csv.writer(csv_id)
         csv_writer.writerow(
             [
-                int(find_id[0]) + 1,
+                int(id) + 1,
             ]
         )
-    return find_id[0]
+    return id
 
 
 def get_today():
