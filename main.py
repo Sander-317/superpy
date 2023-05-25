@@ -21,17 +21,6 @@ install()
 
 
 def main():
-    # class CustomHelpFormatter(argparse.HelpFormatter):
-    #     def __init__(self, prog):
-    #         super().__init__(prog, max_help_position=50, width=100)
-
-    #     def _format_action_invocation(self, action):
-    #         if not action.option_strings or action.nargs == 0:
-    #             return super()._format_action_invocation(action)
-    #         default = self._get_default_metavar_for_optional(action)
-    #         args_string = self._format_args(action, default)
-    #         return ", ".join(action.option_strings) + " " + args_string
-
     fmt = lambda prog: CustomHelpFormatter(prog)
 
     parser = argparse.ArgumentParser(formatter_class=fmt)
@@ -75,11 +64,14 @@ def main():
     expiration_date = arg.expiration_date
     now = arg.now
     advance_number_of_days = arg.advance_time
-    # if action_one == None:
-    #     # advance_time(advance_number_of_days)
-    #     print("advance time number of days= ", advance_number_of_days)
-    #     print(advance_time(advance_number_of_days))
-    #     print("today", date.fromisoformat(get_today()))
+
+    product_data = get_bought_data()
+    product_list = get_product_list(product_data)
+    unique_product_list = sorted(set(product_list))
+    # count = Counter(product_list)
+    product_dict = get_dict_of_products(product_data, unique_product_list)
+    average_price_dict = get_average_price_dict(product_dict)
+
     match action_one:
         case None:
             advance_time(advance_number_of_days)
@@ -98,7 +90,7 @@ def main():
             if action_two == "inventory":
                 if now == True:
                     # print("yeeey inventory now")
-                    get_inventory()
+                    get_inventory_table(product_dict, average_price_dict)
                 else:
                     print("yeeey inventory")
             elif action_two == "revenue":
