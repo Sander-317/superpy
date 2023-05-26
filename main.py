@@ -84,11 +84,15 @@ def main():
                 f"you have added 1 {product_name} you bought for {price} and expires on {expiration_date}"
             )
         case "sell":
-            Sell_product(
-                # get_id(),
+            # Sell_product(
+            #     # get_id(),
+            #     product_name,
+            #     price,
+            # ).sell()
+            sell_product(
                 product_name,
                 price,
-            ).sell()
+            )
         case "report":
             if action_two == "inventory":
                 if now == True:
