@@ -48,7 +48,7 @@ def get_id():
         csv_reader = csv.reader(csv_id)
         for row in csv_reader:
             (id := row[0])
-    print("walrus test", id)
+    # print("walrus test", id)
     with open("data/id.csv", "w") as csv_id:
         csv_writer = csv.writer(csv_id)
         csv_writer.writerow(
@@ -60,13 +60,12 @@ def get_id():
 
 
 def get_today():
-    find_today = []
     with open("data/today.csv", "r") as csv_id:
         csv_reader = csv.reader(csv_id)
         for row in csv_reader:
-            find_today.append(row[0])
-    # print("today", find_today[0])
-    return find_today[0]
+            (today := row[0])
+    # print("today walrus", today)
+    return today
 
     # print("id", find_id[0])
     # with open("data/id.csv", "w") as csv_id:
