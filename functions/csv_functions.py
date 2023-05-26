@@ -5,45 +5,6 @@ from rich.table import Table
 from rich.console import Console
 
 
-# def write_to_file(product, action):
-#     match action:
-#         case "buy":
-#             to_add = {
-#                 "id": product.id,
-#                 "buy_date": get_today(),
-#                 "product_name": product.name,
-#                 "price": product.price,
-#                 "expiration_date": product.expiration,
-#             }
-
-#             # with open("data/bought.csv", "a", newline="") as new_file:
-#             with open("data/test.csv", "a", newline="") as new_file:
-#                 fieldnames = [
-#                     "id",
-#                     "buy_date",
-#                     "product_name",
-#                     "price",
-#                     "expiration_date",
-#                 ]
-#                 csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
-#                 csv_writer.writerow(to_add)
-#         case "sell":
-#             to_add = {
-#                 "product_name": product.name,
-#                 "price": product.price,
-#             }
-
-#             with open("data/sold.csv", "a", newline="") as new_file:
-#                 fieldnames = [
-#                     "product_name",
-#                     "price",
-#                 ]
-#                 csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
-#                 csv_writer.writerow(to_add)
-#         case _:
-#             print("write to file match statement")
-
-
 def buy_product(product_name, price, expiration_date):
     with open("data/bought.csv", "a", newline="") as new_file:
         fieldnames = [
@@ -67,18 +28,18 @@ def buy_product(product_name, price, expiration_date):
 
 
 def sell_product(product_name, price):
-    to_add = {
-        "product_name": product_name,
-        "price": price,
-    }
-
     with open("data/sold.csv", "a", newline="") as new_file:
         fieldnames = [
             "product_name",
             "price",
         ]
         csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
-        csv_writer.writerow(to_add)
+        csv_writer.writerow(
+            {
+                "product_name": product_name,
+                "price": price,
+            }
+        )
 
 
 def get_id():
