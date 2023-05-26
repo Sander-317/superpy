@@ -27,19 +27,29 @@ def buy_product(product_name, price, expiration_date):
     print("new buy product function", product_name, price, expiration_date)
 
 
-def sell_product(product_name, price):
+def sell_product(product_name, price, product_dict):
     with open("data/sold.csv", "a", newline="") as new_file:
         fieldnames = [
-            "product_name",
+            "id",
+            "bought_id",
+            "sell_date",
             "price",
         ]
         csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
         csv_writer.writerow(
             {
-                "product_name": product_name,
+                "id": get_id(),
+                "bought_id": get_bought_id(product_name, product_dict),
+                "sell_date": get_today(),
                 "price": price,
             }
         )
+
+
+def get_bought_id(product_name, product_dict):
+    print(product_dict["apple"][0])
+    # print(product_dict["apple"][0].id)
+    return product_name
 
 
 def get_id():

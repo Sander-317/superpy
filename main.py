@@ -83,7 +83,7 @@ def main():
                 f"you have added 1 {product_name} you bought for {price} and expires on {expiration_date}"
             )
         case "sell":
-            sell_product(product_name, price)
+            sell_product(product_name, price, product_dict)
             print(f"you have sold {product_name} for {price}")
 
         case "report":
