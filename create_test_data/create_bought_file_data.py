@@ -36,11 +36,14 @@ def build_bought_file(
                 expiration_date.year, expiration_date.month, expiration_date.day
             )
             # print(product)
-            Buy_product(
-                get_id(),
-                product["product_name"],
-                product["price"],
-                product["expiration_date"],
-            ).buy()
+            # Buy_product(
+            #     get_id(),
+            #     product["product_name"],
+            #     product["price"],
+            #     product["expiration_date"],
+            # ).buy()
+            buy_product(
+                product["product_name"], product["price"], product["expiration_date"]
+            )
         # today = today + datetime.timedelta(days=1)
         advance_time(1)

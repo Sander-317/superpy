@@ -16,7 +16,8 @@ def write_to_file(product, action):
                 "expiration_date": product.expiration,
             }
 
-            with open("data/bought.csv", "a", newline="") as new_file:
+            # with open("data/bought.csv", "a", newline="") as new_file:
+            with open("data/test.csv", "a", newline="") as new_file:
                 fieldnames = [
                     "id",
                     "buy_date",
@@ -41,6 +42,49 @@ def write_to_file(product, action):
                 csv_writer.writerow(to_add)
         case _:
             print("write to file match statement")
+
+
+# def buy_product(product_name, price, expiration_date):
+#     to_add = {
+#         "id": get_id(),
+#         "buy_date": get_today(),
+#         "product_name": product_name,
+#         "price": price,
+#         "expiration_date": expiration_date,
+#     }
+
+
+#     with open("data/bought.csv", "a", newline="") as new_file:
+#         fieldnames = [
+#             "id",
+#             "buy_date",
+#             "product_name",
+#             "price",
+#             "expiration_date",
+#         ]
+#         csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
+#         csv_writer.writerow(to_add)
+#     print("new buy product function", product_name, price, expiration_date)
+def buy_product(product_name, price, expiration_date):
+    with open("data/bought.csv", "a", newline="") as new_file:
+        fieldnames = [
+            "id",
+            "buy_date",
+            "product_name",
+            "price",
+            "expiration_date",
+        ]
+        csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
+        csv_writer.writerow(
+            {
+                "id": get_id(),
+                "buy_date": get_today(),
+                "product_name": product_name,
+                "price": price,
+                "expiration_date": expiration_date,
+            }
+        )
+    print("new buy product function", product_name, price, expiration_date)
 
 
 def get_id():

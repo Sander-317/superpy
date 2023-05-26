@@ -16,8 +16,11 @@ class Buy_product:
 # TODO: (id,bought_id,sell_date,sell_price)
 class Sell_product:
     def __init__(self, name, price):
+        # self.id = id
+
         self.name = name
         self.price = price
 
     def sell(self):
+        print("self in sell: ", self)
         write_to_file(self, "sell")
