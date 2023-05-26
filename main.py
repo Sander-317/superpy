@@ -6,7 +6,7 @@ from datetime import date
 from functions.csv_functions import *
 from functions.functions import *
 from create_test_data.create_bought_file_data import *
-from classes.Product import *
+
 from classes.HelpFormatter import *
 from rich import print
 from rich.traceback import install
@@ -78,21 +78,14 @@ def main():
             advance_time(advance_number_of_days)
             print("new today", date.fromisoformat(get_today()))
         case "buy":
-            # Buy_product(get_id(), product_name, price, expiration_date).buy()
             buy_product(product_name, price, expiration_date)
             print(
                 f"you have added 1 {product_name} you bought for {price} and expires on {expiration_date}"
             )
         case "sell":
-            # Sell_product(
-            #     # get_id(),
-            #     product_name,
-            #     price,
-            # ).sell()
-            sell_product(
-                product_name,
-                price,
-            )
+            sell_product(product_name, price)
+            print(f"you have sold {product_name} for {price}")
+
         case "report":
             if action_two == "inventory":
                 if now == True:

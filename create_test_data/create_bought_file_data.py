@@ -2,7 +2,6 @@ import random
 import datetime
 from datetime import date
 from functions.csv_functions import *
-from classes.Product import *
 
 
 products_list = [
