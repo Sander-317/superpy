@@ -13,13 +13,14 @@ def get_product_list(product_data):
     return product_list
 
 
-def get_dict_of_products(product_data, unique_product_list):
+def get_dict_of_products(product_data, unique_product_list, sold_products_id_list):
     new_dict = {}
     for unique_product in unique_product_list:
         product_list = []
         for product in product_data:
             if product["product_name"] == unique_product:
-                product_list.append(product)
+                if product["id"] not in sold_products_id_list:
+                    product_list.append(product)
         new_dict[unique_product] = product_list
 
     return new_dict
@@ -28,13 +29,20 @@ def get_dict_of_products(product_data, unique_product_list):
 def get_average_price_dict(product_dict):
     # print(product_dict["orange"])
     price_dict = {}
+    # print("get average price", product_dict["apple"])
+    # print("lengt of dict", len(product_dict["apple"]))
     for product in product_dict:
         # print(product_dict[product])
         total_price = 0
         for i in product_dict[product]:
             # print("KIJK HIER ", i)
+            # print(f"product {i} length = {len(product_dict[product])}")
+            # if len(product_dict[product]) > 1:
             total_price = float(i["price"]) + total_price
-        price_dict[product] = round(total_price / len(product_dict[product]), 2)
+        if len(product_dict[product]) > 1:
+            price_dict[product] = round(total_price / len(product_dict[product]), 2)
+        else:
+            price_dict[product] = round(total_price, 2)
 
     # print(price_dict)
     return price_dict
