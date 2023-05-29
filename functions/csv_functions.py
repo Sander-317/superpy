@@ -98,16 +98,37 @@ def get_bought_data():
         fieldnames = ["id", "buy_date", "product_name", "price", "expiration_date"]
         csv_reader = csv.DictReader(new_file, fieldnames=fieldnames)
         product_list = []
-        for i in csv_reader:
+        for row in csv_reader:
             product_list.append(
                 {
-                    "id": i["id"],
-                    "product_name": i["product_name"],
-                    "buy_date": i["buy_date"],
-                    "price": i["price"],
-                    "expiration_date": i["expiration_date"],
+                    "id": row["id"],
+                    "product_name": row["product_name"],
+                    "buy_date": row["buy_date"],
+                    "price": row["price"],
+                    "expiration_date": row["expiration_date"],
                 }
             )
             # print(i)
             # table.add_row(i["product_name"], "1", i["price"], i["expiration_date"])
     return product_list
+
+
+def get_sold_data():
+    with open("data/sold.csv", "r") as new_file:
+        fieldnames = ["id", "bought_id", "sell_date", "price"]
+        csv_reader = csv.DictReader(new_file, fieldnames=fieldnames)
+        sold_product_id_list = []
+        for row in csv_reader:
+            sold_product_id_list.append(row["bought_id"])
+            # sold_product_id_list.append(
+            #     {
+            #         "bought_id": row["id"],
+            #         "product_name": row["product_name"],
+            #         "buy_date": row["buy_date"],
+            #         "price": row["price"],
+            #         "expiration_date": row["expiration_date"],
+            #     }
+            # )
+            # print(i)
+            # table.add_row(i["product_name"], "1", i["price"], i["expiration_date"])
+    return sold_product_id_list

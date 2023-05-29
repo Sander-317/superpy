@@ -72,6 +72,8 @@ def main():
     # count = Counter(product_list)
     product_dict = get_dict_of_products(product_data, unique_product_list)
     average_price_dict = get_average_price_dict(product_dict)
+    sold_products_id_list = get_sold_data()
+    print(sold_products_id_list)
     # build_bought_file(10, 10, product_dict)
 
     match action_one:

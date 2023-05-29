@@ -72,7 +72,7 @@ def get_inventory_table(product_dict, average_price_dict):
             for i in product_dict[product]:
                 if i["expiration_date"] == date:
                     product_list_by_day.append(i)
-                continue
+                # continue
             table.add_row(
                 product_list_by_day[0]["product_name"],
                 str(len(product_list_by_day)),
