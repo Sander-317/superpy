@@ -49,12 +49,11 @@ def sell_product(product_name, price, product_dict, sold_products_id_list):
         )
 
 
-def get_id():
+def get_id():  # Walrus in function
     with open("data/id.csv", "r") as csv_id:
         csv_reader = csv.reader(csv_id)
         for row in csv_reader:
             (id := row[0])
-    # print("walrus test", id)
     with open("data/id.csv", "w") as csv_id:
         csv_writer = csv.writer(csv_id)
         csv_writer.writerow(
@@ -65,23 +64,13 @@ def get_id():
     return id
 
 
-def get_today():
+def get_today():  # Walrus in function
     with open("data/today.csv", "r") as csv_id:
         csv_reader = csv.reader(csv_id)
         for row in csv_reader:
             (today := row[0])
-    # print("today walrus", today)
-    return today
 
-    # print("id", find_id[0])
-    # with open("data/id.csv", "w") as csv_id:
-    #     csv_writer = csv.writer(csv_id)
-    #     csv_writer.writerow(
-    #         [
-    #             int(find_id[0]) + 1,
-    #         ]
-    #     )
-    # return find_id[0]
+    return today
 
 
 def advance_time(days):
@@ -110,8 +99,7 @@ def get_bought_data():
                     "expiration_date": row["expiration_date"],
                 }
             )
-            # print(i)
-            # table.add_row(i["product_name"], "1", i["price"], i["expiration_date"])
+
     return product_list
 
 
@@ -127,20 +115,7 @@ def get_sold_data(list_test=[], print_out_of_stock=False):
                     sold_product_id_list.append(row["bought_id"])
             else:
                 not_in_stock = True
-        print(print_out_of_stock)
+
         if not_in_stock and print_out_of_stock:
             print("product not in stock")
-        # if not_in_stock:
-        #     print("product not in stock")
-        # sold_product_id_list.append(
-        #     {
-        #         "bought_id": row["id"],
-        #         "product_name": row["product_name"],
-        #         "buy_date": row["buy_date"],
-        #         "price": row["price"],
-        #         "expiration_date": row["expiration_date"],
-        #     }
-        # )
-        # print(i)
-        # table.add_row(i["product_name"], "1", i["price"], i["expiration_date"])
     return sold_product_id_list
