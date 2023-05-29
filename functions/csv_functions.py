@@ -115,23 +115,32 @@ def get_bought_data():
     return product_list
 
 
-def get_sold_data(list_test=[]):
+def get_sold_data(list_test=[], print_out_of_stock=False):
     with open("data/sold.csv", "r") as new_file:
         fieldnames = ["id", "bought_id", "sell_date", "price"]
         csv_reader = csv.DictReader(new_file, fieldnames=fieldnames)
         sold_product_id_list = list_test
+        not_in_stock = False
         for row in csv_reader:
-            if row["bought_id"] not in list_test:
-                sold_product_id_list.append(row["bought_id"])
-            # sold_product_id_list.append(
-            #     {
-            #         "bought_id": row["id"],
-            #         "product_name": row["product_name"],
-            #         "buy_date": row["buy_date"],
-            #         "price": row["price"],
-            #         "expiration_date": row["expiration_date"],
-            #     }
-            # )
-            # print(i)
-            # table.add_row(i["product_name"], "1", i["price"], i["expiration_date"])
+            if row["bought_id"] != "":
+                if row["bought_id"] not in list_test:
+                    sold_product_id_list.append(row["bought_id"])
+            else:
+                not_in_stock = True
+        print(print_out_of_stock)
+        if not_in_stock and print_out_of_stock:
+            print("product not in stock")
+        # if not_in_stock:
+        #     print("product not in stock")
+        # sold_product_id_list.append(
+        #     {
+        #         "bought_id": row["id"],
+        #         "product_name": row["product_name"],
+        #         "buy_date": row["buy_date"],
+        #         "price": row["price"],
+        #         "expiration_date": row["expiration_date"],
+        #     }
+        # )
+        # print(i)
+        # table.add_row(i["product_name"], "1", i["price"], i["expiration_date"])
     return sold_product_id_list
