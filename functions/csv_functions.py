@@ -28,7 +28,7 @@ def buy_product(product_name, price, expiration_date):
     print("new buy product function", product_name, price, expiration_date)
 
 
-def sell_product(product_name, price, product_dict):
+def sell_product(product_name, price, product_dict, sold_products_id_list):
     with open("data/sold.csv", "a", newline="") as new_file:
         fieldnames = [
             "id",
@@ -40,7 +40,9 @@ def sell_product(product_name, price, product_dict):
         csv_writer.writerow(
             {
                 "id": get_id(),
-                "bought_id": get_bought_id(product_name, product_dict),
+                "bought_id": get_bought_id(
+                    product_name, product_dict, sold_products_id_list
+                ),
                 "sell_date": get_today(),
                 "price": price,
             }
@@ -113,13 +115,14 @@ def get_bought_data():
     return product_list
 
 
-def get_sold_data():
+def get_sold_data(list_test=[]):
     with open("data/sold.csv", "r") as new_file:
         fieldnames = ["id", "bought_id", "sell_date", "price"]
         csv_reader = csv.DictReader(new_file, fieldnames=fieldnames)
-        sold_product_id_list = []
+        sold_product_id_list = list_test
         for row in csv_reader:
-            sold_product_id_list.append(row["bought_id"])
+            if row["bought_id"] not in list_test:
+                sold_product_id_list.append(row["bought_id"])
             # sold_product_id_list.append(
             #     {
             #         "bought_id": row["id"],

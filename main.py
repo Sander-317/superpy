@@ -72,7 +72,8 @@ def main():
     # count = Counter(product_list)
     product_dict = get_dict_of_products(product_data, unique_product_list)
     average_price_dict = get_average_price_dict(product_dict)
-    sold_products_id_list = get_sold_data()
+    test = get_sold_data()
+    sold_products_id_list = get_sold_data(test)
     print(sold_products_id_list)
     # build_bought_file(10, 10, product_dict)
 
@@ -86,14 +87,16 @@ def main():
                 f"you have added 1 {product_name} you bought for {price} and expires on {expiration_date}"
             )
         case "sell":
-            sell_product(product_name, price, product_dict)
+            sell_product(product_name, price, product_dict, sold_products_id_list)
             print(f"you have sold {product_name} for {price}")
 
         case "report":
             if action_two == "inventory":
                 if now == True:
                     # print("yeeey inventory now")
-                    get_inventory_table(product_dict, average_price_dict, sold_products_id_list)
+                    get_inventory_table(
+                        product_dict, average_price_dict, sold_products_id_list
+                    )
                 else:
                     print("yeeey inventory")
             elif action_two == "revenue":

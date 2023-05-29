@@ -71,7 +71,7 @@ def get_inventory_table(product_dict, average_price_dict, sold_products_id_list)
         for date in expiration_dates:
             product_list_by_day = []
             for product2 in product_dict[product]:
-                print(product2)
+                # print(product2)
                 if product2["id"] not in sold_products_id_list:
                     if product2["expiration_date"] == date:
                         product_list_by_day.append(product2)
@@ -114,13 +114,24 @@ def get_inventory_table(product_dict, average_price_dict, sold_products_id_list)
 #     console.print(table)
 
 
-def get_bought_id(product_name, product_dict):
+def get_bought_id(product_name, product_dict, sold_products_id_list):
     if product_name in product_dict.keys():
-        print(product_dict["apple"][0])
-        return product_dict[product_name][0]["id"]
+        # print(product_dict["apple"][0])
+        for product in product_dict[product_name]:
+            if product["id"] not in sold_products_id_list:
+                return product["id"]
+
     else:
         print("product not in stock")
-    # print(product_dict.keys())
-    # print(product_dict["apple"][0])
-    # print(product_dict["apple"][0]["id"])
-    # return product_name
+
+
+# def get_bought_id(product_name, product_dict):
+#     if product_name in product_dict.keys():
+#         print(product_dict["apple"][0])
+#         return product_dict[product_name][0]["id"]
+#     else:
+#         print("product not in stock")
+#     # print(product_dict.keys())
+#     # print(product_dict["apple"][0])
+#     # print(product_dict["apple"][0]["id"])
+#     # return product_name
