@@ -87,10 +87,10 @@ def get_inventory_table(product_dict, average_price_dict):
 def get_bought_id(product_name, product_dict):
     if product_name in product_dict.keys():
         print(product_dict["apple"][0])
-        # return product_dict[product_name][0]["id"]
+        return product_dict[product_name][0]["id"]
     else:
         print("product not in stock")
     # print(product_dict.keys())
     # print(product_dict["apple"][0])
     # print(product_dict["apple"][0]["id"])
-    return product_name
+    # return product_name
