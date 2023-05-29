@@ -93,7 +93,7 @@ def main():
             if action_two == "inventory":
                 if now == True:
                     # print("yeeey inventory now")
-                    get_inventory_table(product_dict, average_price_dict)
+                    get_inventory_table(product_dict, average_price_dict, sold_products_id_list)
                 else:
                     print("yeeey inventory")
             elif action_two == "revenue":

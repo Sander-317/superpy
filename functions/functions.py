@@ -59,29 +59,59 @@ def sort_dates(dates):
     return sorted(dates, key=date_key)
 
 
-def get_inventory_table(product_dict, average_price_dict):
+def get_inventory_table(product_dict, average_price_dict, sold_products_id_list):
     table = Table(title="inventory")
     table.add_column("name")
     table.add_column("count")
     table.add_column("price")
     table.add_column("expiration date")
+
     for product in product_dict:
         expiration_dates = get_unique_expiration_dates(product_dict[product])
         for date in expiration_dates:
             product_list_by_day = []
-            for i in product_dict[product]:
-                if i["expiration_date"] == date:
-                    product_list_by_day.append(i)
-                # continue
-            table.add_row(
-                product_list_by_day[0]["product_name"],
-                str(len(product_list_by_day)),
-                str(average_price_dict[product]),
-                date,
-            )
+            for product2 in product_dict[product]:
+                print(product2)
+                if product2["id"] not in sold_products_id_list:
+                    if product2["expiration_date"] == date:
+                        product_list_by_day.append(product2)
+                else:
+                    continue
+            if product_list_by_day != []:
+                table.add_row(
+                    product_list_by_day[0]["product_name"],
+                    str(len(product_list_by_day)),
+                    str(average_price_dict[product]),
+                    date,
+                )
 
     console = Console()
     console.print(table)
+
+
+# def get_inventory_table(product_dict, average_price_dict, sold_products_id_list):
+#     table = Table(title="inventory")
+#     table.add_column("name")
+#     table.add_column("count")
+#     table.add_column("price")
+#     table.add_column("expiration date")
+#     for product in product_dict:
+#         expiration_dates = get_unique_expiration_dates(product_dict[product])
+#         for date in expiration_dates:
+#             product_list_by_day = []
+#             for i in product_dict[product]:
+#                 if i["expiration_date"] == date:
+#                     product_list_by_day.append(i)
+#                 # continue
+#             table.add_row(
+#                 product_list_by_day[0]["product_name"],
+#                 str(len(product_list_by_day)),
+#                 str(average_price_dict[product]),
+#                 date,
+#             )
+
+#     console = Console()
+#     console.print(table)
 
 
 def get_bought_id(product_name, product_dict):
