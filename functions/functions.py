@@ -1,6 +1,8 @@
 from functions.csv_functions import *
 from collections import Counter
 from datetime import datetime
+from rich.table import Table
+from rich.console import Console
 
 
 def get_product_list(product_data):
@@ -83,8 +85,12 @@ def get_inventory_table(product_dict, average_price_dict):
 
 
 def get_bought_id(product_name, product_dict):
-    print(product_dict.keys())
+    if product_name in product_dict.keys():
+        print(product_dict["apple"][0])
+        # return product_dict[product_name][0]["id"]
+    else:
+        print("product not in stock")
+    # print(product_dict.keys())
     # print(product_dict["apple"][0])
     # print(product_dict["apple"][0]["id"])
     return product_name
-    # return product_dict[product_name][0]["id"]

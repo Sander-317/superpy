@@ -101,6 +101,7 @@ def get_bought_data():
         for i in csv_reader:
             product_list.append(
                 {
+                    "id": i["id"],
                     "product_name": i["product_name"],
                     "buy_date": i["buy_date"],
                     "price": i["price"],
