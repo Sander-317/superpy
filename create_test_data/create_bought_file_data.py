@@ -21,6 +21,7 @@ products_list = [
 def build_bought_file(
     number_of_days,
     max_products_per_day,
+    product_dict,
 ):
     # today = date.fromisoformat(get_today())
 
@@ -44,5 +45,6 @@ def build_bought_file(
             buy_product(
                 product["product_name"], product["price"], product["expiration_date"]
             )
+            # sell_product(product["product_name"], product["price"] * 2, product_dict)
         # today = today + datetime.timedelta(days=1)
         advance_time(1)

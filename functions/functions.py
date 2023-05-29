@@ -80,3 +80,11 @@ def get_inventory_table(product_dict, average_price_dict):
 
     console = Console()
     console.print(table)
+
+
+def get_bought_id(product_name, product_dict):
+    print(product_dict.keys())
+    # print(product_dict["apple"][0])
+    # print(product_dict["apple"][0]["id"])
+    return product_name
+    # return product_dict[product_name][0]["id"]

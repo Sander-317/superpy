@@ -1,6 +1,7 @@
 import csv
 import datetime
 from datetime import date
+from functions.functions import *
 from rich.table import Table
 from rich.console import Console
 
@@ -44,12 +45,6 @@ def sell_product(product_name, price, product_dict):
                 "price": price,
             }
         )
-
-
-def get_bought_id(product_name, product_dict):
-    print(product_dict["apple"][0])
-    # print(product_dict["apple"][0].id)
-    return product_name
 
 
 def get_id():
