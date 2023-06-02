@@ -88,10 +88,10 @@ def main():
     )
     average_price_dict = get_average_price_dict(product_dict)
     print("sold products id list main.py", sold_products_id_list)
-    build_bought_file(
-        10,
-        10,
-    )
+    # build_bought_file(
+    #     10,
+    #     10,
+    # )
 
     match action_one:
         case None:

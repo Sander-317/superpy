@@ -1,6 +1,8 @@
 import csv
-import datetime
-from datetime import date
+
+# import datetime
+# from datetime import date
+from datetime import datetime, timedelta, date
 from functions.functions import *
 from rich.table import Table
 from rich.console import Console
@@ -75,7 +77,7 @@ def get_today():  # Walrus in function
 
 def advance_time(days):
     today = date.fromisoformat(get_today())
-    new_date = today + datetime.timedelta(days=int(days))
+    new_date = today + timedelta(days=int(days))
     new_list = []
     new_list.append(new_date)
     with open("data/today.csv", "w") as csv_today:
