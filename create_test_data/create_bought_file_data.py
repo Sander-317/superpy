@@ -1,6 +1,10 @@
 import random
+
 import datetime
-from datetime import date
+
+# from datetime import datetime, timedelta
+
+# from datetime import date
 from functions.csv_functions import *
 
 
@@ -21,7 +25,6 @@ products_list = [
 def build_bought_file(
     number_of_days,
     max_products_per_day,
-    product_dict,
 ):
     # today = date.fromisoformat(get_today())
 

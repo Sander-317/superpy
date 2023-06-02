@@ -1,8 +1,9 @@
 # Imports
 import argparse
 import csv
-from datetime import date
 
+# from datetime import date
+# import datetime
 from functions.csv_functions import *
 from functions.functions import *
 from create_test_data.create_bought_file_data import *
@@ -53,8 +54,18 @@ def main():
     parser.add_argument(
         "-ed", "--expiration_date", action="store", help="enter the expiration date"
     )
-    parser.add_argument("-n", "--now", action="store_true", help="gets inventory now")
-    parser.add_argument("-at", "--advance_time", action="store", help="advances time")
+    parser.add_argument(
+        "-n",
+        "--now",
+        action="store_true",
+        help="gets inventory now first action needs to be report action 2 needs to be inventory",
+    )
+    parser.add_argument(
+        "-at",
+        "--advance_time",
+        action="store",
+        help="advances time by the number provided",
+    )
 
     arg = parser.parse_args()
 
@@ -76,8 +87,11 @@ def main():
         product_data, unique_product_list, sold_products_id_list
     )
     average_price_dict = get_average_price_dict(product_dict)
-    print(sold_products_id_list)
-    # build_bought_file(10, 10, product_dict)
+    print("sold products id list main.py", sold_products_id_list)
+    build_bought_file(
+        10,
+        10,
+    )
 
     match action_one:
         case None:
@@ -112,7 +126,7 @@ def main():
 
 
 if __name__ == "__main__":
-    print("today", date.fromisoformat(get_today()))
+    print("today main.py", date.fromisoformat(get_today()))
     # get_today()
     # build_bought_file(10, 10)
     main()

@@ -6,7 +6,6 @@ from rich.console import Console
 
 
 def get_product_list(product_data):
-    product_data = product_data
     product_list = []
     for i in product_data:
         product_list.append((i["product_name"]))
@@ -69,10 +68,10 @@ def get_inventory_table(product_dict, average_price_dict, sold_products_id_list)
         expiration_dates = get_unique_expiration_dates(product_dict[product])
         for date in expiration_dates:
             product_list_by_day = []
-            for product2 in product_dict[product]:
-                if product2["id"] not in sold_products_id_list:
-                    if product2["expiration_date"] == date:
-                        product_list_by_day.append(product2)
+            for product_in_dict in product_dict[product]:
+                if product_in_dict["id"] not in sold_products_id_list:
+                    if product_in_dict["expiration_date"] == date:
+                        product_list_by_day.append(product_in_dict)
                 else:
                     continue
             if product_list_by_day != []:
