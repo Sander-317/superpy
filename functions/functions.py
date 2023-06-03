@@ -97,3 +97,10 @@ def get_bought_id(product_name, product_dict, sold_products_id_list):
 
     else:
         print("product not in stock")
+
+
+def get_report_dates(report_data):
+    new_list = []
+    for date in report_data:
+        new_list.append(date["date"])
+    return new_list

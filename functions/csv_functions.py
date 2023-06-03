@@ -17,17 +17,29 @@ def buy_product(product_name, price, expiration_date):
             "price",
             "expiration_date",
         ]
+        to_add = {
+            "id": get_id(),
+            "buy_date": get_today(),
+            "product_name": product_name,
+            "price": price,
+            "expiration_date": expiration_date,
+        }
         csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
-        csv_writer.writerow(
-            {
-                "id": get_id(),
-                "buy_date": get_today(),
-                "product_name": product_name,
-                "price": price,
-                "expiration_date": expiration_date,
-            }
-        )
-    print("new buy product function", product_name, price, expiration_date)
+        csv_writer.writerow(to_add)
+        # csv_writer.writerow(
+        #     {
+        #         "id": get_id(),
+        #         "buy_date": get_today(),
+        #         "product_name": product_name,
+        #         "price": price,
+        #         "expiration_date": expiration_date,
+        #     }
+        # )
+        # add_report_data(get_id(), to_add["buy_date"], to_add["price"])
+    # print("new buy product function", product_name, price, expiration_date)
+    # print("report data", get_report_data())
+    # print("add test to report data", add_report_data("test"))
+    # print("report data with test added", get_report_data())
 
 
 def sell_product(product_name, price, product_dict, sold_products_id_list):
@@ -73,6 +85,53 @@ def get_today():  # Walrus in function
             (today := row[0])
 
     return today
+
+
+def get_report_data():
+    with open("data/report.csv", "r") as csv_report:
+        fieldnames = ["id", "date", "cost", "revenue", "profit"]
+        csv_reader = csv.DictReader(csv_report, fieldnames=fieldnames)
+        # csv_reader = csv.reader(csv_report)
+
+        new_list = []
+        for row in csv_reader:
+            new_list.append(
+                {
+                    "id": row["id"],
+                    "date": row["date"],
+                    "cost": row["cost"],
+                    "revenue": row["revenue"],
+                    "profit": row["profit"],
+                }
+            )
+        # for row in csv_reader:
+        #     new_list.append(row)
+        # print("new list in get report data", new_list)
+    return new_list
+
+
+def add_report_data(
+    id,
+    date,
+    cost,
+    revenue,
+):
+    # print("get report data in add report data", get_report_data())
+    report_data = get_report_data()
+    new_profit = revenue - cost
+    report_data.append(
+        {"id": id, "date": date, "cost": cost, "revenue": revenue, "profit": new_profit}
+    )
+    # print(report_data)
+    # print(report_data[0])
+    with open(
+        "data/report.csv",
+        "w",
+    ) as csv_report:
+        fieldnames = ["id", "date", "cost", "revenue", "profit"]
+        csv_writer = csv.DictWriter(csv_report, fieldnames=fieldnames)
+        for row in report_data:
+            csv_writer.writerow(row)
 
 
 def advance_time(days):
