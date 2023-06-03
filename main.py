@@ -110,7 +110,7 @@ def main():
             advance_time(advance_number_of_days)
             print("new today", date.fromisoformat(get_today()))
         case "buy":
-            buy_product(product_name, price, expiration_date)
+            buy_product(product_name, price, expiration_date,report_data)
             print(
                 f"you have added 1 {product_name} you bought for {price} and expires on {expiration_date}"
             )

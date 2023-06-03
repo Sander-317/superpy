@@ -104,3 +104,8 @@ def get_report_dates(report_data):
     for date in report_data:
         new_list.append(date["date"])
     return new_list
+
+
+def create_report_data(buy_date, buy_price, data):
+    print(f"buy date is {buy_date} and cost is {buy_price}")
+    print(data)

@@ -8,7 +8,7 @@ from rich.table import Table
 from rich.console import Console
 
 
-def buy_product(product_name, price, expiration_date):
+def buy_product(product_name, price, expiration_date, report_data):
     with open("data/bought.csv", "a", newline="") as new_file:
         fieldnames = [
             "id",
@@ -26,6 +26,7 @@ def buy_product(product_name, price, expiration_date):
         }
         csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
         csv_writer.writerow(to_add)
+        create_report_data(to_add["buy_date"], to_add["price"], report_data)
         # csv_writer.writerow(
         #     {
         #         "id": get_id(),
