@@ -1,4 +1,6 @@
 from functions.csv_functions import *
+
+# from csv_functions import *
 from collections import Counter
 from datetime import datetime
 from rich.table import Table
@@ -106,6 +108,10 @@ def get_report_dates(report_data):
     return new_list
 
 
-def create_report_data(buy_date, buy_price, data):
-    print(f"buy date is {buy_date} and cost is {buy_price}")
-    print(data)
+def create_report_data(buy_date, buy_price, report_data):
+    for date in report_data:
+        if date["date"] == buy_date:
+            date.update({"cost": str(int(date["cost"]) + int(buy_price))})
+            break
+    write_to_report_csv(report_data)
+    # print(data)

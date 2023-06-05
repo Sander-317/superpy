@@ -123,8 +123,20 @@ def add_report_data(
     report_data.append(
         {"id": id, "date": date, "cost": cost, "revenue": revenue, "profit": new_profit}
     )
+    write_to_report_csv(report_data)
     # print(report_data)
     # print(report_data[0])
+    # with open(
+    #     "data/report.csv",
+    #     "w",
+    # ) as csv_report:
+    #     fieldnames = ["id", "date", "cost", "revenue", "profit"]
+    #     csv_writer = csv.DictWriter(csv_report, fieldnames=fieldnames)
+    #     for row in report_data:
+    #         csv_writer.writerow(row)
+
+
+def write_to_report_csv(report_data):
     with open(
         "data/report.csv",
         "w",
