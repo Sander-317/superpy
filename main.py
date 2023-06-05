@@ -85,14 +85,14 @@ def main():
     # print("report data:", report_data)
     report_data_dates = get_report_dates(report_data)
     # print(report_data_dates)
-    check_if_day_is_in_report(today, report_data_dates)
-    # if today not in report_data_dates:
-    #     add_report_data(
-    #         get_id(),
-    #         today,
-    #         0,
-    #         0,
-    #     )
+    # check_if_day_is_in_report(today, report_data_dates)
+    if today not in report_data_dates:
+        add_report_data(
+            get_id(),
+            today,
+            0,
+            0,
+        )
 
     test = get_sold_data()
     sold_products_id_list = get_sold_data(test, True)
@@ -125,7 +125,7 @@ def main():
                 if now == True:
                     # print("yeeey inventory now")
                     get_inventory_table(
-                        product_dict, average_price_dict, sold_products_id_list
+                        product_dict, average_price_dict, sold_products_id_list, today
                     )
                 else:
                     print("yeeey inventory")
