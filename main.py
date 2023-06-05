@@ -82,8 +82,9 @@ def main():
     product_list = get_product_list(product_data)
     unique_product_list = sorted(set(product_list))
     report_data = get_report_data()
+    print("report data:", report_data)
     report_data_dates = get_report_dates(report_data)
-    print(report_data_dates)
+    # print(report_data_dates)
     if today not in report_data_dates:
         add_report_data(
             get_id(),
@@ -99,7 +100,7 @@ def main():
         product_data, unique_product_list, sold_products_id_list
     )
     average_price_dict = get_average_price_dict(product_dict)
-    print("sold products id list main.py", sold_products_id_list)
+    # print("sold products id list main.py", sold_products_id_list)
     # build_bought_file(
     #     10,
     #     10,
@@ -110,7 +111,7 @@ def main():
             advance_time(advance_number_of_days)
             print("new today", date.fromisoformat(get_today()))
         case "buy":
-            buy_product(product_name, price, expiration_date,report_data)
+            buy_product(product_name, price, expiration_date, report_data)
             print(
                 f"you have added 1 {product_name} you bought for {price} and expires on {expiration_date}"
             )
@@ -131,6 +132,8 @@ def main():
                 print("yeeey revenue")
             elif action_two == "profit":
                 print("yeeey profit")
+            elif action_two == "all":
+                create_report_table(report_data)
 
         case _:
             pass

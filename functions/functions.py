@@ -130,32 +130,3 @@ def create_report_table(report_data):
         table.add_row(data["date"], data["cost"], data["revenue"], data["profit"])
     console = Console()
     console.print(table)
-
-
-# def get_inventory_table(product_dict, average_price_dict, sold_products_id_list):
-#     table = Table(title="inventory")
-#     table.add_column("name")
-#     table.add_column("count")
-#     table.add_column("price")
-#     table.add_column("expiration date")
-
-#     for product in product_dict:
-#         expiration_dates = get_unique_expiration_dates(product_dict[product])
-#         for date in expiration_dates:
-#             product_list_by_day = []
-#             for product_in_dict in product_dict[product]:
-#                 if product_in_dict["id"] not in sold_products_id_list:
-#                     if product_in_dict["expiration_date"] == date:
-#                         product_list_by_day.append(product_in_dict)
-#                 else:
-#                     continue
-#             if product_list_by_day != []:
-#                 table.add_row(
-#                     product_list_by_day[0]["product_name"],
-#                     str(len(product_list_by_day)),
-#                     str(average_price_dict[product]),
-#                     date,
-#                 )
-
-#     console = Console()
-#     console.print(table)
