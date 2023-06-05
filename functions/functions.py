@@ -114,8 +114,9 @@ def create_report_data(buy_date, buy_price, report_data):
         if date["date"] == buy_date:
             date.update({"cost": str(int(date["cost"]) + int(buy_price))})
             break
-    write_to_report_csv(report_data)
-    # create_report_table(report_data)
+    # TODO: fix import problem from csv_functions.py
+    # write_to_report_csv(report_data)
+    create_report_table(report_data)
     # print(data)
 
 
@@ -130,3 +131,13 @@ def create_report_table(report_data):
         table.add_row(data["date"], data["cost"], data["revenue"], data["profit"])
     console = Console()
     console.print(table)
+
+
+def check_if_day_is_in_report(today, report_data_dates):
+    if today not in report_data_dates:
+        add_report_data(
+            get_id(),
+            today,
+            0,
+            0,
+        )
