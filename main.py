@@ -82,7 +82,7 @@ def main():
     product_list = get_product_list(product_data)
     unique_product_list = sorted(set(product_list))
     report_data = get_report_data()
-    print("report data:", report_data)
+    # print("report data:", report_data)
     report_data_dates = get_report_dates(report_data)
     # print(report_data_dates)
     if today not in report_data_dates:

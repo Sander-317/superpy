@@ -114,8 +114,8 @@ def create_report_data(buy_date, buy_price, report_data):
         if date["date"] == buy_date:
             date.update({"cost": str(int(date["cost"]) + int(buy_price))})
             break
-    # write_to_report_csv(report_data)
-    create_report_table(report_data)
+    write_to_report_csv(report_data)
+    # create_report_table(report_data)
     # print(data)
 
 
