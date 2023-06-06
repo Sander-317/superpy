@@ -22,6 +22,24 @@ install()
 
 
 def main():
+    today = get_today()
+    product_data = get_bought_data()
+    product_list = get_product_list(product_data)
+    unique_product_list = sorted(set(product_list))
+    report_data = get_report_data()
+    # print("report data:", report_data)
+    report_data_dates = get_report_dates(report_data)
+    # print(report_data_dates)
+    check_if_day_is_in_report(report_data_dates)
+    test = get_sold_data()
+    sold_products_id_list = get_sold_data(test, True)
+
+    product_dict = get_dict_of_products(
+        product_data, unique_product_list, sold_products_id_list
+    )
+    average_price_dict = get_average_price_dict(product_dict)
+    print("sold products id list main.py", sold_products_id_list)
+
     fmt = lambda prog: CustomHelpFormatter(prog)
 
     parser = argparse.ArgumentParser(formatter_class=fmt)
@@ -77,35 +95,23 @@ def main():
     now = arg.now
     advance_number_of_days = arg.advance_time
 
-    today = get_today()
-    product_data = get_bought_data()
-    product_list = get_product_list(product_data)
-    unique_product_list = sorted(set(product_list))
-    report_data = get_report_data()
-    # print("report data:", report_data)
-    report_data_dates = get_report_dates(report_data)
-    # print(report_data_dates)
-    check_if_day_is_in_report(today, report_data_dates)
-    # if today not in report_data_dates:
-    #     add_report_data(
-    #         get_id(),
-    #         today,
-    #         0,
-    #         0,
-    #     )
+    # today = get_today()
+    # product_data = get_bought_data()
+    # product_list = get_product_list(product_data)
+    # unique_product_list = sorted(set(product_list))
+    # report_data = get_report_data()
+    # # print("report data:", report_data)
+    # report_data_dates = get_report_dates(report_data)
+    # # print(report_data_dates)
+    # check_if_day_is_in_report(report_data_dates)
+    # test = get_sold_data()
+    # sold_products_id_list = get_sold_data(test, True)
 
-    test = get_sold_data()
-    sold_products_id_list = get_sold_data(test, True)
-    # count = Counter(product_list)
-    product_dict = get_dict_of_products(
-        product_data, unique_product_list, sold_products_id_list
-    )
-    average_price_dict = get_average_price_dict(product_dict)
-    # print("sold products id list main.py", sold_products_id_list)
-    # build_bought_file(
-    #     10,
-    #     10,
+    # product_dict = get_dict_of_products(
+    #     product_data, unique_product_list, sold_products_id_list
     # )
+    # average_price_dict = get_average_price_dict(product_dict)
+    # print("sold products id list main.py", sold_products_id_list)
 
     match action_one:
         case None:
@@ -145,6 +151,7 @@ def main():
 
 if __name__ == "__main__":
     print("today main.py", date.fromisoformat(get_today()))
+    check_if_day_is_in_report(get_report_dates(get_report_data()))
     # get_today()
     # build_bought_file(10, 10)
     main()

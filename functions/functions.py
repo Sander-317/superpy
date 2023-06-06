@@ -1,6 +1,7 @@
 # from functions.csv_functions import *
 # import csv_functions as csvf
-from functions import csv_functions
+# from functions import csv_functions
+from . import csv_functions as csv_functions
 
 
 # from csv_functions import *
@@ -118,22 +119,38 @@ def get_report_dates(report_data):
 
 
 def create_report_data(action, buy_date, buy_price, report_data):
-    if action == "buy":
-        for date in report_data:
-            if date["date"] == buy_date:
+    for date in report_data:
+        if date["date"] == buy_date:
+            if action == "buy":
                 date.update({"cost": str(int(date["cost"]) + int(buy_price))})
-                date.update({"profit": str(int(date["revenue"]) - int(date["cost"]))})
                 break
-    if action == "sell":
-        for date in report_data:
-            if date["date"] == buy_date:
+            elif action == "sell":
                 date.update({"revenue": str(int(date["revenue"]) + int(buy_price))})
-                date.update({"profit": str(int(date["revenue"]) - int(date["cost"]))})
                 break
+            date.update({"profit": str(int(date["revenue"]) - int(date["cost"]))})
 
     csv_functions.write_to_report_csv(report_data)
     create_report_table(report_data)
     # print(data)
+
+
+# def create_report_data(action, buy_date, buy_price, report_data):
+#     if action == "buy":
+#         for date in report_data:
+#             if date["date"] == buy_date:
+#                 date.update({"cost": str(int(date["cost"]) + int(buy_price))})
+#                 date.update({"profit": str(int(date["revenue"]) - int(date["cost"]))})
+#                 break
+#     if action == "sell":
+#         for date in report_data:
+#             if date["date"] == buy_date:
+#                 date.update({"revenue": str(int(date["revenue"]) + int(buy_price))})
+#                 date.update({"profit": str(int(date["revenue"]) - int(date["cost"]))})
+#                 break
+
+#     csv_functions.write_to_report_csv(report_data)
+#     create_report_table(report_data)
+#     # print(data)
 
 
 def create_report_table(report_data):
@@ -149,7 +166,9 @@ def create_report_table(report_data):
     console.print(table)
 
 
-def check_if_day_is_in_report(today, report_data_dates):
+def check_if_day_is_in_report(report_data_dates):
+    today = csv_functions.get_today()
+
     if today not in report_data_dates:
         csv_functions.add_report_data(
             csv_functions.get_id(),
