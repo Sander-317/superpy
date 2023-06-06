@@ -26,7 +26,7 @@ def buy_product(product_name, price, expiration_date, report_data):
         }
         csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
         csv_writer.writerow(to_add)
-        create_report_data(to_add["buy_date"], to_add["price"], report_data)
+        create_report_data("buy", to_add["buy_date"], to_add["price"], report_data)
         # csv_writer.writerow(
         #     {
         #         "id": get_id(),
@@ -43,7 +43,7 @@ def buy_product(product_name, price, expiration_date, report_data):
     # print("report data with test added", get_report_data())
 
 
-def sell_product(product_name, price, product_dict, sold_products_id_list):
+def sell_product(product_name, price, product_dict, sold_products_id_list, report_data):
     with open("data/sold.csv", "a", newline="") as new_file:
         fieldnames = [
             "id",
@@ -51,17 +51,17 @@ def sell_product(product_name, price, product_dict, sold_products_id_list):
             "sell_date",
             "price",
         ]
+        to_add = {
+            "id": get_id(),
+            "bought_id": get_bought_id(
+                product_name, product_dict, sold_products_id_list
+            ),
+            "sell_date": get_today(),
+            "price": price,
+        }
         csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
-        csv_writer.writerow(
-            {
-                "id": get_id(),
-                "bought_id": get_bought_id(
-                    product_name, product_dict, sold_products_id_list
-                ),
-                "sell_date": get_today(),
-                "price": price,
-            }
-        )
+        csv_writer.writerow(to_add)
+        create_report_data("sell", to_add["sell_date"], to_add["price"], report_data)
 
 
 def get_id():  # Walrus in function

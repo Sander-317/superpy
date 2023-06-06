@@ -85,14 +85,14 @@ def main():
     # print("report data:", report_data)
     report_data_dates = get_report_dates(report_data)
     # print(report_data_dates)
-    # check_if_day_is_in_report(today, report_data_dates)
-    if today not in report_data_dates:
-        add_report_data(
-            get_id(),
-            today,
-            0,
-            0,
-        )
+    check_if_day_is_in_report(today, report_data_dates)
+    # if today not in report_data_dates:
+    #     add_report_data(
+    #         get_id(),
+    #         today,
+    #         0,
+    #         0,
+    #     )
 
     test = get_sold_data()
     sold_products_id_list = get_sold_data(test, True)
@@ -117,7 +117,9 @@ def main():
                 f"you have added 1 {product_name} you bought for {price} and expires on {expiration_date}"
             )
         case "sell":
-            sell_product(product_name, price, product_dict, sold_products_id_list)
+            sell_product(
+                product_name, price, product_dict, sold_products_id_list, report_data
+            )
             print(f"you have sold {product_name} for {price}")
 
         case "report":

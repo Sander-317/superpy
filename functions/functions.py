@@ -1,4 +1,6 @@
-from functions.csv_functions import *
+# from functions.csv_functions import *
+# import csv_functions as csvf
+from functions import csv_functions
 
 
 # from csv_functions import *
@@ -81,6 +83,7 @@ def get_inventory_table(product_dict, average_price_dict, sold_products_id_list,
                     else:
                         continue
                 else:
+                    # TODO: add sell function once you made hem to add spoiled products to cost in the report
                     continue
             if product_list_by_day != []:
                 table.add_row(
@@ -114,13 +117,21 @@ def get_report_dates(report_data):
     return new_list
 
 
-def create_report_data(buy_date, buy_price, report_data):
-    for date in report_data:
-        if date["date"] == buy_date:
-            date.update({"cost": str(int(date["cost"]) + int(buy_price))})
-            break
-    # TODO: fix import problem from csv_functions.py
-    # write_to_report_csv(report_data)
+def create_report_data(action, buy_date, buy_price, report_data):
+    if action == "buy":
+        for date in report_data:
+            if date["date"] == buy_date:
+                date.update({"cost": str(int(date["cost"]) + int(buy_price))})
+                date.update({"profit": str(int(date["revenue"]) - int(date["cost"]))})
+                break
+    if action == "sell":
+        for date in report_data:
+            if date["date"] == buy_date:
+                date.update({"revenue": str(int(date["revenue"]) + int(buy_price))})
+                date.update({"profit": str(int(date["revenue"]) - int(date["cost"]))})
+                break
+
+    csv_functions.write_to_report_csv(report_data)
     create_report_table(report_data)
     # print(data)
 
@@ -140,8 +151,8 @@ def create_report_table(report_data):
 
 def check_if_day_is_in_report(today, report_data_dates):
     if today not in report_data_dates:
-        add_report_data(
-            get_id(),
+        csv_functions.add_report_data(
+            csv_functions.get_id(),
             today,
             0,
             0,
