@@ -111,10 +111,10 @@ def get_bought_id(product_name, product_dict, sold_products_id_list):
                 if product["id"] not in sold_products_id_list:
                     return product["id"]
             else:
-                print("product not in stock")
+                return "out of stock"
 
-    else:
-        print("product not in stock")
+    # else:
+    #     print("product not in stock")
 
 
 def get_report_dates(report_data):
@@ -129,11 +129,12 @@ def create_report_data(action, buy_date, buy_price, report_data):
         if date["date"] == buy_date:
             if action == "buy":
                 date.update({"cost": str(int(date["cost"]) + int(buy_price))})
+                date.update({"profit": str(int(date["revenue"]) - int(date["cost"]))})
                 break
             elif action == "sell":
                 date.update({"revenue": str(int(date["revenue"]) + int(buy_price))})
+                date.update({"profit": str(int(date["revenue"]) - int(date["cost"]))})
                 break
-            date.update({"profit": str(int(date["revenue"]) - int(date["cost"]))})
 
     csv_functions.write_to_report_csv(report_data)
     create_report_table(report_data)

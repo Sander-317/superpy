@@ -60,9 +60,17 @@ def sell_product(product_name, price, product_dict, sold_products_id_list, repor
             "sell_date": get_today(),
             "price": price,
         }
-        csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
-        csv_writer.writerow(to_add)
-        create_report_data("sell", to_add["sell_date"], to_add["price"], report_data)
+        print(to_add["bought_id"])
+        if to_add["bought_id"] == None:
+            print("OUT OF STOCK")
+            return
+        else:
+            print(f"you have sold {product_name} for {price}")
+            csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
+            csv_writer.writerow(to_add)
+            create_report_data(
+                "sell", to_add["sell_date"], to_add["price"], report_data
+            )
 
 
 def get_id():  # Walrus in function
@@ -146,7 +154,7 @@ def write_to_report_csv(report_data):
     for data in report_data:
         report_date_list.append(data["date"])
     print(report_date_list)
-    print("SORTED", sort_dates(report_date_list))
+    # print("SORTED", sort_dates(report_date_list))
     test = sort_dates(report_date_list)
     sorted_report_data = []
     for date in sort_dates(report_date_list, True):

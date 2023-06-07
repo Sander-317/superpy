@@ -126,7 +126,7 @@ def main():
             sell_product(
                 product_name, price, product_dict, sold_products_id_list, report_data
             )
-            print(f"you have sold {product_name} for {price}")
+            # print(f"you have sold {product_name} for {price}")
 
         case "report":
             if action_two == "inventory":
@@ -152,7 +152,7 @@ def main():
 if __name__ == "__main__":
     print("today main.py", date.fromisoformat(get_today()))
     # check_if_day_is_in_report(date.fromisoformat(get_today()))
-    # check_if_day_is_in_report(get_today())
+    check_if_day_is_in_report(get_today())
     # get_today()
     # build_bought_file(10, 10)
     main()
