@@ -166,8 +166,9 @@ def create_report_table(report_data):
     console.print(table)
 
 
-def check_if_day_is_in_report(report_data_dates):
-    today = csv_functions.get_today()
+def check_if_day_is_in_report(today):
+    report_data = csv_functions.get_report_data()
+    report_data_dates = csv_functions.get_report_dates(report_data)
 
     if today not in report_data_dates:
         csv_functions.add_report_data(

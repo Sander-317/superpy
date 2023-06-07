@@ -30,7 +30,7 @@ def main():
     # print("report data:", report_data)
     report_data_dates = get_report_dates(report_data)
     # print(report_data_dates)
-    check_if_day_is_in_report(report_data_dates)
+    # check_if_day_is_in_report(report_data_dates)
     test = get_sold_data()
     sold_products_id_list = get_sold_data(test, True)
 
@@ -151,7 +151,8 @@ def main():
 
 if __name__ == "__main__":
     print("today main.py", date.fromisoformat(get_today()))
-    check_if_day_is_in_report(get_today())
+    # check_if_day_is_in_report(date.fromisoformat(get_today()))
+    # check_if_day_is_in_report(get_today())
     # get_today()
     # build_bought_file(10, 10)
     main()

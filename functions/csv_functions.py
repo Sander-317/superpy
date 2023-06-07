@@ -147,30 +147,42 @@ def write_to_report_csv(report_data):
             csv_writer.writerow(row)
 
 
+def advance_time(days):
+    new_date = date.fromisoformat(get_today()) + timedelta(days=int(days))
+
+    # new_list = []
+
+    # new_list.append(new_date)
+    for i in range(int(days)):
+        check_day = date.fromisoformat(get_today()) + timedelta(days=int(i))
+        # check_day = today + timedelta(days=int(i))
+        check_if_day_is_in_report(str(check_day))
+        print("advance time", i, check_day)
+    # with open("data/today.csv", "w") as csv_today:
+    #     csv_writer = csv.writer(csv_today)
+    #     csv_writer.writerow(new_list)
+    change_today(new_date)
+    return new_date
+
+
+def change_today(new_today):
+    new_list = []
+    new_list.append(new_today)
+    with open("data/today.csv", "w") as csv_today:
+        csv_writer = csv.writer(csv_today)
+        csv_writer.writerow(new_list)
+        new_list = []
+
+
 # def advance_time(days):
 #     today = date.fromisoformat(get_today())
 #     new_date = today + timedelta(days=int(days))
-#     report_dates = check_if_day_is_in_report(get_report_dates(get_report_data()))
 #     new_list = []
 #     new_list.append(new_date)
-#     for i in range(int(days)):
-
-#         print("advance time", i)
 #     with open("data/today.csv", "w") as csv_today:
 #         csv_writer = csv.writer(csv_today)
 #         csv_writer.writerow(new_list)
 #     return new_date
-
-
-def advance_time(days):
-    today = date.fromisoformat(get_today())
-    new_date = today + timedelta(days=int(days))
-    new_list = []
-    new_list.append(new_date)
-    with open("data/today.csv", "w") as csv_today:
-        csv_writer = csv.writer(csv_today)
-        csv_writer.writerow(new_list)
-    return new_date
 
 
 def get_bought_data():
