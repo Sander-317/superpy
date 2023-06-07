@@ -109,8 +109,8 @@ def main():
     action_one = arg.action1
     action_two = arg.action2
     product_name = arg.product_name
-    # price = arg.price
-    price = str(round(float(arg.price), 2))
+    price = arg.price
+    # price = str(round(float(arg.price), 2))
     expiration_date = arg.expiration_date
     now = arg.now
     yesterday_arg = arg.yesterday
