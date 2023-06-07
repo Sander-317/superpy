@@ -6,6 +6,7 @@ from datetime import datetime, timedelta, date
 from functions.functions import *
 from rich.table import Table
 from rich.console import Console
+from operator import itemgetter
 
 
 def buy_product(product_name, price, expiration_date, report_data):
@@ -137,13 +138,30 @@ def add_report_data(
 
 
 def write_to_report_csv(report_data):
+    # print("Writing to report", report_data)
+    # print("Writing to report sorted", sort_dates(report_data))
+    # print(sorted(report_data.date(), key=itemgetter(1), reverse=True))
+    # print(dict(sorted(report_data["date"](), key=lambda item: item[1])))
+    report_date_list = []
+    for data in report_data:
+        report_date_list.append(data["date"])
+    print(report_date_list)
+    print("SORTED", sort_dates(report_date_list))
+    test = sort_dates(report_date_list)
+    sorted_report_data = []
+    for date in sort_dates(report_date_list, True):
+        # for date in report_date_list:
+        for report in report_data:
+            if report["date"] == date:
+                sorted_report_data.append(report)
+    print(sorted_report_data)
     with open(
         "data/report.csv",
         "w",
     ) as csv_report:
         fieldnames = ["id", "date", "cost", "revenue", "profit"]
         csv_writer = csv.DictWriter(csv_report, fieldnames=fieldnames)
-        for row in report_data:
+        for row in sorted_report_data:
             csv_writer.writerow(row)
 
 

@@ -56,11 +56,17 @@ def get_unique_expiration_dates(dict):
     return sorted_new_list
 
 
-def sort_dates(dates):
+def sort_dates(dates, reverse=False):
     def date_key(date_string):
         return datetime.strptime(date_string, "%Y-%m-%d")
 
-    return sorted(dates, key=date_key)
+    if reverse:
+        return sorted(dates, key=date_key, reverse=True)
+    else:
+        return sorted(
+            dates,
+            key=date_key,
+        )
 
 
 def get_inventory_table(product_dict, average_price_dict, sold_products_id_list, today):
