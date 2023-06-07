@@ -85,6 +85,19 @@ def main():
         help="gets value of yesterday",
     )
     parser.add_argument(
+        "-td",
+        "--today",
+        action="store_true",
+        help="gets value of yesterday",
+    )
+
+    parser.add_argument(
+        "-d",
+        "--date",
+        action="store",
+        help="gets value of specific date",
+    )
+    parser.add_argument(
         "-at",
         "--advance_time",
         action="store",
@@ -99,6 +112,9 @@ def main():
     price = arg.price
     expiration_date = arg.expiration_date
     now = arg.now
+    yesterday_arg = arg.yesterday
+    today_arg = arg.today
+    date_arg = arg.date
     advance_number_of_days = arg.advance_time
 
     # today = get_today()
@@ -144,7 +160,16 @@ def main():
                 else:
                     print("yeeey inventory")
             elif action_two == "revenue":
-                print("yeeey revenue")
+                if yesterday_arg:
+                    yesterday = get_yesterday()
+                    get_report_specific_data(report_data, yesterday)
+                    print("revenue yesterday")
+                elif today_arg:
+                    get_report_specific_data(report_data, get_today())
+                    print("revenue today")
+                elif date_arg:
+                    get_report_specific_data(report_data, date_arg)
+                    print(f"revenue date: {date_arg}")
             elif action_two == "profit":
                 print("yeeey profit")
             elif action_two == "all":

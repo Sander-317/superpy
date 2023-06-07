@@ -6,7 +6,9 @@ from . import csv_functions as csv_functions
 
 # from csv_functions import *
 from collections import Counter
-from datetime import datetime
+
+# from datetime import datetime
+from datetime import datetime, timedelta, date
 from rich.table import Table
 from rich.console import Console
 
@@ -184,3 +186,16 @@ def check_if_day_is_in_report(today):
             0,
             0,
         )
+
+
+def get_report_specific_data(report_data, date):
+    print("IT WORKS", date)
+    # print(report_data)
+    for report in report_data:
+        if str(date) in str(report["date"]):
+            print("REPORT", report)
+
+
+def get_yesterday():
+    yesterday = date.fromisoformat(csv_functions.get_today()) - timedelta(days=int(1))
+    return yesterday
