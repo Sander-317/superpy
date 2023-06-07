@@ -127,15 +127,22 @@ def get_report_dates(report_data):
 
 
 def create_report_data(action, buy_date, buy_price, report_data):
+    # price = round(float(buy_price), 2)
     for date in report_data:
         if date["date"] == buy_date:
             if action == "buy":
-                date.update({"cost": str(int(date["cost"]) + int(buy_price))})
-                date.update({"profit": str(int(date["revenue"]) - int(date["cost"]))})
+                # date.update({"cost": str(float(date["cost"]) + float(buy_price))})
+                date.update({"cost": str(float(date["cost"]) + float(buy_price))})
+                date.update(
+                    {"profit": str(float(date["revenue"]) - float(date["cost"]))}
+                )
                 break
             elif action == "sell":
-                date.update({"revenue": str(int(date["revenue"]) + int(buy_price))})
-                date.update({"profit": str(int(date["revenue"]) - int(date["cost"]))})
+                date.update({"revenue": str(float(date["revenue"]) + float(buy_price))})
+                date.update(
+                    {"profit": str(float(date["revenue"]) - float(date["cost"]))}
+                    # {"profit": str(float(date["revenue"]) - float(date["cost"]))}
+                )
                 break
 
     csv_functions.write_to_report_csv(report_data)
@@ -170,7 +177,12 @@ def create_report_table(report_data):
     table.add_column("profit")
 
     for data in report_data:
-        table.add_row(data["date"], data["cost"], data["revenue"], data["profit"])
+        table.add_row(
+            data["date"],
+            str(round(float(data["cost"]), 2)),
+            str(round(float(data["revenue"]), 2)),
+            str(round(float(data["profit"]), 2)),
+        )
     console = Console()
     console.print(table)
 
@@ -188,12 +200,19 @@ def check_if_day_is_in_report(today):
         )
 
 
-def get_report_specific_data(report_data, date):
+def get_report_specific_data(report_data, date, action):
     print("IT WORKS", date)
     # print(report_data)
+    new_list = []
     for report in report_data:
         if str(date) in str(report["date"]):
+            new_list.append(report)
             print("REPORT", report)
+    # if len(new_list) == 1:
+    # else:
+    # print(f"the {action} is of {new_list[0][action]}")
+    print(f"the {action} of {date} is  {sum(float(item[action]) for item in new_list)}")
+    print(sum(float(item[action]) for item in new_list))
 
 
 def get_yesterday():

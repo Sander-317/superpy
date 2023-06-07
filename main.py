@@ -109,7 +109,8 @@ def main():
     action_one = arg.action1
     action_two = arg.action2
     product_name = arg.product_name
-    price = arg.price
+    # price = arg.price
+    price = str(round(float(arg.price), 2))
     expiration_date = arg.expiration_date
     now = arg.now
     yesterday_arg = arg.yesterday
@@ -161,17 +162,24 @@ def main():
                     print("yeeey inventory")
             elif action_two == "revenue":
                 if yesterday_arg:
-                    yesterday = get_yesterday()
-                    get_report_specific_data(report_data, yesterday)
-                    print("revenue yesterday")
+                    get_report_specific_data(report_data, get_yesterday(), "revenue")
+
                 elif today_arg:
-                    get_report_specific_data(report_data, get_today())
-                    print("revenue today")
+                    get_report_specific_data(report_data, get_today(), "revenue")
+
                 elif date_arg:
-                    get_report_specific_data(report_data, date_arg)
-                    print(f"revenue date: {date_arg}")
+                    get_report_specific_data(report_data, date_arg, "revenue")
+
             elif action_two == "profit":
-                print("yeeey profit")
+                if yesterday_arg:
+                    get_report_specific_data(report_data, get_yesterday(), "profit")
+
+                elif today_arg:
+                    get_report_specific_data(report_data, get_today(), "profit")
+
+                elif date_arg:
+                    get_report_specific_data(report_data, date_arg, "profit")
+
             elif action_two == "all":
                 create_report_table(report_data)
 
