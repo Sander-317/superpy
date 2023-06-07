@@ -151,7 +151,7 @@ def main():
 
 if __name__ == "__main__":
     print("today main.py", date.fromisoformat(get_today()))
-    check_if_day_is_in_report(get_report_dates(get_report_data()))
+    check_if_day_is_in_report(get_today())
     # get_today()
     # build_bought_file(10, 10)
     main()

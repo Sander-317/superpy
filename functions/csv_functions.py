@@ -147,6 +147,21 @@ def write_to_report_csv(report_data):
             csv_writer.writerow(row)
 
 
+# def advance_time(days):
+#     today = date.fromisoformat(get_today())
+#     new_date = today + timedelta(days=int(days))
+#     report_dates = check_if_day_is_in_report(get_report_dates(get_report_data()))
+#     new_list = []
+#     new_list.append(new_date)
+#     for i in range(int(days)):
+
+#         print("advance time", i)
+#     with open("data/today.csv", "w") as csv_today:
+#         csv_writer = csv.writer(csv_today)
+#         csv_writer.writerow(new_list)
+#     return new_date
+
+
 def advance_time(days):
     today = date.fromisoformat(get_today())
     new_date = today + timedelta(days=int(days))
