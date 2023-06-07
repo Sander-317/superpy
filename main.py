@@ -79,6 +79,12 @@ def main():
         help="gets inventory now first action needs to be report action 2 needs to be inventory",
     )
     parser.add_argument(
+        "-yd",
+        "--yesterday",
+        action="store_true",
+        help="gets value of yesterday",
+    )
+    parser.add_argument(
         "-at",
         "--advance_time",
         action="store",
