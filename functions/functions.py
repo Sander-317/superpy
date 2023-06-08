@@ -41,11 +41,8 @@ def get_unique_expiration_dates(dict):
     expiration_date_list = []
     for i in dict:
         expiration_date_list.append(i["expiration_date"])
-
     new_list = list(set(expiration_date_list))
-
     sorted_new_list = sort_dates(new_list)
-
     return sorted_new_list
 
 
@@ -83,7 +80,6 @@ def get_inventory_table(product_dict, average_price_dict, sold_products_id_list,
                     else:
                         continue
                 else:
-                    # TODO: add sell function once you made hem to add spoiled products to cost in the report
                     continue
             if product_list_by_day != []:
                 table.add_row(
@@ -106,9 +102,6 @@ def get_bought_id(product_name, product_dict, sold_products_id_list):
             else:
                 return "out of stock"
 
-    # else:
-    #     print("product not in stock")
-
 
 def get_report_dates(report_data):
     new_list = []
@@ -118,12 +111,11 @@ def get_report_dates(report_data):
 
 
 def create_report_data(action, buy_date, buy_price, report_data):
-    # price = round(float(buy_price), 2)
     for date in report_data:
         if date["date"] == buy_date:
             if action == "buy":
-                # date.update({"cost": str(float(date["cost"]) + float(buy_price))})
                 date.update({"cost": str(float(date["cost"]) + float(buy_price))})
+
                 date.update(
                     {"profit": str(float(date["revenue"]) - float(date["cost"]))}
                 )
@@ -132,13 +124,11 @@ def create_report_data(action, buy_date, buy_price, report_data):
                 date.update({"revenue": str(float(date["revenue"]) + float(buy_price))})
                 date.update(
                     {"profit": str(float(date["revenue"]) - float(date["cost"]))}
-                    # {"profit": str(float(date["revenue"]) - float(date["cost"]))}
                 )
                 break
 
     csv_functions.write_to_report_csv(report_data)
     create_report_table(report_data)
-    # print(data)
 
 
 def create_report_table(report_data):
@@ -177,7 +167,6 @@ def get_report_specific_data(report_data, action_date, action):
     for report in report_data:
         if str(action_date) in str(report["date"]):
             new_list.append(report)
-
     if action == "table":
         create_report_table(new_list)
     else:

@@ -1,12 +1,6 @@
 import csv
-
-# import datetime
-# from datetime import date
 from datetime import datetime, timedelta, date
 from functions.functions import *
-from rich.table import Table
-from rich.console import Console
-from operator import itemgetter
 
 
 def buy_product(product_name, price, expiration_date, report_data):
@@ -79,7 +73,6 @@ def get_today():  # Walrus in function
         csv_reader = csv.reader(csv_id)
         for row in csv_reader:
             (today := row[0])
-
     return today
 
 
@@ -87,8 +80,6 @@ def get_report_data():
     with open("data/report.csv", "r") as csv_report:
         fieldnames = ["id", "date", "cost", "revenue", "profit"]
         csv_reader = csv.DictReader(csv_report, fieldnames=fieldnames)
-        # csv_reader = csv.reader(csv_report)
-
         new_list = []
         for row in csv_reader:
             new_list.append(
@@ -100,9 +91,6 @@ def get_report_data():
                     "profit": row["profit"],
                 }
             )
-        # for row in csv_reader:
-        #     new_list.append(row)
-        # print("new list in get report data", new_list)
     return new_list
 
 
@@ -112,7 +100,6 @@ def add_report_data(
     cost,
     revenue,
 ):
-    # print("get report data in add report data", get_report_data())
     report_data = get_report_data()
     new_profit = revenue - cost
     report_data.append(
@@ -125,16 +112,11 @@ def write_to_report_csv(report_data):
     report_date_list = []
     for data in report_data:
         report_date_list.append(data["date"])
-    print(report_date_list)
-    # print("SORTED", sort_dates(report_date_list))
-    test = sort_dates(report_date_list)
     sorted_report_data = []
     for date in sort_dates(report_date_list, True):
-        # for date in report_date_list:
         for report in report_data:
             if report["date"] == date:
                 sorted_report_data.append(report)
-    print(sorted_report_data)
     with open(
         "data/report.csv",
         "w",
@@ -147,18 +129,9 @@ def write_to_report_csv(report_data):
 
 def advance_time(days):
     new_date = date.fromisoformat(get_today()) + timedelta(days=int(days))
-
-    # new_list = []
-
-    # new_list.append(new_date)
     for i in range(int(days)):
         check_day = date.fromisoformat(get_today()) + timedelta(days=int(i))
-        # check_day = today + timedelta(days=int(i))
         check_if_day_is_in_report(str(check_day))
-        print("advance time", i, check_day)
-    # with open("data/today.csv", "w") as csv_today:
-    #     csv_writer = csv.writer(csv_today)
-    #     csv_writer.writerow(new_list)
     change_today(new_date)
     return new_date
 
@@ -187,7 +160,6 @@ def get_bought_data():
                     "expiration_date": row["expiration_date"],
                 }
             )
-
     return product_list
 
 
@@ -203,7 +175,6 @@ def get_sold_data(list_test=[], print_out_of_stock=False):
                     sold_product_id_list.append(row["bought_id"])
             else:
                 not_in_stock = True
-
         if not_in_stock and print_out_of_stock:
             print("product not in stock")
     return sold_product_id_list

@@ -1,13 +1,8 @@
 # Imports
 import argparse
-import csv
-
-# from datetime import date
-# import datetime
 from functions.csv_functions import *
 from functions.functions import *
 from create_test_data.create_bought_file_data import *
-
 from classes.HelpFormatter import *
 from rich import print
 from rich.traceback import install
@@ -27,13 +22,8 @@ def main():
     product_list = get_product_list(product_data)
     unique_product_list = sorted(set(product_list))
     report_data = get_report_data()
-    # print("report data:", report_data)
-    report_data_dates = get_report_dates(report_data)
-    # print(report_data_dates)
-    # check_if_day_is_in_report(report_data_dates)
     test = get_sold_data()
     sold_products_id_list = get_sold_data(test, True)
-
     product_dict = get_dict_of_products(
         product_data, unique_product_list, sold_products_id_list
     )
@@ -43,7 +33,7 @@ def main():
     fmt = lambda prog: CustomHelpFormatter(prog)
 
     parser = argparse.ArgumentParser(formatter_class=fmt)
-    # parser = argparse.ArgumentParser(formatter_class=SmartFormatter)
+
     # parser = argparse.ArgumentParser(description="Super py")
     parser.add_argument(
         "action1",
@@ -113,7 +103,6 @@ def main():
     action_two = arg.action2
     product_name = arg.product_name
     price = arg.price
-
     expiration_date = arg.expiration_date
     now = arg.now
     yesterday_arg = arg.yesterday
@@ -134,17 +123,14 @@ def main():
             sell_product(
                 product_name, price, product_dict, sold_products_id_list, report_data
             )
-            # print(f"you have sold {product_name} for {price}")
 
         case "report":
             if action_two == "inventory":
                 if now == True:
-                    # print("yeeey inventory now")
                     get_inventory_table(
                         product_dict, average_price_dict, sold_products_id_list, today
                     )
-                else:
-                    print("yeeey inventory")
+
             elif action_two == "revenue":
                 if yesterday_arg:
                     get_report_specific_data(report_data, get_yesterday(), "revenue")
@@ -179,13 +165,10 @@ def main():
 
         case _:
             pass
-            # print("you fucked up")
 
 
 if __name__ == "__main__":
     print("today main.py", date.fromisoformat(get_today()))
-    # check_if_day_is_in_report(date.fromisoformat(get_today()))
     check_if_day_is_in_report(get_today())
-    # get_today()
     # build_bought_file(10, 10)
     main()
