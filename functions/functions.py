@@ -200,21 +200,32 @@ def check_if_day_is_in_report(today):
         )
 
 
-def get_report_specific_data(report_data, date, action):
-    print("IT WORKS", date)
+def get_report_specific_data(report_data, action_date, action):
+    # print("IT WORKS", date)
     # print(report_data)
     new_list = []
     for report in report_data:
-        if str(date) in str(report["date"]):
+        if str(action_date) in str(report["date"]):
             new_list.append(report)
-            print("REPORT", report)
+            # print("REPORT", report)
     if action == "table":
         create_report_table(new_list)
     else:
-        print(
-            f"the {action} of {date} is  {sum(float(item[action]) for item in new_list)}"
-        )
-        print(sum(float(item[action]) for item in new_list))
+        if len(action_date) > 7:
+            print(
+                f"the {action} of {action_date} is  {sum(float(item[action]) for item in new_list)}"
+            )
+        else:
+            new_action_date = action_date + "-01"
+            new_date = date.fromisoformat(new_action_date)
+            print(
+                f"the {action} of {new_date.strftime('%B %Y')} is {sum(float(item[action]) for item in new_list)}"
+            )
+            # print(datetime.strptime(date, "%Y %B "))
+            # print(date.strftime(" %B %Y "))
+            # print(date.strftime(" %B %Y "))
+
+        # print(sum(float(item[action]) for item in new_list))
 
 
 def get_yesterday():
