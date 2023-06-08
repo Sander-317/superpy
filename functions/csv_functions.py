@@ -28,20 +28,6 @@ def buy_product(product_name, price, expiration_date, report_data):
         csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
         csv_writer.writerow(to_add)
         create_report_data("buy", to_add["buy_date"], to_add["price"], report_data)
-        # csv_writer.writerow(
-        #     {
-        #         "id": get_id(),
-        #         "buy_date": get_today(),
-        #         "product_name": product_name,
-        #         "price": price,
-        #         "expiration_date": expiration_date,
-        #     }
-        # )
-        # add_report_data(get_id(), to_add["buy_date"], to_add["price"])
-    # print("new buy product function", product_name, price, expiration_date)
-    # print("report data", get_report_data())
-    # print("add test to report data", add_report_data("test"))
-    # print("report data with test added", get_report_data())
 
 
 def sell_product(product_name, price, product_dict, sold_products_id_list, report_data):
@@ -133,23 +119,9 @@ def add_report_data(
         {"id": id, "date": date, "cost": cost, "revenue": revenue, "profit": new_profit}
     )
     write_to_report_csv(report_data)
-    # print(report_data)
-    # print(report_data[0])
-    # with open(
-    #     "data/report.csv",
-    #     "w",
-    # ) as csv_report:
-    #     fieldnames = ["id", "date", "cost", "revenue", "profit"]
-    #     csv_writer = csv.DictWriter(csv_report, fieldnames=fieldnames)
-    #     for row in report_data:
-    #         csv_writer.writerow(row)
 
 
 def write_to_report_csv(report_data):
-    # print("Writing to report", report_data)
-    # print("Writing to report sorted", sort_dates(report_data))
-    # print(sorted(report_data.date(), key=itemgetter(1), reverse=True))
-    # print(dict(sorted(report_data["date"](), key=lambda item: item[1])))
     report_date_list = []
     for data in report_data:
         report_date_list.append(data["date"])
@@ -198,17 +170,6 @@ def change_today(new_today):
         csv_writer = csv.writer(csv_today)
         csv_writer.writerow(new_list)
         new_list = []
-
-
-# def advance_time(days):
-#     today = date.fromisoformat(get_today())
-#     new_date = today + timedelta(days=int(days))
-#     new_list = []
-#     new_list.append(new_date)
-#     with open("data/today.csv", "w") as csv_today:
-#         csv_writer = csv.writer(csv_today)
-#         csv_writer.writerow(new_list)
-#     return new_date
 
 
 def get_bought_data():

@@ -1,13 +1,4 @@
-# from functions.csv_functions import *
-# import csv_functions as csvf
-# from functions import csv_functions
 from . import csv_functions as csv_functions
-
-
-# from csv_functions import *
-from collections import Counter
-
-# from datetime import datetime
 from datetime import datetime, timedelta, date
 from rich.table import Table
 from rich.console import Console
@@ -150,25 +141,6 @@ def create_report_data(action, buy_date, buy_price, report_data):
     # print(data)
 
 
-# def create_report_data(action, buy_date, buy_price, report_data):
-#     if action == "buy":
-#         for date in report_data:
-#             if date["date"] == buy_date:
-#                 date.update({"cost": str(int(date["cost"]) + int(buy_price))})
-#                 date.update({"profit": str(int(date["revenue"]) - int(date["cost"]))})
-#                 break
-#     if action == "sell":
-#         for date in report_data:
-#             if date["date"] == buy_date:
-#                 date.update({"revenue": str(int(date["revenue"]) + int(buy_price))})
-#                 date.update({"profit": str(int(date["revenue"]) - int(date["cost"]))})
-#                 break
-
-#     csv_functions.write_to_report_csv(report_data)
-#     create_report_table(report_data)
-#     # print(data)
-
-
 def create_report_table(report_data):
     table = Table(title="report")
     table.add_column("date")
@@ -201,31 +173,21 @@ def check_if_day_is_in_report(today):
 
 
 def get_report_specific_data(report_data, action_date, action):
-    # print("IT WORKS", date)
-    # print(report_data)
     new_list = []
     for report in report_data:
         if str(action_date) in str(report["date"]):
             new_list.append(report)
-            # print("REPORT", report)
+
     if action == "table":
         create_report_table(new_list)
     else:
+        total_amount = round(sum(float(item[action]) for item in new_list), 2)
         if len(action_date) > 7:
-            print(
-                f"the {action} of {action_date} is  {sum(float(item[action]) for item in new_list)}"
-            )
+            print(f"the {action} of {action_date} is  {total_amount}")
         else:
             new_action_date = action_date + "-01"
             new_date = date.fromisoformat(new_action_date)
-            print(
-                f"the {action} of {new_date.strftime('%B %Y')} is {sum(float(item[action]) for item in new_list)}"
-            )
-            # print(datetime.strptime(date, "%Y %B "))
-            # print(date.strftime(" %B %Y "))
-            # print(date.strftime(" %B %Y "))
-
-        # print(sum(float(item[action]) for item in new_list))
+            print(f"the {action} of {new_date.strftime('%B %Y')} is {total_amount}")
 
 
 def get_yesterday():

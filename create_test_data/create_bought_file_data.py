@@ -1,11 +1,5 @@
 import random
-
-import datetime
 from datetime import datetime, timedelta, date
-
-# from datetime import datetime, timedelta
-
-# from datetime import date
 from functions.csv_functions import *
 
 
@@ -20,18 +14,10 @@ products_list = [
 ]
 
 
-# Buy_product(get_id(), product_name, price, expiration_date).buy()
-
-
 def build_bought_file(
     number_of_days,
     max_products_per_day,
 ):
-    # today = date.fromisoformat(get_today())
-    # expiration_date = date.today().strftime("%Y-%m-%d")
-    # expiration_date = date.fromisoformat(expiration_date) + timedelta(days=5)
-    # print(expiration_date)
-
     for i in range(number_of_days):
         for i in range(random.randint(0, max_products_per_day)):
             product = products_list[random.randint(0, len(products_list) - 1)]
@@ -40,16 +26,8 @@ def build_bought_file(
             product["expiration_date"] = "{}-{}-{}".format(
                 expiration_date.year, expiration_date.month, expiration_date.day
             )
-            # print(product)
-            # Buy_product(
-            #     get_id(),
-            #     product["product_name"],
-            #     product["price"],
-            #     product["expiration_date"],
-            # ).buy()
+
             buy_product(
                 product["product_name"], product["price"], product["expiration_date"]
             )
-            # sell_product(product["product_name"], product["price"] * 2, product_dict)
-        # today = today + datetime.timedelta(days=1)
         advance_time(1)

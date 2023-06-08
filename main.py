@@ -113,31 +113,13 @@ def main():
     action_two = arg.action2
     product_name = arg.product_name
     price = arg.price
-    # price = str(round(float(arg.price), 2))
+
     expiration_date = arg.expiration_date
     now = arg.now
     yesterday_arg = arg.yesterday
     today_arg = arg.today
     date_arg = arg.date
     advance_number_of_days = arg.advance_time
-
-    # today = get_today()
-    # product_data = get_bought_data()
-    # product_list = get_product_list(product_data)
-    # unique_product_list = sorted(set(product_list))
-    # report_data = get_report_data()
-    # # print("report data:", report_data)
-    # report_data_dates = get_report_dates(report_data)
-    # # print(report_data_dates)
-    # check_if_day_is_in_report(report_data_dates)
-    # test = get_sold_data()
-    # sold_products_id_list = get_sold_data(test, True)
-
-    # product_dict = get_dict_of_products(
-    #     product_data, unique_product_list, sold_products_id_list
-    # )
-    # average_price_dict = get_average_price_dict(product_dict)
-    # print("sold products id list main.py", sold_products_id_list)
 
     match action_one:
         case None:
