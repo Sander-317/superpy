@@ -70,7 +70,10 @@ def main():
         "-p", "--price", action="store", help="enter the price of the product"
     )
     parser.add_argument(
-        "-ed", "--expiration_date", action="store", help="enter the expiration date"
+        "-ed",
+        "--expiration_date",
+        action="store",
+        help="enter the expiration date YYYY-MM-DD",
     )
     parser.add_argument(
         "-n",
@@ -82,20 +85,20 @@ def main():
         "-yd",
         "--yesterday",
         action="store_true",
-        help="gets value of yesterday",
+        help="gets value of yesterday can be used for report [inventory, profit, revenue]",
     )
     parser.add_argument(
         "-td",
         "--today",
         action="store_true",
-        help="gets value of yesterday",
+        help="gets value of yesterday can be used for report [inventory, profit, revenue]",
     )
 
     parser.add_argument(
         "-d",
         "--date",
         action="store",
-        help="gets value of specific date",
+        help="gets value of specific date can be used for report [inventory, profit, revenue]",
     )
     parser.add_argument(
         "-at",
@@ -143,7 +146,7 @@ def main():
         case "buy":
             buy_product(product_name, price, expiration_date, report_data)
             print(
-                f"you have added 1 {product_name} you bought for {price} and expires on {expiration_date}"
+                f"you have added 1 {product_name} you bought for {round(float(price),2)} and expires on {expiration_date}"
             )
         case "sell":
             sell_product(
