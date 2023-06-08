@@ -183,8 +183,17 @@ def main():
                 elif date_arg:
                     get_report_specific_data(report_data, date_arg, "profit")
 
-            elif action_two == "all":
-                create_report_table(report_data)
+            elif action_two == "table":
+                if yesterday_arg:
+                    get_report_specific_data(report_data, get_yesterday(), "table")
+
+                elif today_arg:
+                    get_report_specific_data(report_data, get_today(), "table")
+
+                elif date_arg:
+                    get_report_specific_data(report_data, date_arg, "table")
+                else:
+                    create_report_table(report_data)
 
         case _:
             pass

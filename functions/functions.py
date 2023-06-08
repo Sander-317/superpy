@@ -208,11 +208,13 @@ def get_report_specific_data(report_data, date, action):
         if str(date) in str(report["date"]):
             new_list.append(report)
             print("REPORT", report)
-    # if len(new_list) == 1:
-    # else:
-    # print(f"the {action} is of {new_list[0][action]}")
-    print(f"the {action} of {date} is  {sum(float(item[action]) for item in new_list)}")
-    print(sum(float(item[action]) for item in new_list))
+    if action == "table":
+        create_report_table(new_list)
+    else:
+        print(
+            f"the {action} of {date} is  {sum(float(item[action]) for item in new_list)}"
+        )
+        print(sum(float(item[action]) for item in new_list))
 
 
 def get_yesterday():
