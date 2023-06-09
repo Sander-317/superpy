@@ -184,7 +184,7 @@ def get_report_specific_data(report_data, action_date, action):
         create_report_table(new_list)
     else:
         total_amount = round(sum(float(item[action]) for item in new_list), 2)
-        if len(action_date) > 7:
+        if len(str(action_date)) > 7:
             console.print(
                 f"the {action} of {action_date} is {total_amount}",
                 style="blue",
