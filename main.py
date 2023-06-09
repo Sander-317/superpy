@@ -48,7 +48,7 @@ def main():
         type=str,
         default="5",
         nargs="?",
-        help="if first action is report the options are [inventory, revenue, profit] ",
+        help="if first action is report the options are [inventory, revenue, profit, table] ",
     )
     parser.add_argument(
         "-pn",

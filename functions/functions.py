@@ -2,6 +2,12 @@ from . import csv_functions as csv_functions
 from datetime import datetime, timedelta, date
 from rich.table import Table
 from rich.console import Console
+from rich import print
+from rich.align import Align
+from rich import box
+from rich.pretty import Pretty
+from rich.panel import Panel
+from rich.pretty import pprint
 
 
 def get_product_list(product_data):
@@ -60,11 +66,12 @@ def sort_dates(dates, reverse=False):
 
 
 def get_inventory_table(product_dict, average_price_dict, sold_products_id_list, today):
-    table = Table(title="inventory")
-    table.add_column("name")
-    table.add_column("count")
-    table.add_column("price")
-    table.add_column("expiration date")
+    table = Table(title="inventory", box=box.MINIMAL_DOUBLE_HEAD)
+
+    table.add_column("name", style="blue", justify="center")
+    table.add_column("count", style="blue", justify="center")
+    table.add_column("price", style="yellow", justify="center")
+    table.add_column("expiration date", style="blue", justify="center")
 
     for product in product_dict:
         expiration_dates = get_unique_expiration_dates(product_dict[product])
@@ -88,7 +95,7 @@ def get_inventory_table(product_dict, average_price_dict, sold_products_id_list,
                     str(average_price_dict[product]),
                     date,
                 )
-
+    table = Align.center(table, vertical="middle")
     console = Console()
     console.print(table)
 
@@ -132,11 +139,13 @@ def create_report_data(action, buy_date, buy_price, report_data):
 
 
 def create_report_table(report_data):
-    table = Table(title="report")
-    table.add_column("date")
-    table.add_column("cost")
-    table.add_column("revenue")
-    table.add_column("profit")
+    table = Table(title="report", box=box.MINIMAL_DOUBLE_HEAD)
+    # table = Table(title="report", box=box.ASCII2)
+    # table = Table(title="report", box=None)
+    table.add_column("date", style="blue", justify="center")
+    table.add_column("cost", style="red", justify="center")
+    table.add_column("revenue", style="green", justify="center")
+    table.add_column("profit", style="yellow", justify="center")
 
     for data in report_data:
         table.add_row(
@@ -145,7 +154,9 @@ def create_report_table(report_data):
             str(round(float(data["revenue"]), 2)),
             str(round(float(data["profit"]), 2)),
         )
+    table = Align.center(table, vertical="middle")
     console = Console()
+    # console.print(Panel(table))
     console.print(table)
 
 
