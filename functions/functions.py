@@ -9,6 +9,8 @@ from rich.pretty import Pretty
 from rich.panel import Panel
 from rich.pretty import pprint
 
+console = Console()
+
 
 def get_product_list(product_data):
     product_list = []
@@ -135,7 +137,7 @@ def create_report_data(action, buy_date, buy_price, report_data):
                 break
 
     csv_functions.write_to_report_csv(report_data)
-    create_report_table(report_data)
+    # create_report_table(report_data)
 
 
 def create_report_table(report_data):
@@ -183,11 +185,19 @@ def get_report_specific_data(report_data, action_date, action):
     else:
         total_amount = round(sum(float(item[action]) for item in new_list), 2)
         if len(action_date) > 7:
-            print(f"the {action} of {action_date} is  {total_amount}")
+            console.print(
+                f"the {action} of {action_date} is {total_amount}",
+                style="blue",
+                justify="center",
+            )
         else:
             new_action_date = action_date + "-01"
             new_date = date.fromisoformat(new_action_date)
-            print(f"the {action} of {new_date.strftime('%B %Y')} is {total_amount}")
+            console.print(
+                f"the {action} of {new_date.strftime('%B %Y')} is {total_amount}",
+                style="blue",
+                justify="center",
+            )
 
 
 def get_yesterday():

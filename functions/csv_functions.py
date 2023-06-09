@@ -2,6 +2,11 @@ import csv
 from datetime import datetime, timedelta, date
 from functions.functions import *
 
+from rich import print
+from rich.console import Console
+
+console = Console()
+
 
 def buy_product(product_name, price, expiration_date, report_data):
     with open("data/bought.csv", "a", newline="") as new_file:
@@ -40,12 +45,17 @@ def sell_product(product_name, price, product_dict, sold_products_id_list, repor
             "sell_date": get_today(),
             "price": price,
         }
-        print(to_add["bought_id"])
+        # print(to_add["bought_id"])
         if to_add["bought_id"] == None:
-            print("OUT OF STOCK")
+            console.print("OUT OF STOCK", style="red on yellow", justify="center")
+
             return
         else:
-            print(f"you have sold {product_name} for {price}")
+            console.print(
+                f"you have sold {product_name} for {round(float(price),2)}",
+                style="blue",
+                justify="center",
+            )
             csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
             csv_writer.writerow(to_add)
             create_report_data(

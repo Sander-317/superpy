@@ -6,6 +6,7 @@ from create_test_data.create_bought_file_data import *
 from classes.HelpFormatter import *
 from rich import print
 from rich.traceback import install
+from rich.console import Console
 
 # Do not change these lines.
 __winc_id__ = "a2bc36ea784242e4989deb157d527ba0"
@@ -14,6 +15,7 @@ __human_name__ = "superpy"
 
 # Your code below this line.
 install()
+console = Console()
 
 
 def main():
@@ -28,7 +30,6 @@ def main():
         product_data, unique_product_list, sold_products_id_list
     )
     average_price_dict = get_average_price_dict(product_dict)
-    print("sold products id list main.py", sold_products_id_list)
 
     fmt = lambda prog: CustomHelpFormatter(prog)
 
@@ -113,11 +114,18 @@ def main():
     match action_one:
         case None:
             advance_time(advance_number_of_days)
-            print("new today", date.fromisoformat(get_today()))
+            console.print(
+                "you have advanced to ",
+                date.fromisoformat(get_today()),
+                style="blue",
+                justify="center",
+            )
         case "buy":
             buy_product(product_name, price, expiration_date, report_data)
-            print(
-                f"you have added 1 {product_name} you bought for {round(float(price),2)} and expires on {expiration_date}"
+            console.print(
+                f"you have added 1 {product_name} you bought for {round(float(price),2)} and expires on {expiration_date}",
+                style="blue",
+                justify="center",
             )
         case "sell":
             sell_product(
@@ -168,7 +176,9 @@ def main():
 
 
 if __name__ == "__main__":
-    print("today main.py", date.fromisoformat(get_today()))
+    console.print(
+        "today is", date.fromisoformat(get_today()), style="blue", justify="center"
+    )
     check_if_day_is_in_report(get_today())
     # build_bought_file(10, 10)
     main()
