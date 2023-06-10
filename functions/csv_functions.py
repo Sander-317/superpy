@@ -4,7 +4,7 @@ from functions.functions import *
 
 from rich import print
 from rich.console import Console
-from main import text_color, text_align
+from settings import text_color, text_align
 
 console = Console()
 

@@ -8,7 +8,9 @@ from rich import box
 from rich.pretty import Pretty
 from rich.panel import Panel
 from rich.pretty import pprint
-from main import text_color, text_align
+
+# from main import text_color, text_align
+from settings import text_color, text_align
 
 # import main
 
@@ -206,17 +208,3 @@ def get_report_specific_data(report_data, action_date, action):
 def get_yesterday():
     yesterday = date.fromisoformat(csv_functions.get_today()) - timedelta(days=int(1))
     return yesterday
-
-
-def settings():
-    # settings = True
-    # while settings:
-
-    print("welcome to settings what would you like to change")
-    print("1. change option")
-    print("2. change option")
-    print("3. change option")
-
-    test = input("enter your option")
-
-    print("except")

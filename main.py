@@ -7,6 +7,8 @@ from classes.HelpFormatter import *
 from rich import print
 from rich.traceback import install
 from rich.console import Console
+from settings import *
+from settings import text_color, text_align
 
 # Do not change these lines.
 __winc_id__ = "a2bc36ea784242e4989deb157d527ba0"
@@ -17,8 +19,8 @@ __human_name__ = "superpy"
 install()
 console = Console()
 
-text_color = "magenta"
-text_align = "center"
+# text_color = "magenta"
+# text_align = "center"
 
 
 def main():
@@ -120,8 +122,8 @@ def main():
             console.print(
                 "you have advanced to ",
                 date.fromisoformat(get_today()),
-                style="blue",
-                justify="center",
+                style=text_color,
+                justify=text_align,
             )
         case "buy":
             buy_product(product_name, price, expiration_date, report_data)
