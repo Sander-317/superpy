@@ -17,6 +17,9 @@ __human_name__ = "superpy"
 install()
 console = Console()
 
+text_color = "magenta"
+text_align = "center"
+
 
 def main():
     today = get_today()
@@ -180,7 +183,10 @@ def main():
 
 if __name__ == "__main__":
     console.print(
-        "today is", date.fromisoformat(get_today()), style="blue", justify="center"
+        "today is",
+        date.fromisoformat(get_today()),
+        style=text_color,
+        justify=text_align,
     )
     check_if_day_is_in_report(get_today())
     # build_bought_file(10, 10)

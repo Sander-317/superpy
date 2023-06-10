@@ -4,6 +4,7 @@ from functions.functions import *
 
 from rich import print
 from rich.console import Console
+from main import text_color, text_align
 
 console = Console()
 
@@ -47,14 +48,14 @@ def sell_product(product_name, price, product_dict, sold_products_id_list, repor
         }
         # print(to_add["bought_id"])
         if to_add["bought_id"] == None:
-            console.print("OUT OF STOCK", style="red on yellow", justify="center")
+            console.print("OUT OF STOCK", style="red on yellow", justify=text_align)
 
             return
         else:
             console.print(
                 f"you have sold {product_name} for {round(float(price),2)}",
-                style="blue",
-                justify="center",
+                style=text_color,
+                justify=text_align,
             )
             csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
             csv_writer.writerow(to_add)

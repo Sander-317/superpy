@@ -8,6 +8,9 @@ from rich import box
 from rich.pretty import Pretty
 from rich.panel import Panel
 from rich.pretty import pprint
+from main import text_color, text_align
+
+# import main
 
 console = Console()
 
@@ -70,10 +73,10 @@ def sort_dates(dates, reverse=False):
 def get_inventory_table(product_dict, average_price_dict, sold_products_id_list, today):
     table = Table(title="inventory", box=box.MINIMAL_DOUBLE_HEAD)
 
-    table.add_column("name", style="blue", justify="center")
-    table.add_column("count", style="blue", justify="center")
+    table.add_column("name", style=text_color, justify="center")
+    table.add_column("count", style=text_color, justify="center")
     table.add_column("price", style="yellow", justify="center")
-    table.add_column("expiration date", style="blue", justify="center")
+    table.add_column("expiration date", style=text_color, justify="center")
 
     for product in product_dict:
         expiration_dates = get_unique_expiration_dates(product_dict[product])
@@ -144,7 +147,7 @@ def create_report_table(report_data):
     table = Table(title="report", box=box.MINIMAL_DOUBLE_HEAD)
     # table = Table(title="report", box=box.ASCII2)
     # table = Table(title="report", box=None)
-    table.add_column("date", style="blue", justify="center")
+    table.add_column("date", style=text_color, justify="center")
     table.add_column("cost", style="red", justify="center")
     table.add_column("revenue", style="green", justify="center")
     table.add_column("profit", style="yellow", justify="center")
@@ -187,16 +190,16 @@ def get_report_specific_data(report_data, action_date, action):
         if len(str(action_date)) > 7:
             console.print(
                 f"the {action} of {action_date} is {total_amount}",
-                style="blue",
-                justify="center",
+                style=text_color,
+                justify=text_align,
             )
         else:
             new_action_date = action_date + "-01"
             new_date = date.fromisoformat(new_action_date)
             console.print(
                 f"the {action} of {new_date.strftime('%B %Y')} is {total_amount}",
-                style="blue",
-                justify="center",
+                style=text_color,
+                justify=text_align,
             )
 
 
@@ -208,10 +211,11 @@ def get_yesterday():
 def settings():
     # settings = True
     # while settings:
+
     print("welcome to settings what would you like to change")
-    print("1. change option 1")
-    print("2. change option 2")
-    print("3. change option 2")
+    print("1. change option")
+    print("2. change option")
+    print("3. change option")
 
     test = input("enter your option")
 
