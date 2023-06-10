@@ -203,3 +203,16 @@ def get_report_specific_data(report_data, action_date, action):
 def get_yesterday():
     yesterday = date.fromisoformat(csv_functions.get_today()) - timedelta(days=int(1))
     return yesterday
+
+
+def settings():
+    # settings = True
+    # while settings:
+    print("welcome to settings what would you like to change")
+    print("1. change option 1")
+    print("2. change option 2")
+    print("3. change option 2")
+
+    test = input("enter your option")
+
+    print("except")
