@@ -71,29 +71,32 @@ def change_visuals(
 
 
 def change_date():
-    print(f"change date {quit_text}")
-    user_input = input("enter your option")
-    back_or_quit(user_input, "main")
+    from functions.csv_functions import text_color, text_align
+
+    change_date_text = f"""
+    enter new today in YYYY-MM-DD format
+    WARNING when you do this all data wil be deleted WARNING
+    enter {quit_text} {go_back_text}
+    """
+    console.print(f"{change_date_text}", style=text_color, justify=text_align)
+    user_input_date = input("enter your option")
+    back_or_quit(user_input_date, "main")
+    try:
+        datetime.strptime(user_input_date, "%Y-%m-%d")
+        change_setting("today", user_input_date)
+    except ValueError:
+        console.print(
+            "Incorrect date it should be YYYY-MM-DD",
+            style="black on yellow",
+            justify="center",
+        )
+        change_date()
 
 
 def change_files():
     print(f"change files{quit_text}")
     user_input = input("enter your option")
     back_or_quit(user_input, "main")
-
-
-def quit_settings(input):
-    if input == "q":
-        sys.exit()
-    else:
-        pass
-
-
-def go_back(input, function):
-    if function == "main" and input == "b":
-        main_settings()
-    elif function == "visual" and input == "b":
-        change_visual_settings()
 
 
 def back_or_quit(input, return_point):
@@ -129,14 +132,8 @@ enter {quit_text} {go_back_text}
         new_color = "white"
 
     if new_color == "blue" or "magenta" or "white":
-        print("user_input3", user_input_color)
-        settings_dict = csv_functions.get_settings_data()
-        settings_dict["color"] = new_color
-        csv_functions.write_settings_data(settings_dict)
-        print("setting data", settings_dict)
-
-        print(new_color)
-        go_back(user_input_color, "main")
+        change_setting("color", new_color)
+        back_or_quit(user_input_color, "visual")
 
 
 def change_text_alignment():
@@ -160,30 +157,6 @@ enter {quit_text} {go_back_text}
     elif user_input == "3":
         new_alignment = "right"
     change_setting("alignment", new_alignment)
-
-
-def change_date():
-    from functions.csv_functions import text_color, text_align
-
-    change_date_text = f"""
-    enter new today in YYYY-MM-DD format
-    WARNING when you do this all data wil be deleted WARNING
-    enter {quit_text} {go_back_text}
-    """
-    console.print(f"{change_date_text}", style=text_color, justify=text_align)
-    date_format = "%Y-%m-%d"
-
-    user_input_date = input("enter your option")
-    back_or_quit(user_input_date, "main")
-    try:
-        change_setting("date", datetime.strptime(user_input_date, date_format))
-    except ValueError:
-        console.print(
-            "Incorrect date it should be YYYY-MM-DD",
-            style="black on yellow",
-            justify="center",
-        )
-        change_date()
 
 
 def change_setting(setting, user_input):
