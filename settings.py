@@ -1,5 +1,5 @@
 from rich.console import Console
-import csv
+import sys
 from datetime import datetime, timedelta, date
 from rich.traceback import install
 
@@ -163,8 +163,8 @@ def change_files():
 
 
 def quit_settings(input):
-    if input == "quit" or "q":
-        return
+    if input == "q":
+        sys.exit()
     else:
         pass
 
@@ -250,27 +250,27 @@ def change_date():
     change_date_text = f"""
     enter new today in YYYY-MM-DD format
     WARNING when you do this all data wil be deleted WARNING
+    enter {quit_text} {go_back_text}
     """
     console.print(f"{change_date_text}", style=text_color, justify=text_align)
     date_format = "%Y-%m-%d"
-    try:
-        user_input = input("enter your option")
-        dateObject = datetime.strptime(user_input, date_format)
-        print(dateObject)
-        settings_dict = csv_functions.get_settings_data()
-        settings_dict["today"] = user_input
-        csv_functions.write_settings_data(settings_dict)
-        print("setting data", settings_dict)
-        quit_settings(user_input)
-        go_back(user_input, "main")
 
+    user_input_date = input("enter your option")
+    quit_settings(user_input_date)
+    go_back(user_input_date, "main")
+    try:
+        change_setting("date", datetime.strptime(user_input_date, date_format))
     except ValueError:
         console.print(
             "Incorrect date it should be YYYY-MM-DD",
-            style="red on yellow",
+            style="black on yellow",
             justify="center",
         )
+
         change_date()
 
-    print(user_input)
-    go_back(user_input, "main")
+
+def change_setting(setting, user_input):
+    settings_dict = csv_functions.get_settings_data()
+    settings_dict[setting] = user_input
+    csv_functions.write_settings_data(settings_dict)
