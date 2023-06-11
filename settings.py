@@ -28,8 +28,8 @@ your current setting are text color: {text_color} and text align: {text_align}
     console.print(f"{main_settings_text}", style=text_color, justify=text_align)
 
     user_input = input(input_text)
+    back_or_quit(user_input, "main")
 
-    quit_settings(user_input)
     if user_input == "1":
         change_visual_settings()
     elif user_input == "2":
@@ -51,8 +51,7 @@ enter {quit_text} {go_back_text}
     console.print(f"{change_visual_text}", style=text_color, justify=text_align)
 
     user_input = input(input_text)
-    go_back(user_input, "main")
-    quit_settings(user_input)
+    back_or_quit(user_input, "main")
     change_visuals(user_input)
 
 
@@ -67,29 +66,20 @@ def change_visuals(
 
     print(f"change visuals {quit_text}")
 
-    user_input2 = input("enter your option")
-
-    go_back(
-        user_input2,
-        "main",
-    )
-    quit_settings(user_input2)
+    user_input = input("enter your option")
+    back_or_quit(user_input, "main")
 
 
 def change_date():
     print(f"change date {quit_text}")
     user_input = input("enter your option")
-
-    quit_settings(user_input)
-    go_back(user_input, "main")
+    back_or_quit(user_input, "main")
 
 
 def change_files():
     print(f"change files{quit_text}")
     user_input = input("enter your option")
-
-    quit_settings(user_input)
-    go_back(user_input, "main")
+    back_or_quit(user_input, "main")
 
 
 def quit_settings(input):
@@ -129,10 +119,7 @@ enter {quit_text} {go_back_text}
 """
     console.print(f"{change_color_text}", style=text_color, justify=text_align)
     user_input_color = input("enter your option")
-    quit_settings(user_input_color)
-    go_back(user_input_color, "visual")
-    print("user input", user_input_color)
-    print("user input type", type(user_input_color))
+    back_or_quit(user_input_color, "visual")
     new_color = ""
     if user_input_color == "1":
         new_color = "blue"
@@ -164,10 +151,7 @@ enter {quit_text} {go_back_text}
 """
     console.print(f"{change_text_alignment_text}", style=text_color, justify=text_align)
     user_input = input("enter your option")
-    print("user input", user_input)
-    print("user input type", type(user_input))
-    quit_settings(user_input)
-    go_back(user_input, "visual")
+    back_or_quit(user_input, "visual")
     new_alignment = ""
     if user_input == "1":
         new_alignment = "center"
@@ -175,7 +159,6 @@ enter {quit_text} {go_back_text}
         new_alignment = "left"
     elif user_input == "3":
         new_alignment = "right"
-
     change_setting("alignment", new_alignment)
 
 
@@ -191,8 +174,7 @@ def change_date():
     date_format = "%Y-%m-%d"
 
     user_input_date = input("enter your option")
-    quit_settings(user_input_date)
-    go_back(user_input_date, "main")
+    back_or_quit(user_input_date, "main")
     try:
         change_setting("date", datetime.strptime(user_input_date, date_format))
     except ValueError:
@@ -201,7 +183,6 @@ def change_date():
             style="black on yellow",
             justify="center",
         )
-
         change_date()
 
 
