@@ -82,12 +82,14 @@ def sort_dates(dates, reverse=False):
 
 
 def get_inventory_table(product_dict, average_price_dict, sold_products_id_list, today):
+    from functions.csv_functions import text_color, text_align
+
     table = Table(title="inventory", box=box.MINIMAL_DOUBLE_HEAD)
 
-    table.add_column("name", style=settings.text_color, justify="center")
-    table.add_column("count", style=settings.text_color, justify="center")
+    table.add_column("name", style=text_color, justify="center")
+    table.add_column("count", style=text_color, justify="center")
     table.add_column("price", style="yellow", justify="center")
-    table.add_column("expiration date", style=settings.text_color, justify="center")
+    table.add_column("expiration date", style=text_color, justify="center")
 
     for product in product_dict:
         expiration_dates = get_unique_expiration_dates(product_dict[product])
@@ -155,10 +157,12 @@ def create_report_data(action, buy_date, buy_price, report_data):
 
 
 def create_report_table(report_data):
+    from functions.csv_functions import text_color, text_align
+
     table = Table(title="report", box=box.MINIMAL_DOUBLE_HEAD)
     # table = Table(title="report", box=box.ASCII2)
     # table = Table(title="report", box=None)
-    table.add_column("date", style=settings.text_color, justify="center")
+    table.add_column("date", style=text_color, justify="center")
     table.add_column("cost", style="red", justify="center")
     table.add_column("revenue", style="green", justify="center")
     table.add_column("profit", style="yellow", justify="center")

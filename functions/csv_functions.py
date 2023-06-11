@@ -16,7 +16,7 @@ console = Console()
 
 def get_settings_data(action=""):
     with open("data/settings.csv", "r") as settings_file:
-        fieldnames = ["color", "alignment", "today"]
+        fieldnames = ["color", "alignment", "today", "id"]
         csv_reader = csv.DictReader(settings_file, fieldnames=fieldnames)
         settings_list = []
         for row in csv_reader:
@@ -25,6 +25,7 @@ def get_settings_data(action=""):
                     "color": row["color"],
                     "alignment": row["alignment"],
                     "today": row["today"],
+                    "id": row["id"],
                 }
             )
     if action != "":
@@ -36,7 +37,7 @@ def get_settings_data(action=""):
 def write_settings_data(settings_dict):
     # print("WRITE SETTINGS", settings_dict)
     with open("data/settings.csv", "w") as setting_csv:
-        fieldnames = ["color", "alignment", "today"]
+        fieldnames = ["color", "alignment", "today", "id"]
         csv_writer = csv.DictWriter(setting_csv, fieldnames=fieldnames)
         csv_writer.writerow(settings_dict)
 
@@ -47,7 +48,8 @@ text_color = get_settings_data("color")
 text_align = get_settings_data("alignment")
 
 
-def buy_product(product_name, price, expiration_date, report_data):
+def buy_product(product_name, price, expiration_date, report_data=""):
+    report_data = get_report_data()
     with open("data/bought.csv", "a", newline="") as new_file:
         fieldnames = [
             "id",
@@ -227,3 +229,15 @@ def get_sold_data(list_test=[], print_out_of_stock=False):
         if not_in_stock and print_out_of_stock:
             print("product not in stock")
     return sold_product_id_list
+
+
+def clear_files():
+    import settings
+
+    files = ["data/sold.csv", "data/bought.csv", "data/report.csv"]
+    empty = ""
+    for file in files:
+        with open(file, "w") as csv_file:
+            csv_writer = csv.writer(csv_file)
+            csv_writer.writerow(empty)
+    settings.change_setting("id", "0")

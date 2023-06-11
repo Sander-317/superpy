@@ -16,10 +16,10 @@ products_list = [
 
 def build_bought_file(
     number_of_days,
-    max_products_per_day,
+    max_products_per_day=10,
 ):
     for i in range(number_of_days):
-        for i in range(random.randint(0, max_products_per_day)):
+        for i in range(max_products_per_day):
             product = products_list[random.randint(0, len(products_list) - 1)]
             # expiration_date = today + datetime.timedelta(days=5)
             expiration_date = date.fromisoformat(get_today()) + timedelta(days=5)

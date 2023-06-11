@@ -22,7 +22,7 @@ your current setting are text color: {text_color} and text align: {text_align}
                         
 1. change visuals 
 2. change today 
-3. clear files
+3. data
 {quit_text}
 """
     console.print(f"{main_settings_text}", style=text_color, justify=text_align)
@@ -35,7 +35,7 @@ your current setting are text color: {text_color} and text align: {text_align}
     elif user_input == "2":
         change_date()
     elif user_input == "3":
-        change_files()
+        data()
 
 
 def change_visual_settings():
@@ -93,10 +93,51 @@ def change_date():
         change_date()
 
 
-def change_files():
-    print(f"change files{quit_text}")
+def data():
+    from functions.csv_functions import text_color, text_align
+
+    change_data_text = f"""
+    what would you like to do?
+    1. delete data !!!WARNING WILL PERMANENT DELETE YOUR DATA!!!
+    2. create test inventory file
+    """
+    console.print(f"{change_data_text}", style=text_color, justify=text_align)
     user_input = input("enter your option")
     back_or_quit(user_input, "main")
+
+    if user_input == "1":
+        change_files()
+    elif user_input == "2":
+        create_file()
+
+
+def create_file():
+    from create_test_data.create_bought_file_data import build_bought_file
+
+    create_file_text = f"""
+    enter the number of days you like to be created 
+    WARNING the expiration date of al product is 5 days after tey were created
+    """
+    user_input = input("enter your option")
+    back_or_quit(user_input, "main")
+    build_bought_file(int(user_input))
+    # print("Creating file")
+    pass
+
+
+def change_files():
+    from functions.csv_functions import text_color, text_align
+
+    change_files_text = f"""
+WARNING ARE YOU SURE YOU WANT TO REMOVE DATA
+enter y to continue {quit_text} {go_back_text} 
+"""
+    console.print(f"{change_files_text}", style=text_color, justify=text_align)
+    # print(f"change files{quit_text}")
+    user_input = input("enter your option")
+    back_or_quit(user_input, "main")
+    if user_input == "y":
+        csv_functions.clear_files()
 
 
 def back_or_quit(input, return_point):

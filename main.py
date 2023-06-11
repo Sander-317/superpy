@@ -159,7 +159,6 @@ def main():
             )
         case "settings":
             settings.main_settings()
-            print("settings")
 
         case "report":
             if action_two == "inventory":
