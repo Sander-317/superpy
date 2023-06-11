@@ -90,7 +90,7 @@ def get_inventory_table(product_dict, average_price_dict, sold_products_id_list,
     table.add_column("count", style=text_color, justify="center")
     table.add_column("price", style="yellow", justify="center")
     table.add_column("expiration date", style=text_color, justify="center")
-
+    print("1 sold product id list", sold_products_id_list)
     for product in product_dict:
         expiration_dates = get_unique_expiration_dates(product_dict[product])
         for date in expiration_dates:
@@ -105,6 +105,10 @@ def get_inventory_table(product_dict, average_price_dict, sold_products_id_list,
                     else:
                         continue
                 else:
+                    # print("product in dict", product_in_dict)
+                    csv_functions.sell_product(
+                        product_in_dict["product_name"], 0, product_in_dict["id"]
+                    )
                     continue
             if product_list_by_day != []:
                 table.add_row(
@@ -116,6 +120,7 @@ def get_inventory_table(product_dict, average_price_dict, sold_products_id_list,
     table = Align.center(table, vertical="middle")
     console = Console()
     console.print(table)
+    print("2 sold product id list", sold_products_id_list)
 
 
 def get_bought_id(product_name, product_dict, sold_products_id_list):

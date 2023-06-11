@@ -113,16 +113,16 @@ def data():
 
 def create_file():
     from create_test_data.create_bought_file_data import build_bought_file
+    from functions.csv_functions import text_color, text_align
 
     create_file_text = f"""
     enter the number of days you like to be created 
     WARNING the expiration date of al product is 5 days after tey were created
     """
+    console.print(f"{create_file_text}", style=text_color, justify=text_align)
     user_input = input("enter your option")
     back_or_quit(user_input, "main")
     build_bought_file(int(user_input))
-    # print("Creating file")
-    pass
 
 
 def change_files():
