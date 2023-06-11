@@ -34,7 +34,7 @@ def get_settings_data(action=""):
 
 
 def write_settings_data(settings_dict):
-    print("WRITE SETTINGS", settings_dict)
+    # print("WRITE SETTINGS", settings_dict)
     with open("data/settings.csv", "w") as setting_csv:
         fieldnames = ["color", "alignment", "today"]
         csv_writer = csv.DictWriter(setting_csv, fieldnames=fieldnames)

@@ -158,7 +158,7 @@ def main():
                 product_name, price, product_dict, sold_products_id_list, report_data
             )
         case "settings":
-            settings.settings()
+            settings.main_settings()
             print("settings")
 
         case "report":
