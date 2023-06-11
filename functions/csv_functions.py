@@ -4,9 +4,41 @@ from functions.functions import *
 
 from rich import print
 from rich.console import Console
-from settings import text_color, text_align
+from rich.traceback import install
 
+# from functions.settings import text_color, text_align
+# import settings
+
+# from functions.settings import text_color, text_align
+install()
 console = Console()
+
+
+def get_settings_data(action=""):
+    with open("data/settings.csv", "r") as settings_file:
+        fieldnames = ["color", "align"]
+        csv_reader = csv.DictReader(settings_file, fieldnames=fieldnames)
+        settings_list = []
+        for row in csv_reader:
+            settings_list.append({"color": row["color"], "align": row["align"]})
+    if action != "":
+        return settings_list[0][action]
+    else:
+        return settings_list[0]
+
+
+def write_settings_data(settings_dict):
+    print("WRITE SETTINGS", settings_dict)
+    with open("data/settings.csv", "w") as setting_csv:
+        fieldnames = ["color", "align"]
+        csv_writer = csv.DictWriter(setting_csv, fieldnames=fieldnames)
+        csv_writer.writerow(settings_dict)
+
+
+# text_color = csv_functions.get_settings_data("color")
+text_color = get_settings_data("color")
+# text_align = csv_functions.get_settings_data("align")
+text_align = get_settings_data("align")
 
 
 def buy_product(product_name, price, expiration_date, report_data):
@@ -48,14 +80,14 @@ def sell_product(product_name, price, product_dict, sold_products_id_list, repor
         }
         # print(to_add["bought_id"])
         if to_add["bought_id"] == None:
-            console.print("OUT OF STOCK", style="red on yellow", justify=text_align)
+            console.print("OUT OF STOCK", style="red on yellow", justify="center")
 
             return
         else:
             console.print(
                 f"you have sold {product_name} for {round(float(price),2)}",
-                style=text_color,
-                justify=text_align,
+                style=settings.text_color,
+                justify=settings.text_align,
             )
             csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
             csv_writer.writerow(to_add)

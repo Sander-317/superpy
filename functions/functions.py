@@ -9,12 +9,21 @@ from rich.pretty import Pretty
 from rich.panel import Panel
 from rich.pretty import pprint
 
+# from functions.csv_functions import text_color, text_align
+
+# from functions.settings import text_color, text_align
+import settings
+
+# import csv_functions
+
 # from main import text_color, text_align
-from settings import text_color, text_align
+# from functions.settings import text_color, text_align
 
 # import main
 
 console = Console()
+# text_color = csv_functions.get_settings_data("color")
+# text_align = csv_functions.get_settings_data("align")
 
 
 def get_product_list(product_data):
@@ -75,10 +84,10 @@ def sort_dates(dates, reverse=False):
 def get_inventory_table(product_dict, average_price_dict, sold_products_id_list, today):
     table = Table(title="inventory", box=box.MINIMAL_DOUBLE_HEAD)
 
-    table.add_column("name", style=text_color, justify="center")
-    table.add_column("count", style=text_color, justify="center")
+    table.add_column("name", style=settings.text_color, justify="center")
+    table.add_column("count", style=settings.text_color, justify="center")
     table.add_column("price", style="yellow", justify="center")
-    table.add_column("expiration date", style=text_color, justify="center")
+    table.add_column("expiration date", style=settings.text_color, justify="center")
 
     for product in product_dict:
         expiration_dates = get_unique_expiration_dates(product_dict[product])
@@ -149,7 +158,7 @@ def create_report_table(report_data):
     table = Table(title="report", box=box.MINIMAL_DOUBLE_HEAD)
     # table = Table(title="report", box=box.ASCII2)
     # table = Table(title="report", box=None)
-    table.add_column("date", style=text_color, justify="center")
+    table.add_column("date", style=settings.text_color, justify="center")
     table.add_column("cost", style="red", justify="center")
     table.add_column("revenue", style="green", justify="center")
     table.add_column("profit", style="yellow", justify="center")
@@ -192,16 +201,16 @@ def get_report_specific_data(report_data, action_date, action):
         if len(str(action_date)) > 7:
             console.print(
                 f"the {action} of {action_date} is {total_amount}",
-                style=text_color,
-                justify=text_align,
+                style=settings.text_color,
+                justify=settings.text_align,
             )
         else:
             new_action_date = action_date + "-01"
             new_date = date.fromisoformat(new_action_date)
             console.print(
                 f"the {action} of {new_date.strftime('%B %Y')} is {total_amount}",
-                style=text_color,
-                justify=text_align,
+                style=settings.text_color,
+                justify=settings.text_align,
             )
 
 

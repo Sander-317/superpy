@@ -1,26 +1,82 @@
 from rich.console import Console
-from rich.text import Text
+import csv
+
 from rich.traceback import install
+
+install()
+
+# from functions.csv_functions import *
+
+# from . import csv_functions as csv_functions
+# import csv_functions
+
+from functions import csv_functions as csv_functions
 
 # from main import text_color, text_align
 
-install()
+# from main import text_color, text_align
+# from functions.settings import text_color, text_align
+# from functions.csv_functions import text_color, text_align
+
 console = Console()
-text = Text()
 
 
-text_color = "magenta"
-text_align = "center"
+# def get_settings_data(action):
+#     with open("../data/settings.csv", "r") as settings_file:
+#         fieldnames = ["color", "align"]
+#         csv_reader = csv.DictReader(settings_file, fieldnames=fieldnames)
+#         settings_list = []
+#         for row in csv_reader:
+#             settings_list.append({"color": row["color"], "align": row["align"]})
+
+#     print(settings_list[0]["color"])
+#     return settings_list[0][action]
+
+#     # with open("data/id.csv", "w") as csv_id:
+#     #     csv_writer = csv.writer(csv_id)
+#     #     csv_writer.writerow(
+#     #         [
+#     #             int(id) + 1,
+#     #         ]
+#     #     )
+#     # return id
+
+
+# text_color = get_settings_data("color")
+# text_color = "magenta"
+# text_color = csv_functions.get_settings_data("color")
+# text_align = get_settings_data("align")
+# text_align = "center"
 quit_text = " q to quit"
 go_back_text = "b to go back"
 input_text = "enter your option"
+# text_color = csv_functions.get_settings_data("color")
+# text_align = csv_functions.get_settings_data("align")
+# from main import text_color, text_align
 
 
 def settings():
+    # csv_functions.get_settings_data()
+    # get_settings_data()
     main_settings()
 
 
-main_settings_text = f"""
+# main_settings_text = f"""
+# welcome to setting what would you like to change
+
+# your current setting are text color: {text_color} and text align: {text_align}
+
+# 1. change visuals
+# 2. change date
+# 3. change files
+# {quit_text}
+# """
+
+
+def main_settings():
+    from functions.csv_functions import text_color, text_align
+
+    main_settings_text = f"""
 welcome to setting what would you like to change 
                         
 your current setting are text color: {text_color} and text align: {text_align} 
@@ -30,9 +86,6 @@ your current setting are text color: {text_color} and text align: {text_align}
 3. change files
 {quit_text}
 """
-
-
-def main_settings():
     console.print(f"{main_settings_text}", style=text_color, justify=text_align)
 
     user_input = input(input_text)
@@ -46,20 +99,29 @@ def main_settings():
         change_files()
 
 
-change_visual_text = f"""
+# change_visual_text = f"""
+# would you like to change the text color or alignment
+# 1. text color
+# 2. text alignment
+# 3. both
+# enter {quit_text} {go_back_text}
+# """
+
+
+def change_visual_settings():
+    from functions.csv_functions import text_color, text_align
+
+    change_visual_text = f"""
 would you like to change the text color or alignment
-1. text color 
+1. text color
 2. text alignment
 3. both
 enter {quit_text} {go_back_text}
 """
 
-
-def change_visual_settings():
-    # if user_input == "1":
     console.print(f"{change_visual_text}", style=text_color, justify=text_align)
-    user_input = input(input_text)
 
+    user_input = input(input_text)
     go_back(user_input, "main")
     quit_settings(user_input)
     change_visuals(user_input)
@@ -116,16 +178,25 @@ def go_back(input, function):
         change_visual_settings()
 
 
-change_color_text = f"""
+# change_color_text = f"""
+# what text color would you like the current color is {text_color} the options are
+# 1. blue
+# 2. magenta
+# 3. white
+# enter {quit_text} {go_back_text}
+# """
+
+
+def change_text_color():
+    from functions.csv_functions import text_color, text_align
+
+    change_color_text = f"""
 what text color would you like the current color is {text_color} the options are
 1. blue
 2. magenta
 3. white
 enter {quit_text} {go_back_text}
 """
-
-
-def change_text_color():
     console.print(f"{change_color_text}", style=text_color, justify=text_align)
     user_input3 = input("enter your option")
     new_color = ""
@@ -138,11 +209,17 @@ def change_text_color():
 
     if new_color == "blue" or "magenta" or "white":
         print("user_input3", user_input3)
-        # global text_color
-        # new_color = user_input3
-        # text_color = new_color
+        settings_dict = csv_functions.get_settings_data()
+        settings_dict["color"] = new_color
+        csv_functions.write_settings_data(settings_dict)
+        print("setting data", settings_dict)
+
         print(new_color)
         go_back(user_input3, "main")
 
     quit_settings(user_input3)
     go_back(user_input3, "visual")
+
+
+# text_color = csv_functions.get_settings_data("color")
+# text_align = csv_functions.get_settings_data("align")

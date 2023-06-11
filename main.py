@@ -7,8 +7,16 @@ from classes.HelpFormatter import *
 from rich import print
 from rich.traceback import install
 from rich.console import Console
-from settings import *
-from settings import text_color, text_align
+
+# from functions.csv_functions import text_color, text_align
+
+# from functions.settings import *
+
+# from functions.settings import text_color, text_align
+import settings
+
+
+# from settings import text_color, text_align
 
 # Do not change these lines.
 __winc_id__ = "a2bc36ea784242e4989deb157d527ba0"
@@ -18,12 +26,22 @@ __human_name__ = "superpy"
 # Your code below this line.
 install()
 console = Console()
+# text_color = get_settings_data("color")
+# text_align = get_settings_data("align")
+
 
 # text_color = "magenta"
 # text_align = "center"
 
 
 def main():
+    from functions.csv_functions import text_color, text_align
+
+    # global text_color
+    # text_color = get_settings_data("color")
+    # global text_align
+    # text_align = get_settings_data("align")
+
     today = get_today()
     product_data = get_bought_data()
     product_list = get_product_list(product_data)
@@ -35,6 +53,9 @@ def main():
         product_data, unique_product_list, sold_products_id_list
     )
     average_price_dict = get_average_price_dict(product_dict)
+
+    # text_color = get_settings_data("color")
+    # text_align = get_settings_data("align")
 
     fmt = lambda prog: CustomHelpFormatter(prog)
 
@@ -137,7 +158,7 @@ def main():
                 product_name, price, product_dict, sold_products_id_list, report_data
             )
         case "settings":
-            settings()
+            settings.settings()
             print("settings")
 
         case "report":
@@ -183,6 +204,9 @@ def main():
             pass
 
 
+# text_color = get_settings_data("color")
+# text_align = get_settings_data("align")
+
 if __name__ == "__main__":
     console.print(
         "today is",
@@ -192,4 +216,5 @@ if __name__ == "__main__":
     )
     check_if_day_is_in_report(get_today())
     # build_bought_file(10, 10)
+
     main()
