@@ -1,6 +1,6 @@
 from rich.console import Console
 import csv
-
+from datetime import datetime, timedelta, date
 from rich.traceback import install
 
 install()
@@ -82,8 +82,8 @@ welcome to setting what would you like to change
 your current setting are text color: {text_color} and text align: {text_align} 
                         
 1. change visuals 
-2. change date 
-3. change files
+2. change today 
+3. clear files
 {quit_text}
 """
     console.print(f"{main_settings_text}", style=text_color, justify=text_align)
@@ -115,7 +115,6 @@ def change_visual_settings():
 would you like to change the text color or alignment
 1. text color
 2. text alignment
-3. both
 enter {quit_text} {go_back_text}
 """
 
@@ -134,9 +133,8 @@ def change_visuals(
         change_text_color()
 
     if change_visuals_input == "2":
-        pass
-    if change_visuals_input == "3":
-        pass
+        change_text_alignment()
+
     print(f"change visuals {quit_text}")
 
     user_input2 = input("enter your option")
@@ -178,15 +176,6 @@ def go_back(input, function):
         change_visual_settings()
 
 
-# change_color_text = f"""
-# what text color would you like the current color is {text_color} the options are
-# 1. blue
-# 2. magenta
-# 3. white
-# enter {quit_text} {go_back_text}
-# """
-
-
 def change_text_color():
     from functions.csv_functions import text_color, text_align
 
@@ -221,5 +210,67 @@ enter {quit_text} {go_back_text}
     go_back(user_input3, "visual")
 
 
-# text_color = csv_functions.get_settings_data("color")
-# text_align = csv_functions.get_settings_data("align")
+def change_text_alignment():
+    from functions.csv_functions import text_color, text_align
+
+    change_text_alignment_text = f"""
+what would you text alignment do you like to change?
+1. center
+2. left
+3. right
+enter {quit_text} {go_back_text}
+"""
+    console.print(f"{change_text_alignment_text}", style=text_color, justify=text_align)
+    user_input = input("enter your option")
+    new_alignment = ""
+    if user_input == "1":
+        new_alignment = "center"
+    elif user_input == "2":
+        new_alignment = "left"
+    elif user_input == "3":
+        new_alignment = "right"
+
+    if new_alignment == "center" or "left" or "right":
+        print("user_input3", user_input)
+        settings_dict = csv_functions.get_settings_data()
+        settings_dict["alignment"] = new_alignment
+        csv_functions.write_settings_data(settings_dict)
+        print("setting data", settings_dict)
+
+        print(new_alignment)
+        go_back(user_input, "main")
+
+    quit_settings(user_input)
+    go_back(user_input, "visual")
+
+
+def change_date():
+    from functions.csv_functions import text_color, text_align
+
+    change_date_text = f"""
+    enter new today in YYYY-MM-DD format
+    WARNING when you do this all data wil be deleted WARNING
+    """
+    console.print(f"{change_date_text}", style=text_color, justify=text_align)
+    date_format = "%Y-%m-%d"
+    try:
+        user_input = input("enter your option")
+        dateObject = datetime.strptime(user_input, date_format)
+        print(dateObject)
+        settings_dict = csv_functions.get_settings_data()
+        settings_dict["today"] = user_input
+        csv_functions.write_settings_data(settings_dict)
+        print("setting data", settings_dict)
+        quit_settings(user_input)
+        go_back(user_input, "main")
+
+    except ValueError:
+        console.print(
+            "Incorrect date it should be YYYY-MM-DD",
+            style="red on yellow",
+            justify="center",
+        )
+        change_date()
+
+    print(user_input)
+    go_back(user_input, "main")

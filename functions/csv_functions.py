@@ -16,11 +16,17 @@ console = Console()
 
 def get_settings_data(action=""):
     with open("data/settings.csv", "r") as settings_file:
-        fieldnames = ["color", "align"]
+        fieldnames = ["color", "alignment", "today"]
         csv_reader = csv.DictReader(settings_file, fieldnames=fieldnames)
         settings_list = []
         for row in csv_reader:
-            settings_list.append({"color": row["color"], "align": row["align"]})
+            settings_list.append(
+                {
+                    "color": row["color"],
+                    "alignment": row["alignment"],
+                    "today": row["today"],
+                }
+            )
     if action != "":
         return settings_list[0][action]
     else:
@@ -30,7 +36,7 @@ def get_settings_data(action=""):
 def write_settings_data(settings_dict):
     print("WRITE SETTINGS", settings_dict)
     with open("data/settings.csv", "w") as setting_csv:
-        fieldnames = ["color", "align"]
+        fieldnames = ["color", "alignment", "today"]
         csv_writer = csv.DictWriter(setting_csv, fieldnames=fieldnames)
         csv_writer.writerow(settings_dict)
 
@@ -38,7 +44,7 @@ def write_settings_data(settings_dict):
 # text_color = csv_functions.get_settings_data("color")
 text_color = get_settings_data("color")
 # text_align = csv_functions.get_settings_data("align")
-text_align = get_settings_data("align")
+text_align = get_settings_data("alignment")
 
 
 def buy_product(product_name, price, expiration_date, report_data):
