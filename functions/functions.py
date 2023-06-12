@@ -5,6 +5,7 @@ from rich.console import Console
 from rich.align import Align
 from rich import box
 import settings
+from re import search
 
 
 console = Console()
@@ -82,16 +83,22 @@ def get_inventory_table(product_dict, average_price_dict, sold_products_id_list,
             for product_in_dict in product_dict[product]:
                 if datetime.strptime(
                     product_in_dict["expiration_date"], "%Y-%m-%d"
-                ) >= datetime.strptime(today, "%Y-%m-%d"):
+                ) >= datetime.strptime(today, "%Y-%m-%d") and datetime.strptime(
+                    product_in_dict["buy_date"], "%Y-%m-%d"
+                ) <= datetime.strptime(
+                    today, "%Y-%m-%d"
+                ):
                     if product_in_dict["id"] not in sold_products_id_list:
                         if product_in_dict["expiration_date"] == date:
                             product_list_by_day.append(product_in_dict)
                     else:
                         continue
                 else:
-                    csv_functions.sell_product(
-                        product_in_dict["product_name"], 0, product_in_dict["id"]
-                    )
+                    sold_products_id_list.append(product_in_dict["id"])
+                    print("gone bad", product_in_dict)
+                    # csv_functions.sell_product(
+                    #     product_in_dict["product_name"], 0, product_in_dict["id"]
+                    # )
                     continue
             if product_list_by_day != []:
                 table.add_row(

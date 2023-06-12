@@ -140,9 +140,28 @@ def main():
 
         case "report":
             if action_two == "inventory":
-                if now == True:
+                if yesterday_arg:
                     get_inventory_table(
-                        product_dict, average_price_dict, sold_products_id_list, today
+                        product_dict,
+                        average_price_dict,
+                        sold_products_id_list,
+                        get_yesterday(),
+                    )
+
+                elif today_arg:
+                    get_inventory_table(
+                        product_dict,
+                        average_price_dict,
+                        sold_products_id_list,
+                        today,
+                    )
+
+                elif date_arg:
+                    get_inventory_table(
+                        product_dict,
+                        average_price_dict,
+                        sold_products_id_list,
+                        date_arg,
                     )
 
             elif action_two == "revenue":
@@ -150,9 +169,7 @@ def main():
                     get_report_specific_data(report_data, get_yesterday(), "revenue")
 
                 elif today_arg:
-                    get_report_specific_data(
-                        report_data, get_settings_data("today"), "revenue"
-                    )
+                    get_report_specific_data(report_data, today, "revenue")
 
                 elif date_arg:
                     get_report_specific_data(report_data, date_arg, "revenue")
@@ -162,9 +179,7 @@ def main():
                     get_report_specific_data(report_data, get_yesterday(), "profit")
 
                 elif today_arg:
-                    get_report_specific_data(
-                        report_data, get_settings_data("today"), "profit"
-                    )
+                    get_report_specific_data(report_data, today, "profit")
 
                 elif date_arg:
                     get_report_specific_data(report_data, date_arg, "profit")
@@ -174,9 +189,7 @@ def main():
                     get_report_specific_data(report_data, get_yesterday(), "table")
 
                 elif today_arg:
-                    get_report_specific_data(
-                        report_data, get_settings_data("today"), "table"
-                    )
+                    get_report_specific_data(report_data, today, "table")
 
                 elif date_arg:
                     get_report_specific_data(report_data, date_arg, "table")
