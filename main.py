@@ -42,7 +42,7 @@ def main():
     # global text_align
     # text_align = get_settings_data("align")
 
-    today = get_today()
+    today = get_settings_data("today")
     product_data = get_bought_data()
     product_list = get_product_list(product_data)
     unique_product_list = sorted(set(product_list))
@@ -142,7 +142,7 @@ def main():
             advance_time(advance_number_of_days)
             console.print(
                 "you have advanced to ",
-                date.fromisoformat(get_today()),
+                date.fromisoformat(get_settings_data("today")),
                 style=text_color,
                 justify=text_align,
             )
@@ -172,7 +172,9 @@ def main():
                     get_report_specific_data(report_data, get_yesterday(), "revenue")
 
                 elif today_arg:
-                    get_report_specific_data(report_data, get_today(), "revenue")
+                    get_report_specific_data(
+                        report_data, get_settings_data("today"), "revenue"
+                    )
 
                 elif date_arg:
                     get_report_specific_data(report_data, date_arg, "revenue")
@@ -182,7 +184,9 @@ def main():
                     get_report_specific_data(report_data, get_yesterday(), "profit")
 
                 elif today_arg:
-                    get_report_specific_data(report_data, get_today(), "profit")
+                    get_report_specific_data(
+                        report_data, get_settings_data("today"), "profit"
+                    )
 
                 elif date_arg:
                     get_report_specific_data(report_data, date_arg, "profit")
@@ -192,7 +196,9 @@ def main():
                     get_report_specific_data(report_data, get_yesterday(), "table")
 
                 elif today_arg:
-                    get_report_specific_data(report_data, get_today(), "table")
+                    get_report_specific_data(
+                        report_data, get_settings_data("today"), "table"
+                    )
 
                 elif date_arg:
                     get_report_specific_data(report_data, date_arg, "table")
@@ -209,11 +215,12 @@ def main():
 if __name__ == "__main__":
     console.print(
         "today is",
-        date.fromisoformat(get_today()),
+        date.fromisoformat(get_settings_data("today")),
         style=text_color,
         justify=text_align,
     )
-    check_if_day_is_in_report(get_today())
+    check_if_day_is_in_report(get_settings_data("today"))
+    # check_if_day_is_in_report(get_today())
     # build_bought_file(10, 10)
 
     main()

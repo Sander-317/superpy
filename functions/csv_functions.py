@@ -60,7 +60,7 @@ def buy_product(product_name, price, expiration_date, report_data=""):
         ]
         to_add = {
             "id": get_id(),
-            "buy_date": get_today(),
+            "buy_date": get_settings_data("today"),
             "product_name": product_name,
             "price": price,
             "expiration_date": expiration_date,
@@ -101,7 +101,7 @@ def sell_product(
         to_add = {
             "id": get_id(),
             "bought_id": bought_id,
-            "sell_date": get_today(),
+            "sell_date": get_settings_data("today"),
             "price": price,
         }
         # print(to_add["bought_id"])
@@ -137,12 +137,12 @@ def get_id():  # Walrus in function
     return id
 
 
-def get_today():  # Walrus in function
-    with open("data/today.csv", "r") as csv_id:
-        csv_reader = csv.reader(csv_id)
-        for row in csv_reader:
-            (today := row[0])
-    return today
+# def get_today():  # Walrus in function
+#     with open("data/today.csv", "r") as csv_id:
+#         csv_reader = csv.reader(csv_id)
+#         for row in csv_reader:
+#             (today := row[0])
+#     return today
 
 
 def get_report_data():
@@ -197,9 +197,13 @@ def write_to_report_csv(report_data):
 
 
 def advance_time(days):
-    new_date = date.fromisoformat(get_today()) + timedelta(days=int(days))
+    new_date = date.fromisoformat(get_settings_data("today")) + timedelta(
+        days=int(days)
+    )
     for i in range(int(days)):
-        check_day = date.fromisoformat(get_today()) + timedelta(days=int(i))
+        check_day = date.fromisoformat(get_settings_data("today")) + timedelta(
+            days=int(i)
+        )
         check_if_day_is_in_report(str(check_day))
     change_today(new_date)
     return new_date

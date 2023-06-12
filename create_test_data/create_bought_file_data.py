@@ -22,7 +22,9 @@ def build_bought_file(
         for i in range(max_products_per_day):
             product = products_list[random.randint(0, len(products_list) - 1)]
             # expiration_date = today + datetime.timedelta(days=5)
-            expiration_date = date.fromisoformat(get_today()) + timedelta(days=5)
+            expiration_date = date.fromisoformat(
+                get_settings_data("today")
+            ) + timedelta(days=5)
             product["expiration_date"] = "{}-{}-{}".format(
                 expiration_date.year, expiration_date.month, expiration_date.day
             )
