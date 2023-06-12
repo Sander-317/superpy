@@ -14,7 +14,24 @@ install()
 console = Console()
 
 
+# def get_id():  # Walrus in function
+#     with open("data/id.csv", "r") as csv_id:
+#         csv_reader = csv.reader(csv_id)
+#         for row in csv_reader:
+#             (id := row[0])
+#     with open("data/id.csv", "w") as csv_id:
+#         csv_writer = csv.writer(csv_id)
+#         csv_writer.writerow(
+#             [
+#                 int(id) + 1,
+#             ]
+#         )
+#     return id
+
+
 def get_settings_data(action=""):
+    import settings
+
     with open("data/settings.csv", "r") as settings_file:
         fieldnames = ["color", "alignment", "today", "id"]
         csv_reader = csv.DictReader(settings_file, fieldnames=fieldnames)
@@ -29,7 +46,14 @@ def get_settings_data(action=""):
                 }
             )
     if action != "":
-        return settings_list[0][action]
+        if action == "id":
+            new_id = int(settings_list[0][action]) + 1
+            settings.change_setting("id", str(new_id))
+            return settings_list[0][action]
+
+        else:
+            return settings_list[0][action]
+
     else:
         return settings_list[0]
 
@@ -59,7 +83,7 @@ def buy_product(product_name, price, expiration_date, report_data=""):
             "expiration_date",
         ]
         to_add = {
-            "id": get_id(),
+            "id": get_settings_data("id"),
             "buy_date": get_settings_data("today"),
             "product_name": product_name,
             "price": price,
@@ -99,7 +123,7 @@ def sell_product(
             bought_id = get_bought_id(product_name, product_dict, sold_products_id_list)
 
         to_add = {
-            "id": get_id(),
+            "id": get_settings_data("id"),
             "bought_id": bought_id,
             "sell_date": get_settings_data("today"),
             "price": price,
@@ -120,21 +144,6 @@ def sell_product(
             create_report_data(
                 "sell", to_add["sell_date"], to_add["price"], report_data
             )
-
-
-def get_id():  # Walrus in function
-    with open("data/id.csv", "r") as csv_id:
-        csv_reader = csv.reader(csv_id)
-        for row in csv_reader:
-            (id := row[0])
-    with open("data/id.csv", "w") as csv_id:
-        csv_writer = csv.writer(csv_id)
-        csv_writer.writerow(
-            [
-                int(id) + 1,
-            ]
-        )
-    return id
 
 
 # def get_today():  # Walrus in function
