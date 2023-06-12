@@ -2,28 +2,12 @@ from . import csv_functions as csv_functions
 from datetime import datetime, timedelta, date
 from rich.table import Table
 from rich.console import Console
-from rich import print
 from rich.align import Align
 from rich import box
-from rich.pretty import Pretty
-from rich.panel import Panel
-from rich.pretty import pprint
-
-# from functions.csv_functions import text_color, text_align
-
-# from functions.settings import text_color, text_align
 import settings
 
-# import csv_functions
-
-# from main import text_color, text_align
-# from functions.settings import text_color, text_align
-
-# import main
 
 console = Console()
-# text_color = csv_functions.get_settings_data("color")
-# text_align = csv_functions.get_settings_data("align")
 
 
 def get_product_list(product_data):
@@ -156,15 +140,12 @@ def create_report_data(action, buy_date, buy_price, report_data):
                 break
 
     csv_functions.write_to_report_csv(report_data)
-    # create_report_table(report_data)
 
 
 def create_report_table(report_data):
     from functions.csv_functions import text_color, text_align
 
     table = Table(title="report", box=box.MINIMAL_DOUBLE_HEAD)
-    # table = Table(title="report", box=box.ASCII2)
-    # table = Table(title="report", box=None)
     table.add_column("date", style=text_color, justify="center")
     table.add_column("cost", style="red", justify="center")
     table.add_column("revenue", style="green", justify="center")
@@ -179,7 +160,6 @@ def create_report_table(report_data):
         )
     table = Align.center(table, vertical="middle")
     console = Console()
-    # console.print(Panel(table))
     console.print(table)
 
 
