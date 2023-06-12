@@ -2,7 +2,13 @@
 
 I think the module is to hard. You get so much new stuff at once its overwhelming. I started figuring out how argparse works. Slowly i started to understand more and more and finely i figured out what my plan was and tackled the problems one by one and i really like it in the end. I really wonder what you think and what i could have done better.
 
----
+please check out:
+
+```
+python superpy.py settings
+```
+
+## i worked really hard on it
 
 ## problem one
 
@@ -10,11 +16,14 @@ the first big problem i encountered was the inventory table i wanted to show the
 
 ```python
     def get_inventory_table(product_dict, average_price_dict, sold_products_id_list, today):
-    table = Table(title="inventory")
-    table.add_column("name")
-    table.add_column("count")
-    table.add_column("price")
-    table.add_column("expiration date")
+    from functions.csv_functions import text_color, text_align
+
+    table = Table(title="inventory", box=box.MINIMAL_DOUBLE_HEAD)
+
+    table.add_column("name", style=text_color, justify="center")
+    table.add_column("count", style=text_color, justify="center")
+    table.add_column("price", style="yellow", justify="center")
+    table.add_column("expiration date", style=text_color, justify="center")
 
     for product in product_dict:
         expiration_dates = get_unique_expiration_dates(product_dict[product])
@@ -23,13 +32,19 @@ the first big problem i encountered was the inventory table i wanted to show the
             for product_in_dict in product_dict[product]:
                 if datetime.strptime(
                     product_in_dict["expiration_date"], "%Y-%m-%d"
-                ) >= datetime.strptime(today, "%Y-%m-%d"):
+                ) >= datetime.strptime(today, "%Y-%m-%d") and datetime.strptime(
+                    product_in_dict["buy_date"], "%Y-%m-%d"
+                ) <= datetime.strptime(
+                    today, "%Y-%m-%d"
+                ):
                     if product_in_dict["id"] not in sold_products_id_list:
                         if product_in_dict["expiration_date"] == date:
                             product_list_by_day.append(product_in_dict)
                     else:
                         continue
                 else:
+                    sold_products_id_list.append(product_in_dict["id"])
+
                     continue
             if product_list_by_day != []:
                 table.add_row(
@@ -38,9 +53,10 @@ the first big problem i encountered was the inventory table i wanted to show the
                     str(average_price_dict[product]),
                     date,
                 )
-
+    table = Align.center(table, vertical="middle")
     console = Console()
     console.print(table)
+
 ```
 
 ---
@@ -71,6 +87,45 @@ def get_today():  # Walrus in function
         for row in csv_reader:
             (today := row[0])
     return today
+```
+
+but then the refactoring had begun and i killed walrus along with 2 other functions and turn it into something special the get settings data function (see be low)
+
+```python
+def get_settings_data(action=""):
+    import settings
+
+    with open("data/settings.csv", "r") as settings_file:
+        fieldnames = ["color", "alignment", "today", "id"]
+        csv_reader = csv.DictReader(settings_file, fieldnames=fieldnames)
+        settings_list = []
+        for row in csv_reader:
+            settings_list.append(
+                {
+                    "color": row["color"],
+                    "alignment": row["alignment"],
+                    "today": row["today"],
+                    "id": row["id"],
+                }
+            )
+    if action != "":
+        if action == "id":
+            new_id = int(settings_list[0][action]) + 1
+            settings.change_setting("id", str(new_id))
+            return settings_list[0][action]
+
+        else:
+            return settings_list[0][action]
+
+    else:
+        return settings_list[0]
+
+
+def write_settings_data(settings_dict):
+    with open("data/settings.csv", "w") as setting_csv:
+        fieldnames = ["color", "alignment", "today", "id"]
+        csv_writer = csv.DictWriter(setting_csv, fieldnames=fieldnames)
+        csv_writer.writerow(settings_dict)
 ```
 
 ## problem tree

@@ -1,4 +1,0 @@
-# python main.py --advance_time 3
-# python main.py report inventory -n
-# python main.py buy -pn apple -p 1 -ed 2020-5-20
-# python main.py sell -pn orange -p 2

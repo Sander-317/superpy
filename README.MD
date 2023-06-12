@@ -26,7 +26,10 @@ you can see the inventory of a product by using the following command:
 
 ```
  python superpy.py report inventory -today
- python superpy.py report inventory -yesterday
+```
+
+```
+python superpy.py report inventory -yesterday
 ```
 
 ## report

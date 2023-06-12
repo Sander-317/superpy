@@ -4,7 +4,6 @@ from functions.csv_functions import *
 from functions.functions import *
 from create_test_data.create_bought_file_data import *
 from classes.HelpFormatter import *
-from rich import print
 from rich.traceback import install
 from rich.console import Console
 import settings
@@ -45,7 +44,7 @@ def main():
         metavar="action 1",
         type=str,
         nargs="?",
-        help="enter your action options are [buy, sell, report]",
+        help="enter your action options are [buy, sell, report, settings]",
     )
     parser.add_argument(
         "action2",
@@ -109,7 +108,6 @@ def main():
     product_name = arg.product_name
     price = arg.price
     expiration_date = arg.expiration_date
-    now = arg.now
     yesterday_arg = arg.yesterday
     today_arg = arg.today
     date_arg = arg.date

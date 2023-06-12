@@ -133,7 +133,7 @@ WARNING ARE YOU SURE YOU WANT TO REMOVE DATA
 enter y to continue {quit_text} {go_back_text} 
 """
     console.print(f"{change_files_text}", style=text_color, justify=text_align)
-    # print(f"change files{quit_text}")
+
     user_input = input("enter your option")
     back_or_quit(user_input, "main")
     if user_input == "y":
