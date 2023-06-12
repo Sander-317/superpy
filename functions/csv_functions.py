@@ -6,10 +6,6 @@ from rich import print
 from rich.console import Console
 from rich.traceback import install
 
-# from functions.settings import text_color, text_align
-# import settings
-
-# from functions.settings import text_color, text_align
 install()
 console = Console()
 
@@ -44,16 +40,13 @@ def get_settings_data(action=""):
 
 
 def write_settings_data(settings_dict):
-    # print("WRITE SETTINGS", settings_dict)
     with open("data/settings.csv", "w") as setting_csv:
         fieldnames = ["color", "alignment", "today", "id"]
         csv_writer = csv.DictWriter(setting_csv, fieldnames=fieldnames)
         csv_writer.writerow(settings_dict)
 
 
-# text_color = csv_functions.get_settings_data("color")
 text_color = get_settings_data("color")
-# text_align = csv_functions.get_settings_data("align")
 text_align = get_settings_data("alignment")
 
 
@@ -89,7 +82,6 @@ def sell_product(
 ):
     from functions.csv_functions import text_color, text_align
 
-    # from main import product_dict, sold_products_id_list, report_data
     product_data = get_bought_data()
     product_list = get_product_list(product_data)
     unique_product_list = sorted(set(product_list))
@@ -113,7 +105,7 @@ def sell_product(
             "sell_date": get_settings_data("today"),
             "price": price,
         }
-        # print(to_add["bought_id"])
+
         if to_add["bought_id"] == None:
             console.print("OUT OF STOCK", style="red on yellow", justify="center")
 
@@ -194,7 +186,6 @@ def advance_time(days):
         )
         check_if_day_is_in_report(str(check_day))
     settings.change_setting("today", new_date)
-    # change_today(new_date)
 
     return new_date
 
