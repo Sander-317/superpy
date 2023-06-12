@@ -189,7 +189,7 @@ def check_if_day_is_in_report(today):
 
     if today not in report_data_dates:
         csv_functions.add_report_data(
-            csv_functions.get_id(),
+            csv_functions.get_settings_data("id"),
             today,
             0,
             0,

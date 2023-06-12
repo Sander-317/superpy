@@ -14,21 +14,6 @@ install()
 console = Console()
 
 
-# def get_id():  # Walrus in function
-#     with open("data/id.csv", "r") as csv_id:
-#         csv_reader = csv.reader(csv_id)
-#         for row in csv_reader:
-#             (id := row[0])
-#     with open("data/id.csv", "w") as csv_id:
-#         csv_writer = csv.writer(csv_id)
-#         csv_writer.writerow(
-#             [
-#                 int(id) + 1,
-#             ]
-#         )
-#     return id
-
-
 def get_settings_data(action=""):
     import settings
 
@@ -146,14 +131,6 @@ def sell_product(
             )
 
 
-# def get_today():  # Walrus in function
-#     with open("data/today.csv", "r") as csv_id:
-#         csv_reader = csv.reader(csv_id)
-#         for row in csv_reader:
-#             (today := row[0])
-#     return today
-
-
 def get_report_data():
     with open("data/report.csv", "r") as csv_report:
         fieldnames = ["id", "date", "cost", "revenue", "profit"]
@@ -206,6 +183,8 @@ def write_to_report_csv(report_data):
 
 
 def advance_time(days):
+    import settings
+
     new_date = date.fromisoformat(get_settings_data("today")) + timedelta(
         days=int(days)
     )
@@ -214,17 +193,10 @@ def advance_time(days):
             days=int(i)
         )
         check_if_day_is_in_report(str(check_day))
-    change_today(new_date)
+    settings.change_setting("today", new_date)
+    # change_today(new_date)
+
     return new_date
-
-
-def change_today(new_today):
-    new_list = []
-    new_list.append(new_today)
-    with open("data/today.csv", "w") as csv_today:
-        csv_writer = csv.writer(csv_today)
-        csv_writer.writerow(new_list)
-        new_list = []
 
 
 def get_bought_data():
