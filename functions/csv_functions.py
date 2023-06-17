@@ -96,8 +96,8 @@ def sell_product(
             "sell_date",
             "price",
         ]
-        if bought_id == "":
-            bought_id = get_bought_id(product_name, product_dict, sold_products_id_list)
+        # if bought_id == "":
+        bought_id = get_bought_id(product_name, product_dict, sold_products_id_list)
 
         to_add = {
             "id": get_settings_data("id"),

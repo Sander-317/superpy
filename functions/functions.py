@@ -115,8 +115,12 @@ def get_bought_id(product_name, product_dict, sold_products_id_list):
             if product["id"] != "":
                 if product["id"] not in sold_products_id_list:
                     return product["id"]
+                else:
+                    return None
             else:
-                return "out of stock"
+                return None
+    else:
+        return None
 
 
 def get_report_dates(report_data):
