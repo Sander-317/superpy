@@ -115,13 +115,22 @@ def main():
 
     match action_one:
         case None:
-            advance_time(advance_number_of_days)
-            console.print(
-                "you have advanced to ",
-                date.fromisoformat(get_settings_data("today")),
-                style=text_color,
-                justify=text_align,
-            )
+            try:
+                int(advance_number_of_days)
+                advance_time(advance_number_of_days)
+                console.print(
+                    "you have advanced to ",
+                    date.fromisoformat(get_settings_data("today")),
+                    style=text_color,
+                    justify=text_align,
+                )
+            except Exception:
+                console.print(
+                    "make sure you enter a number ",
+                    style=text_color,
+                    justify=text_align,
+                )
+
         case "buy":
             print(arg.expiration_date)
             try:
