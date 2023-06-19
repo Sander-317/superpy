@@ -152,9 +152,26 @@ def main():
                 )
 
         case "sell":
-            sell_product(
-                product_name, price, product_dict, sold_products_id_list, report_data
-            )
+            try:
+                float(price)
+                if len(product_name) == 0:
+                    raise Exception
+                if product_name not in unique_product_list:
+                    raise Exception
+                sell_product(
+                    product_name,
+                    price,
+                    product_dict,
+                    sold_products_id_list,
+                    report_data,
+                )
+            except:
+                console.print(
+                    "make sure you enter a valid product name (check inventory) and enter a number for the price",
+                    style=text_color,
+                    justify=text_align,
+                )
+
         case "settings":
             settings.main_settings()
 
