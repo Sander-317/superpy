@@ -81,6 +81,7 @@ def sell_product(
     report_data="",
 ):
     from functions.csv_functions import text_color, text_align
+    from settings import back_or_quit
 
     product_data = get_bought_data()
     product_list = get_product_list(product_data)
@@ -108,6 +109,7 @@ def sell_product(
 
         if to_add["bought_id"] == None:
             console.print("OUT OF STOCK", style="red on yellow", justify="center")
+            back_or_quit("q", "main")
 
             return
         else:
@@ -156,6 +158,7 @@ def add_report_data(
 
 
 def write_to_report_csv(report_data):
+    print(report_data)
     report_date_list = []
     for data in report_data:
         report_date_list.append(data["date"])

@@ -123,12 +123,25 @@ def main():
                 justify=text_align,
             )
         case "buy":
-            buy_product(product_name, price, expiration_date, report_data)
-            console.print(
-                f"you have added 1 {product_name} you bought for {round(float(price),2)} and expires on {expiration_date}",
-                style="blue",
-                justify="center",
-            )
+            print(arg.expiration_date)
+            try:
+                datetime.strptime(expiration_date, "%Y-%m-%d")
+                float(price)
+                if len(product_name) == 0:
+                    raise Exception
+                buy_product(product_name, price, expiration_date, report_data)
+                console.print(
+                    f"you have added 1 {product_name} you bought for {round(float(price),2)} and expires on {expiration_date}",
+                    style="blue",
+                    justify="center",
+                )
+            except Exception:
+                console.print(
+                    "make sure you enter a product name and enter a number for the price and a valid date 'YYYY-MM-DD' ",
+                    style=text_color,
+                    justify=text_align,
+                )
+
         case "sell":
             sell_product(
                 product_name, price, product_dict, sold_products_id_list, report_data

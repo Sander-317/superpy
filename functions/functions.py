@@ -131,6 +131,7 @@ def get_report_dates(report_data):
 
 
 def create_report_data(action, buy_date, buy_price, report_data):
+    print(report_data)
     for date in report_data:
         if date["date"] == buy_date:
             if action == "buy":
@@ -145,6 +146,7 @@ def create_report_data(action, buy_date, buy_price, report_data):
                 date.update(
                     {"profit": str(float(date["revenue"]) - float(date["cost"]))}
                 )
+                print(report_data)
                 break
 
     csv_functions.write_to_report_csv(report_data)
