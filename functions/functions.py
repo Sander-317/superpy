@@ -110,6 +110,7 @@ def get_inventory_table(product_dict, average_price_dict, sold_products_id_list,
 
 
 def get_bought_id(product_name, product_dict, sold_products_id_list):
+    print("sold product id list", sold_products_id_list)
     if product_name in product_dict.keys():
         for product in product_dict[product_name]:
             if product["id"] != "":
@@ -117,10 +118,6 @@ def get_bought_id(product_name, product_dict, sold_products_id_list):
                     return product["id"]
                 else:
                     return None
-            else:
-                return None
-    else:
-        return None
 
 
 def get_report_dates(report_data):

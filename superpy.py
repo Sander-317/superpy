@@ -15,7 +15,8 @@ __human_name__ = "superpy"
 
 
 # Your code below this line.
-install()
+# install()
+install(show_locals=True)
 console = Console()
 
 
@@ -28,7 +29,7 @@ def main():
     unique_product_list = sorted(set(product_list))
     report_data = get_report_data()
     test = get_sold_data()
-    sold_products_id_list = get_sold_data(test, True)
+    sold_products_id_list = get_sold_data(test)
     product_dict = get_dict_of_products(
         product_data, unique_product_list, sold_products_id_list
     )

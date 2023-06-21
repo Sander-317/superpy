@@ -6,7 +6,8 @@ from rich import print
 from rich.console import Console
 from rich.traceback import install
 
-install()
+# install()
+install(show_locals=True)
 console = Console()
 
 
@@ -109,7 +110,7 @@ def sell_product(
 
         if to_add["bought_id"] == None:
             console.print("OUT OF STOCK", style="red on yellow", justify="center")
-            back_or_quit("q", "main")
+            # back_or_quit("q", "main")
 
             return
         else:
@@ -211,20 +212,19 @@ def get_bought_data():
     return product_list
 
 
-def get_sold_data(list_test=[], print_out_of_stock=False):
+def get_sold_data(list_test=[]):
     with open("data/sold.csv", "r") as new_file:
         fieldnames = ["id", "bought_id", "sell_date", "price"]
         csv_reader = csv.DictReader(new_file, fieldnames=fieldnames)
         sold_product_id_list = list_test
-        not_in_stock = False
+
         for row in csv_reader:
             if row["bought_id"] != "":
+                print(row["bought_id"])
                 if row["bought_id"] not in list_test:
                     sold_product_id_list.append(row["bought_id"])
-            else:
-                not_in_stock = True
-        if not_in_stock and print_out_of_stock:
-            print("product not in stock")
+                continue
+            continue
     return sold_product_id_list
 
 
