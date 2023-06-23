@@ -76,20 +76,20 @@ def buy_product(product_name, price, expiration_date, report_data=""):
 def sell_product(
     product_name,
     price,
-    bought_id="",
-    product_dict="",
-    sold_products_id_list="",
-    report_data="",
+    # bought_id="",
+    product_dict,
+    sold_products_id_list,
+    report_data,
 ):
     from functions.csv_functions import text_color, text_align
     from settings import back_or_quit
 
-    product_data = get_bought_data()
-    product_list = get_product_list(product_data)
-    unique_product_list = sorted(set(product_list))
-    product_dict = get_dict_of_products(
-        product_data, unique_product_list, sold_products_id_list
-    )
+    # product_data = get_bought_data()
+    # product_list = get_product_list(product_data)
+    # unique_product_list = sorted(set(product_list))
+    # product_dict = get_dict_of_products(
+    #     product_data, unique_product_list, sold_products_id_list
+    # )
 
     with open("data/sold.csv", "a", newline="") as new_file:
         fieldnames = [
@@ -159,7 +159,7 @@ def add_report_data(
 
 
 def write_to_report_csv(report_data):
-    print(report_data)
+    # print(report_data)
     report_date_list = []
     for data in report_data:
         report_date_list.append(data["date"])
@@ -220,7 +220,7 @@ def get_sold_data(list_test=[]):
 
         for row in csv_reader:
             if row["bought_id"] != "":
-                print(row["bought_id"])
+                # print(row["bought_id"])
                 if row["bought_id"] not in list_test:
                     sold_product_id_list.append(row["bought_id"])
                 continue

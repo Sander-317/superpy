@@ -37,7 +37,9 @@ def main():
 
     fmt = lambda prog: CustomHelpFormatter(prog)
 
-    parser = argparse.ArgumentParser(formatter_class=fmt)
+    parser = argparse.ArgumentParser(
+        description=" welcome to Super py", formatter_class=fmt
+    )
     # parser = argparse.ArgumentParser(description="Super py")
 
     parser.add_argument(
@@ -163,8 +165,8 @@ def main():
                     product_name,
                     price,
                     product_dict,
-                    sold_products_id_list,
                     report_data,
+                    sold_products_id_list,
                 )
             except:
                 console.print(
@@ -246,4 +248,5 @@ if __name__ == "__main__":
         justify=text_align,
     )
     check_if_day_is_in_report(get_settings_data("today"))
+    check_expiration_date()
     main()

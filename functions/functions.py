@@ -81,22 +81,22 @@ def get_inventory_table(product_dict, average_price_dict, sold_products_id_list,
         for date in expiration_dates:
             product_list_by_day = []
             for product_in_dict in product_dict[product]:
-                if datetime.strptime(
-                    product_in_dict["expiration_date"], "%Y-%m-%d"
-                ) >= datetime.strptime(today, "%Y-%m-%d") and datetime.strptime(
-                    product_in_dict["buy_date"], "%Y-%m-%d"
-                ) <= datetime.strptime(
-                    today, "%Y-%m-%d"
-                ):
-                    if product_in_dict["id"] not in sold_products_id_list:
-                        if product_in_dict["expiration_date"] == date:
-                            product_list_by_day.append(product_in_dict)
-                    else:
-                        continue
+                # if datetime.strptime(
+                #     product_in_dict["expiration_date"], "%Y-%m-%d"
+                # ) >= datetime.strptime(today, "%Y-%m-%d") and datetime.strptime(
+                #     product_in_dict["buy_date"], "%Y-%m-%d"
+                # ) <= datetime.strptime(
+                #     today, "%Y-%m-%d"
+                # ):
+                if product_in_dict["id"] not in sold_products_id_list:
+                    if product_in_dict["expiration_date"] == date:
+                        product_list_by_day.append(product_in_dict)
                 else:
-                    sold_products_id_list.append(product_in_dict["id"])
-
                     continue
+                # else:
+                #     sold_products_id_list.append(product_in_dict["id"])
+
+                continue
             if product_list_by_day != []:
                 table.add_row(
                     product_list_by_day[0]["product_name"],
@@ -110,7 +110,7 @@ def get_inventory_table(product_dict, average_price_dict, sold_products_id_list,
 
 
 def get_bought_id(product_name, product_dict, sold_products_id_list):
-    print("sold product id list", sold_products_id_list)
+    # print("sold product id list", sold_products_id_list)
     if product_name in product_dict.keys():
         for product in product_dict[product_name]:
             if product["id"] != "":
@@ -128,7 +128,7 @@ def get_report_dates(report_data):
 
 
 def create_report_data(action, buy_date, buy_price, report_data):
-    print(report_data)
+    # print(report_data)
     for date in report_data:
         if date["date"] == buy_date:
             if action == "buy":
@@ -143,7 +143,7 @@ def create_report_data(action, buy_date, buy_price, report_data):
                 date.update(
                     {"profit": str(float(date["revenue"]) - float(date["cost"]))}
                 )
-                print(report_data)
+                # print(report_data)
                 break
 
     csv_functions.write_to_report_csv(report_data)
@@ -211,3 +211,16 @@ def get_report_specific_data(report_data, action_date, action):
 def get_yesterday():
     yesterday = date.fromisoformat(csv_functions.get_today()) - timedelta(days=int(1))
     return yesterday
+
+
+def check_expiration_date():
+    from functions.csv_functions import get_bought_data, get_settings_data
+
+    today = get_settings_data("today")
+    bought_data = get_bought_data()
+    for i in bought_data:
+        # print(i["expiration_date"])
+        if datetime.strptime(i["expiration_date"], "%Y-%m-%d") < datetime.strptime(
+            today, "%Y-%m-%d"
+        ):
+            print("check expiration date", i["expiration_date"])
