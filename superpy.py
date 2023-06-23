@@ -141,7 +141,11 @@ def main():
                 float(price)
                 if len(product_name) == 0:
                     raise Exception
-                buy_product(product_name, price, expiration_date, report_data)
+                buy_product(
+                    product_name,
+                    price,
+                    expiration_date,
+                )
                 console.print(
                     f"you have added 1 {product_name} you bought for {round(float(price),2)} and expires on {expiration_date}",
                     style="blue",
@@ -164,9 +168,6 @@ def main():
                 sell_product(
                     product_name,
                     price,
-                    product_dict,
-                    report_data,
-                    sold_products_id_list,
                 )
             except:
                 console.print(

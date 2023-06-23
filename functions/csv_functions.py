@@ -51,8 +51,11 @@ text_color = get_settings_data("color")
 text_align = get_settings_data("alignment")
 
 
-def buy_product(product_name, price, expiration_date, report_data=""):
-    report_data = get_report_data()
+def buy_product(
+    product_name,
+    price,
+    expiration_date,
+):
     with open("data/bought.csv", "a", newline="") as new_file:
         fieldnames = [
             "id",
@@ -70,26 +73,27 @@ def buy_product(product_name, price, expiration_date, report_data=""):
         }
         csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
         csv_writer.writerow(to_add)
-        create_report_data("buy", to_add["buy_date"], to_add["price"], report_data)
+        create_report_data(
+            "buy",
+            to_add["buy_date"],
+            to_add["price"],
+        )
 
 
 def sell_product(
     product_name,
     price,
-    # bought_id="",
-    product_dict,
-    sold_products_id_list,
-    report_data,
 ):
     from functions.csv_functions import text_color, text_align
     from settings import back_or_quit
 
-    # product_data = get_bought_data()
-    # product_list = get_product_list(product_data)
-    # unique_product_list = sorted(set(product_list))
-    # product_dict = get_dict_of_products(
-    #     product_data, unique_product_list, sold_products_id_list
-    # )
+    product_data = get_bought_data()
+    product_list = get_product_list(product_data)
+    unique_product_list = sorted(set(product_list))
+    sold_products_id_list = get_sold_data()
+    product_dict = get_dict_of_products(
+        product_data, unique_product_list, sold_products_id_list
+    )
 
     with open("data/sold.csv", "a", newline="") as new_file:
         fieldnames = [
@@ -122,8 +126,63 @@ def sell_product(
             csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
             csv_writer.writerow(to_add)
             create_report_data(
-                "sell", to_add["sell_date"], to_add["price"], report_data
+                "sell",
+                to_add["sell_date"],
+                to_add["price"],
             )
+
+
+# def sell_product(
+#     product_name,
+#     price,
+#     # bought_id="",
+#     product_dict,
+#     sold_products_id_list,
+#     report_data,
+# ):
+#     from functions.csv_functions import text_color, text_align
+#     from settings import back_or_quit
+
+#     # product_data = get_bought_data()
+#     # product_list = get_product_list(product_data)
+#     # unique_product_list = sorted(set(product_list))
+#     # product_dict = get_dict_of_products(
+#     #     product_data, unique_product_list, sold_products_id_list
+#     # )
+
+#     with open("data/sold.csv", "a", newline="") as new_file:
+#         fieldnames = [
+#             "id",
+#             "bought_id",
+#             "sell_date",
+#             "price",
+#         ]
+#         # if bought_id == "":
+#         bought_id = get_bought_id(product_name, product_dict, sold_products_id_list)
+
+#         to_add = {
+#             "id": get_settings_data("id"),
+#             "bought_id": bought_id,
+#             "sell_date": get_settings_data("today"),
+#             "price": price,
+#         }
+
+#         if to_add["bought_id"] == None:
+#             console.print("OUT OF STOCK", style="red on yellow", justify="center")
+#             # back_or_quit("q", "main")
+
+#             return
+#         else:
+#             console.print(
+#                 f"you have sold {product_name} for {round(float(price),2)}",
+#                 style=text_color,
+#                 justify=text_align,
+#             )
+#             csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
+#             csv_writer.writerow(to_add)
+#             create_report_data(
+#                 "sell", to_add["sell_date"], to_add["price"], report_data
+#             )
 
 
 def get_report_data():

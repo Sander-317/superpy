@@ -127,21 +127,40 @@ def get_report_dates(report_data):
     return new_list
 
 
-def create_report_data(action, buy_date, buy_price, report_data):
-    # print(report_data)
-    for date in report_data:
-        if date["date"] == buy_date:
-            if action == "buy":
-                date.update({"cost": str(float(date["cost"]) + float(buy_price))})
+def create_report_data(
+    action,
+    date,
+    buy_price,
+):
+    from functions.csv_functions import get_report_data
 
-                date.update(
-                    {"profit": str(float(date["revenue"]) - float(date["cost"]))}
+    report_data = get_report_data()
+
+    for report_date in report_data:
+        if report_date["date"] == date:
+            if action == "buy":
+                report_date.update(
+                    {"cost": str(float(report_date["cost"]) + float(buy_price))}
+                )
+
+                report_date.update(
+                    {
+                        "profit": str(
+                            float(report_date["revenue"]) - float(report_date["cost"])
+                        )
+                    }
                 )
                 break
             elif action == "sell":
-                date.update({"revenue": str(float(date["revenue"]) + float(buy_price))})
-                date.update(
-                    {"profit": str(float(date["revenue"]) - float(date["cost"]))}
+                report_date.update(
+                    {"revenue": str(float(report_date["revenue"]) + float(buy_price))}
+                )
+                report_date.update(
+                    {
+                        "profit": str(
+                            float(report_date["revenue"]) - float(report_date["cost"])
+                        )
+                    }
                 )
                 # print(report_data)
                 break
@@ -214,7 +233,7 @@ def get_yesterday():
 
 
 def check_expiration_date():
-    from functions.csv_functions import get_bought_data, get_settings_data
+    from functions.csv_functions import get_bought_data, get_settings_data, sell_product
 
     today = get_settings_data("today")
     bought_data = get_bought_data()
@@ -223,4 +242,9 @@ def check_expiration_date():
         if datetime.strptime(i["expiration_date"], "%Y-%m-%d") < datetime.strptime(
             today, "%Y-%m-%d"
         ):
-            print("check expiration date", i["expiration_date"])
+            print("check expiration date", i)
+            # print("check expiration date", i["expiration_date"])
+            sell_product(
+                i["product_name"],
+                0,
+            )
