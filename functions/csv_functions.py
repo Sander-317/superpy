@@ -4,7 +4,7 @@ from functions.functions import *
 from rich.console import Console
 from rich.traceback import install
 
-# install()
+
 install(show_locals=True)
 console = Console()
 
@@ -101,7 +101,7 @@ def sell_product(
             "sell_date",
             "price",
         ]
-        # if bought_id == "":
+
         bought_id = get_bought_id(product_name, product_dict, sold_products_id_list)
 
         to_add = {
@@ -113,7 +113,6 @@ def sell_product(
 
         if to_add["bought_id"] == None:
             console.print("OUT OF STOCK", style="red on yellow", justify="center")
-            # back_or_quit("q", "main")
 
             return
         else:
@@ -130,59 +129,6 @@ def sell_product(
                 to_add["sell_date"],
                 to_add["price"],
             )
-
-
-# def sell_product(
-#     product_name,
-#     price,
-#     # bought_id="",
-#     product_dict,
-#     sold_products_id_list,
-#     report_data,
-# ):
-#     from functions.csv_functions import text_color, text_align
-#     from settings import back_or_quit
-
-#     # product_data = get_bought_data()
-#     # product_list = get_product_list(product_data)
-#     # unique_product_list = sorted(set(product_list))
-#     # product_dict = get_dict_of_products(
-#     #     product_data, unique_product_list, sold_products_id_list
-#     # )
-
-#     with open("data/sold.csv", "a", newline="") as new_file:
-#         fieldnames = [
-#             "id",
-#             "bought_id",
-#             "sell_date",
-#             "price",
-#         ]
-#         # if bought_id == "":
-#         bought_id = get_bought_id(product_name, product_dict, sold_products_id_list)
-
-#         to_add = {
-#             "id": get_settings_data("id"),
-#             "bought_id": bought_id,
-#             "sell_date": get_settings_data("today"),
-#             "price": price,
-#         }
-
-#         if to_add["bought_id"] == None:
-#             console.print("OUT OF STOCK", style="red on yellow", justify="center")
-#             # back_or_quit("q", "main")
-
-#             return
-#         else:
-#             console.print(
-#                 f"you have sold {product_name} for {round(float(price),2)}",
-#                 style=text_color,
-#                 justify=text_align,
-#             )
-#             csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
-#             csv_writer.writerow(to_add)
-#             create_report_data(
-#                 "sell", to_add["sell_date"], to_add["price"], report_data
-#             )
 
 
 def get_report_data():
@@ -224,7 +170,6 @@ def add_report_data(
 
 
 def write_to_report_csv(report_data):
-    # print(report_data)
     report_date_list = []
     for data in report_data:
         report_date_list.append(data["date"])
@@ -240,8 +185,6 @@ def write_to_report_csv(report_data):
         fieldnames = ["id", "date", "cost", "revenue", "profit"]
         csv_writer = csv.DictWriter(csv_report, fieldnames=fieldnames)
         for row in sorted_report_data:
-            # print(row)
-            # csv_writer.writerow(row)
             csv_writer.writerow(
                 {
                     "id": row["id"],
@@ -296,7 +239,6 @@ def get_sold_data(list_test=[]):
 
         for row in csv_reader:
             if row["bought_id"] != "":
-                # print(row["bought_id"])
                 if row["bought_id"] not in list_test:
                     sold_product_id_list.append(row["bought_id"])
                 continue
