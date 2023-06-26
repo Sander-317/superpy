@@ -66,8 +66,12 @@ def sort_dates(dates, reverse=False):
         )
 
 
-def get_inventory_table(product_dict, average_price_dict, sold_products_id_list, today):
+def get_inventory_table(
+    product_dict, average_price_dict, sold_products_id_list, check_date
+):
     from functions.csv_functions import text_color, text_align
+
+    console = Console()
 
     table = Table(title="inventory", box=box.MINIMAL_DOUBLE_HEAD)
 
@@ -75,28 +79,34 @@ def get_inventory_table(product_dict, average_price_dict, sold_products_id_list,
     table.add_column("count", style=text_color, justify="center")
     table.add_column("price", style="yellow", justify="center")
     table.add_column("expiration date", style=text_color, justify="center")
+    format = "%Y-%m-%d"
+    try:
+        datetime.strptime(check_date, format)
+    except:
+        console.print(
+            "please enter valid dat format YYYY-MM-DD",
+            style=text_color,
+            justify="center",
+        )
+        return
 
     for product in product_dict:
         expiration_dates = get_unique_expiration_dates(product_dict[product])
         for date in expiration_dates:
             product_list_by_day = []
             for product_in_dict in product_dict[product]:
-                # if datetime.strptime(
-                #     product_in_dict["expiration_date"], "%Y-%m-%d"
-                # ) >= datetime.strptime(today, "%Y-%m-%d") and datetime.strptime(
-                #     product_in_dict["buy_date"], "%Y-%m-%d"
-                # ) <= datetime.strptime(
-                #     today, "%Y-%m-%d"
-                # ):
-                if product_in_dict["id"] not in sold_products_id_list:
-                    if product_in_dict["expiration_date"] == date:
-                        product_list_by_day.append(product_in_dict)
-                else:
-                    continue
-                # else:
-                #     sold_products_id_list.append(product_in_dict["id"])
+                print("product dict in produc", product_in_dict["buy_date"])
+                if datetime.strptime(
+                    product_in_dict["buy_date"], format
+                ) <= datetime.strptime(check_date, format):
+                    if product_in_dict["id"] not in sold_products_id_list:
+                        print("product buy date ", product_in_dict["buy_date"])
+                        if product_in_dict["expiration_date"] == date:
+                            product_list_by_day.append(product_in_dict)
+                    else:
+                        continue
 
-                continue
+                    continue
             if product_list_by_day != []:
                 table.add_row(
                     product_list_by_day[0]["product_name"],
