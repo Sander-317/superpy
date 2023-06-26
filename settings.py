@@ -150,7 +150,7 @@ enter y to continue {quit_text} {go_back_text}
     back_or_quit(user_input, "main")
     if user_input == "y":
         csv_functions.clear_files()
-        console.print("files are removed", style=text_color, justify=text_align)
+        console.print("all data is removed", style=text_color, justify=text_align)
 
 
 def back_or_quit(input, return_point):

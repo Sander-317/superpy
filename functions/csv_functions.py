@@ -1,8 +1,6 @@
 import csv
-from datetime import datetime, timedelta, date
+from datetime import timedelta, date
 from functions.functions import *
-
-from rich import print
 from rich.console import Console
 from rich.traceback import install
 

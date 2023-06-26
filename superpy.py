@@ -15,7 +15,7 @@ __human_name__ = "superpy"
 
 
 # Your code below this line.
-# install()
+
 install(show_locals=True)
 console = Console()
 
@@ -40,7 +40,6 @@ def main():
     parser = argparse.ArgumentParser(
         description=" welcome to Super py", formatter_class=fmt
     )
-    # parser = argparse.ArgumentParser(description="Super py")
 
     parser.add_argument(
         "action1",
@@ -135,7 +134,6 @@ def main():
                 )
 
         case "buy":
-            print(arg.expiration_date)
             try:
                 datetime.strptime(expiration_date, "%Y-%m-%d")
                 float(price)

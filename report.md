@@ -6,11 +6,23 @@
 
 i got the assignment back with the issue that you were able to sell stuff when its out of stock and you were able to enter wrong information
 
-zo i fixed the sold out because a had it and broke it and i put try catch in all the user input
+zo i fixed the sold out because a had it and broke it and i put try except in all the user input
 
 and i added a simulate data feature in the settings its in settings under data please try it i am really proud of it
 
 ```python
+
+
+products_list = [
+    {"product_name": "apple", "price": 0.9, "expiration_date": ""},
+    {"product_name": "banana", "price": 0.7, "expiration_date": ""},
+    {"product_name": "melon", "price": 1, "expiration_date": ""},
+    {"product_name": "kiwi", "price": 0.5, "expiration_date": ""},
+    {"product_name": "dragon_fruit", "price": 1.5, "expiration_date": ""},
+    {"product_name": "pineapple", "price": 0.95, "expiration_date": ""},
+    {"product_name": "lemon", "price": 0.35, "expiration_date": ""},
+]
+
 
 def build_bought_file(
     number_of_days,

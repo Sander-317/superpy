@@ -1,5 +1,5 @@
 import random
-from datetime import datetime, timedelta, date
+from datetime import timedelta, date
 from functions.csv_functions import *
 from functions.functions import *
 
@@ -24,7 +24,6 @@ def build_bought_file(
         check_if_day_is_in_report(today)
         for i in range(max_products_per_day):
             product = products_list[random.randint(0, len(products_list) - 1)]
-            # expiration_date = today + datetime.timedelta(days=5)
             expiration_date = date.fromisoformat(
                 get_settings_data("today")
             ) + timedelta(days=5)

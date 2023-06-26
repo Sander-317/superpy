@@ -4,8 +4,6 @@ from rich.table import Table
 from rich.console import Console
 from rich.align import Align
 from rich import box
-import settings
-from re import search
 
 
 console = Console()
@@ -95,12 +93,10 @@ def get_inventory_table(
         for date in expiration_dates:
             product_list_by_day = []
             for product_in_dict in product_dict[product]:
-                # print("product dict in produc", product_in_dict["buy_date"])
                 if datetime.strptime(
                     product_in_dict["buy_date"], format
                 ) <= datetime.strptime(check_date, format):
                     if product_in_dict["id"] not in sold_products_id_list:
-                        # print("product buy date ", product_in_dict["buy_date"])
                         if product_in_dict["expiration_date"] == date:
                             product_list_by_day.append(product_in_dict)
                     else:
@@ -120,7 +116,6 @@ def get_inventory_table(
 
 
 def get_bought_id(product_name, product_dict, sold_products_id_list):
-    # print("sold product id list", sold_products_id_list)
     if product_name in product_dict.keys():
         for product in product_dict[product_name]:
             if product["id"] != "":
@@ -160,7 +155,7 @@ def create_report_data(
                         )
                     }
                 )
-                # break
+
             elif action == "sell":
                 report_date.update(
                     {"revenue": str(float(report_date["revenue"]) + float(buy_price))}
@@ -172,8 +167,6 @@ def create_report_data(
                         )
                     }
                 )
-                # print(report_data)
-                # break
 
     csv_functions.write_to_report_csv(report_data)
 
@@ -259,15 +252,13 @@ def check_expiration_date():
     today = get_settings_data("today")
     bought_data = get_bought_data()
     sold_ids = get_sold_data()
-    for i in bought_data:
-        if i["id"] not in sold_ids:
-            if datetime.strptime(i["expiration_date"], "%Y-%m-%d") < datetime.strptime(
-                today, "%Y-%m-%d"
-            ):
-                # print("check expiration date", i)
-                # print("check expiration date", i["expiration_date"])
+    for product in bought_data:
+        if product["id"] not in sold_ids:
+            if datetime.strptime(
+                product["expiration_date"], "%Y-%m-%d"
+            ) < datetime.strptime(today, "%Y-%m-%d"):
                 sell_product(
-                    i["product_name"],
+                    product["product_name"],
                     0,
                     True,
                 )
