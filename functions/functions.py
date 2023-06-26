@@ -95,12 +95,12 @@ def get_inventory_table(
         for date in expiration_dates:
             product_list_by_day = []
             for product_in_dict in product_dict[product]:
-                print("product dict in produc", product_in_dict["buy_date"])
+                # print("product dict in produc", product_in_dict["buy_date"])
                 if datetime.strptime(
                     product_in_dict["buy_date"], format
                 ) <= datetime.strptime(check_date, format):
                     if product_in_dict["id"] not in sold_products_id_list:
-                        print("product buy date ", product_in_dict["buy_date"])
+                        # print("product buy date ", product_in_dict["buy_date"])
                         if product_in_dict["expiration_date"] == date:
                             product_list_by_day.append(product_in_dict)
                     else:

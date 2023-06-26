@@ -32,6 +32,10 @@ you can see the inventory of a product by using the following command:
 python superpy.py report inventory -yesterday
 ```
 
+```
+python superpy.py report inventory -date <enter YYYY-MM-DD for specific date>
+```
+
 ## report
 
 you can see a report with the following command
@@ -59,7 +63,7 @@ python main.py --advance_time <enter number of days you want to advance>
 
 ## Settings
 
-you can change the text color and alignmant you can change today and add and remove data
+you can change the text color and alignment you can change today and remove data and simulate the program over a number of days you find it in the data section
 
 to enter the settings
 use the following command
