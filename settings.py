@@ -117,12 +117,24 @@ def create_file():
 
     create_file_text = f"""
     enter the number of days you like to be created 
-    WARNING the expiration date of al product is 5 days after tey were created
+    WARNING the expiration date of al product is 5 days after they were created
     """
     console.print(f"{create_file_text}", style=text_color, justify=text_align)
     user_input = input("enter your option")
     back_or_quit(user_input, "main")
     build_bought_file(int(user_input))
+    if int(user_input) > 1:
+        console.print(
+            f" you hav created {user_input} days of data",
+            style=text_color,
+            justify=text_align,
+        )
+    else:
+        console.print(
+            f" you hav created {user_input} day of data",
+            style=text_color,
+            justify=text_align,
+        )
 
 
 def change_files():
@@ -138,6 +150,7 @@ enter y to continue {quit_text} {go_back_text}
     back_or_quit(user_input, "main")
     if user_input == "y":
         csv_functions.clear_files()
+        console.print("files are removed", style=text_color, justify=text_align)
 
 
 def back_or_quit(input, return_point):

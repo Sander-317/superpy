@@ -83,6 +83,7 @@ def buy_product(
 def sell_product(
     product_name,
     price,
+    hide_print_out=False,
 ):
     from functions.csv_functions import text_color, text_align
     from settings import back_or_quit
@@ -118,11 +119,12 @@ def sell_product(
 
             return
         else:
-            console.print(
-                f"you have sold {product_name} for {round(float(price),2)}",
-                style=text_color,
-                justify=text_align,
-            )
+            if hide_print_out == False:
+                console.print(
+                    f"you have sold {product_name} for {round(float(price),2)}",
+                    style=text_color,
+                    justify=text_align,
+                )
             csv_writer = csv.DictWriter(new_file, fieldnames=fieldnames)
             csv_writer.writerow(to_add)
             create_report_data(
@@ -212,7 +214,13 @@ def add_report_data(
     report_data = get_report_data()
     new_profit = revenue - cost
     report_data.append(
-        {"id": id, "date": date, "cost": cost, "revenue": revenue, "profit": new_profit}
+        {
+            "id": id,
+            "date": date,
+            "cost": round(float(cost), 2),
+            "revenue": round(float(revenue), 2),
+            "profit": round(float(new_profit), 2),
+        }
     )
     write_to_report_csv(report_data)
 
@@ -234,7 +242,17 @@ def write_to_report_csv(report_data):
         fieldnames = ["id", "date", "cost", "revenue", "profit"]
         csv_writer = csv.DictWriter(csv_report, fieldnames=fieldnames)
         for row in sorted_report_data:
-            csv_writer.writerow(row)
+            # print(row)
+            # csv_writer.writerow(row)
+            csv_writer.writerow(
+                {
+                    "id": row["id"],
+                    "date": row["date"],
+                    "cost": round(float(row["cost"]), 2),
+                    "revenue": round(float(row["revenue"]), 2),
+                    "profit": round(float(row["profit"]), 2),
+                }
+            )
 
 
 def advance_time(days):
@@ -248,6 +266,7 @@ def advance_time(days):
             days=int(i)
         )
         check_if_day_is_in_report(str(check_day))
+        check_expiration_date()
     settings.change_setting("today", new_date)
 
     return new_date

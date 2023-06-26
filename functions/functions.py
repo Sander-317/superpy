@@ -150,7 +150,7 @@ def create_report_data(
                         )
                     }
                 )
-                break
+                # break
             elif action == "sell":
                 report_date.update(
                     {"revenue": str(float(report_date["revenue"]) + float(buy_price))}
@@ -163,7 +163,7 @@ def create_report_data(
                     }
                 )
                 # print(report_data)
-                break
+                # break
 
     csv_functions.write_to_report_csv(report_data)
 
@@ -200,9 +200,13 @@ def check_if_day_is_in_report(today):
             0,
             0,
         )
+    else:
+        return
 
 
 def get_report_specific_data(report_data, action_date, action):
+    from functions.csv_functions import text_color, text_align
+
     new_list = []
     for report in report_data:
         if str(action_date) in str(report["date"]):
@@ -214,37 +218,46 @@ def get_report_specific_data(report_data, action_date, action):
         if len(str(action_date)) > 7:
             console.print(
                 f"the {action} of {action_date} is {total_amount}",
-                style=settings.text_color,
-                justify=settings.text_align,
+                style=text_color,
+                justify=text_align,
             )
         else:
             new_action_date = action_date + "-01"
             new_date = date.fromisoformat(new_action_date)
             console.print(
                 f"the {action} of {new_date.strftime('%B %Y')} is {total_amount}",
-                style=settings.text_color,
-                justify=settings.text_align,
+                style=text_color,
+                justify=text_align,
             )
 
 
 def get_yesterday():
-    yesterday = date.fromisoformat(csv_functions.get_today()) - timedelta(days=int(1))
+    yesterday = date.fromisoformat(
+        csv_functions.get_settings_data("today")
+    ) - timedelta(days=int(1))
     return yesterday
 
 
 def check_expiration_date():
-    from functions.csv_functions import get_bought_data, get_settings_data, sell_product
+    from functions.csv_functions import (
+        get_bought_data,
+        get_settings_data,
+        sell_product,
+        get_sold_data,
+    )
 
     today = get_settings_data("today")
     bought_data = get_bought_data()
+    sold_ids = get_sold_data()
     for i in bought_data:
-        # print(i["expiration_date"])
-        if datetime.strptime(i["expiration_date"], "%Y-%m-%d") < datetime.strptime(
-            today, "%Y-%m-%d"
-        ):
-            print("check expiration date", i)
-            # print("check expiration date", i["expiration_date"])
-            sell_product(
-                i["product_name"],
-                0,
-            )
+        if i["id"] not in sold_ids:
+            if datetime.strptime(i["expiration_date"], "%Y-%m-%d") < datetime.strptime(
+                today, "%Y-%m-%d"
+            ):
+                # print("check expiration date", i)
+                # print("check expiration date", i["expiration_date"])
+                sell_product(
+                    i["product_name"],
+                    0,
+                    True,
+                )
