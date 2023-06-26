@@ -99,7 +99,7 @@ def data():
     change_data_text = f"""
     what would you like to do?
     1. delete data !!!WARNING WILL PERMANENT DELETE YOUR DATA!!!
-    2. create test inventory file
+    2. simulate program 
     """
     console.print(f"{change_data_text}", style=text_color, justify=text_align)
     user_input = input("enter your option")
@@ -125,13 +125,13 @@ def create_file():
     build_bought_file(int(user_input))
     if int(user_input) > 1:
         console.print(
-            f" you hav created {user_input} days of data",
+            f" you have created {user_input} days of data",
             style=text_color,
             justify=text_align,
         )
     else:
         console.print(
-            f" you hav created {user_input} day of data",
+            f" you have created {user_input} day of data",
             style=text_color,
             justify=text_align,
         )

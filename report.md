@@ -1,5 +1,45 @@
 # report
 
+---
+
+## update:
+
+i got the assignment back with the issue that you were able to sell stuff when its out of stock and you were able to enter wrong information
+
+zo i fixed the sold out because a had it and broke it and i put try catch in all the user input
+
+and i added a simulate data feature in the settings its in settings under data please try it i am really proud of it
+
+```python
+
+def build_bought_file(
+    number_of_days,
+    max_products_per_day=10,
+):
+    for i in range(number_of_days):
+        today = get_settings_data("today")
+        check_if_day_is_in_report(today)
+        for i in range(max_products_per_day):
+            product = products_list[random.randint(0, len(products_list) - 1)]
+            expiration_date = date.fromisoformat(
+                get_settings_data("today")
+            ) + timedelta(days=5)
+            product["expiration_date"] = "{}-{}-{}".format(
+                expiration_date.year, expiration_date.month, expiration_date.day
+            )
+
+            buy_product(
+                product["product_name"], product["price"], product["expiration_date"]
+            )
+            if (i % 2) == 0:
+                sell_product(product["product_name"], random.randint(1, 5), True)
+
+        advance_time(1)
+
+```
+
+---
+
 I think the module is to hard. You get so much new stuff at once its overwhelming. I started figuring out how argparse works. Slowly i started to understand more and more and finely i figured out what my plan was and tackled the problems one by one and i really like it in the end. I really wonder what you think and what i could have done better.
 
 please check out:
